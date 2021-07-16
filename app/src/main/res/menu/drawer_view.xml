@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tc"
+            android:icon="@drawable/ic_favorite"
+            android:title="Trang chủ \n Imei, hạn sử dụng" />
+        <item
+            android:id="@+id/nav_tn"
+            android:icon="@drawable/ic_favorite"
+            android:title="Sửa tin nhắn" />
+        <item
+            android:id="@+id/nav_qltn"
+            android:icon="@drawable/ic_favorite"
+            android:title="Quản lí tin nhắn" />
+        <item
+            android:id="@+id/nav_csgs"
+            android:icon="@drawable/ic_favorite"
+            android:title="Chuyển số/ Giữ số" />
+        <item
+            android:id="@+id/nav_bctt"
+            android:icon="@drawable/ic_favorite"
+            android:title="Báo cáo thắng thua" />
+        <item
+            android:id="@+id/nav_ct"
+            android:icon="@drawable/ic_favorite"
+            android:title="Chạy trang" />
+        <item
+            android:id="@+id/nav_cb"
+            android:icon="@drawable/ic_favorite"
+            android:title="Cân Bảng" />
+        <item
+            android:id="@+id/nav_sxtt"
+            android:icon="@drawable/ic_favorite"
+            android:title="Sổ xố trực tiếp" />
+        <item
+            android:id="@+id/nav_qlcn"
+            android:icon="@drawable/ic_favorite"
+            android:title="Quản lý công nợ" />
+        <item
+            android:id="@+id/nav_dskh"
+            android:icon="@drawable/ic_favorite"
+            android:title="Danh sách khách hàng" />
+        <item
+            android:id="@+id/nav_cd"
+            android:icon="@drawable/ic_favorite"
+            android:title="Cài đặt" />
+        <item
+            android:id="@+id/nav_ctnm"
+            android:icon="@drawable/ic_favorite"
+            android:title="Các tin nhắn mẫu" />
+        <item
+            android:id="@+id/nav_csdl"
+            android:icon="@drawable/ic_favorite"
+            android:title="Cơ sở dữ liệu" />
+    </group>
+</menu>
