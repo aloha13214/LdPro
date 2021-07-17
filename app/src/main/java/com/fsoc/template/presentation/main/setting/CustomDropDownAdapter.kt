@@ -11,10 +11,10 @@ import com.fsoc.template.domain.entity.setting.Model
 
 class CustomDropDownAdapter(val context: Context, var dataSource: List<Model>) : BaseAdapter() {
 
-    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private val inflater: LayoutInflater =
+        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
@@ -30,24 +30,20 @@ class CustomDropDownAdapter(val context: Context, var dataSource: List<Model>) :
         return view
     }
 
-    override fun getItem(position: Int): Any? {
-        return dataSource[position];
+    override fun getItem(position: Int): Any {
+        return dataSource[position]
     }
 
     override fun getCount(): Int {
-        return dataSource.size;
+        return dataSource.size
     }
 
     override fun getItemId(position: Int): Long {
-        return position.toLong();
+        return position.toLong()
     }
 
     private class ItemHolder(row: View?) {
-        val label: TextView
-
-        init {
-            label = row?.findViewById(R.id.text) as TextView
-        }
+        val label: TextView = row?.findViewById(R.id.text) as TextView
     }
 
 }
