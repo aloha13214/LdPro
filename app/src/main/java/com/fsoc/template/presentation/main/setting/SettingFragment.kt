@@ -156,8 +156,8 @@ class SettingFragment: BaseFragment<MainViewModel>() {
         return lst
     }
 
-    override fun observable() {
-    }
+//    override fun observable() {
+//    }
 
     override fun fireData() {
 //        viewModel.checkAppExpire()

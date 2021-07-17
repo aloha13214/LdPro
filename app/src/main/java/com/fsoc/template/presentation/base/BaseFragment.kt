@@ -79,7 +79,7 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
     /**
      * listener update data for view
      */
-    abstract fun observable()
+//    abstract fun observable()
 
     /**
      * fire to get data
@@ -93,6 +93,8 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initViewModel()
 
         // notification registerReceiver
         val filter = IntentFilter(AppCommon.ACTION_NOTIFICATION_FILTER)
@@ -122,11 +124,9 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
         setUpToolbar()
 
-        initViewModel()
         setUpView()
 
         fireData()
-        observable()
 
         observe(viewModel.mLoading) { loading ->
             showLoading(loading == LOADING.START)

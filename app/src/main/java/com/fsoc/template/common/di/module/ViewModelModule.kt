@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.fsoc.template.common.di.qualifier.ViewModelKey
 import com.fsoc.template.presentation.base.ViewModelFactory
 import com.fsoc.template.presentation.main.MainViewModel
+import com.fsoc.template.presentation.main.home.HomeFragmentViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -22,5 +23,9 @@ abstract class ViewModelModule {
     @ViewModelKey(MainViewModel::class)
     abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(HomeFragmentViewModel::class)
+    abstract fun bindHomeFragmentViewModel(viewModel: HomeFragmentViewModel): ViewModel
 
 }
