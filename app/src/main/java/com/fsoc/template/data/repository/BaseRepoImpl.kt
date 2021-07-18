@@ -2,6 +2,7 @@ package com.fsoc.template.data.repository
 
 import com.fsoc.template.data.api.BaseApi
 import com.fsoc.template.data.api.entity.BaseDto
+import com.fsoc.template.data.db.AppDatabase
 import com.fsoc.template.data.mapper.Mapper
 import com.fsoc.template.domain.entity.BaseModel
 import com.fsoc.template.domain.repository.BaseRepo
@@ -13,6 +14,8 @@ class BaseRepoImpl @Inject constructor() : BaseRepo {
     lateinit var baseApi: BaseApi
     @Inject
     lateinit var mapperBaseDto: Mapper<BaseDto, BaseModel>
+    @Inject
+    lateinit var appDatabase: AppDatabase
 
     override fun checkAppExpire(): Single<BaseModel> {
         return baseApi.getCheckAppExpire().map {

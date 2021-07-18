@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fsoc.template.common.extension.LOADING
 import com.fsoc.template.common.extension.applyIoScheduler
+import com.fsoc.template.data.api.BaseApi
 import com.fsoc.template.domain.entity.BaseModel
 import com.fsoc.template.domain.usecase.BaseUseCase
 import io.reactivex.disposables.CompositeDisposable
@@ -14,6 +15,9 @@ abstract class BaseViewModel : ViewModel() {
 
     @Inject
     lateinit var baseUseCase: BaseUseCase
+
+    @Inject
+    lateinit var baseApi: BaseApi
 
     private val mDisposables = CompositeDisposable()
 

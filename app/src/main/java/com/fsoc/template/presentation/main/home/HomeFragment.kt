@@ -1,16 +1,15 @@
 package com.fsoc.template.presentation.main.home
 
-import androidx.lifecycle.ViewModelProviders
 import com.fsoc.template.R
 import com.fsoc.template.common.di.AppComponent
 import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.observe
+import com.fsoc.template.common.extension.toast
+import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.presentation.base.BaseFragment
-import com.fsoc.template.presentation.main.MainViewModel
-import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment: BaseFragment<MainViewModel>() {
+class HomeFragment: BaseFragment<HomeFragmentViewModel>() {
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -20,19 +19,19 @@ class HomeFragment: BaseFragment<MainViewModel>() {
     }
 
     override fun initViewModel() {
-        viewModel = ViewModelProviders.of(activity?:return, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = withViewModel(viewModelFactory) {
+            observe(listUser, ::observeListUser)
+        }
+    }
+
+    private fun observeListUser(listUser: String) {
+        toast(requireContext(), listUser)
     }
 
     override fun setUpView() {
         homeClick.click {
+            viewModel.fetch()
             navigate(R.id.detailFragment)
-        }
-    }
-
-    override fun observable() {
-        observe(viewModel.checkAppExpireLiveData) { expire ->
-            Logger.d(expire)
-            homeClick.text = "Go to detail"
         }
     }
 

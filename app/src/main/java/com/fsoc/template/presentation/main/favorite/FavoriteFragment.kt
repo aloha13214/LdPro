@@ -23,8 +23,8 @@ class FavoriteFragment: BaseFragment<MainViewModel>() {
 
     }
 
-    override fun observable() {
-    }
+//    override fun observable() {
+//    }
 
     override fun fireData() {
 //        viewModel.checkAppExpire()

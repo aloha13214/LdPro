@@ -53,6 +53,7 @@ android {
 
 //            buildConfigField "String", "BASE_URL", "\"https://google.com/\""
             buildConfigField "String", "BASE_URL", "\"https://t7w8wwiqwj.execute-api.ap-northeast-1.amazonaws.com/Prod/\""
+            buildConfigField "String", "BASE_URL_TEST", "\"https://jsonplaceholder.typicode.com/\""
         }
 
         staging {
@@ -110,6 +111,7 @@ dependencies {
     // optional - RxJava support for Room
     implementation "androidx.room:room-rxjava2:$room_version"
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
