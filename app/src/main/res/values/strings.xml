@@ -3,4 +3,5 @@
     <string name="ok">OK</string>
     <string name="error">Error</string>
     <string name="close">Close</string>
+    <string name="str_not_connect_internet">Kiểm tra lại kết nối mạng</string>
 </resources>

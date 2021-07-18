@@ -3,6 +3,7 @@ package com.fsoc.template.common.di.module
 import android.content.Context
 import com.fsoc.template.BuildConfig
 import com.fsoc.template.common.AppCommon
+import com.fsoc.template.data.api.ApiService
 import com.fsoc.template.data.api.BaseApi
 import com.orhanobut.logger.Logger
 import dagger.Module
@@ -131,11 +132,11 @@ class ApiModule(private val context: Context) {
     fun provideHttpHeaderInterceptor() = object : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
             // fake token
-            val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTU5MjMwMDk4NywidXNlcklkIjo0LCJ1dWlkIjoiMzg0MzdhNzE0MzVhNTk2MjRkNjU2MjU4NDczMjM2Mzk3NDc2MzY2ODQ2NzczZDNkIn0.S5POWfuY23y6isIPp3Hju9AWvYW4PGbAz8BtWLgGWhQ"
+//            val token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoMCIsImV4cCI6MTU5MjMwMDk4NywidXNlcklkIjo0LCJ1dWlkIjoiMzg0MzdhNzE0MzVhNTk2MjRkNjU2MjU4NDczMjM2Mzk3NDc2MzY2ODQ2NzczZDNkIn0.S5POWfuY23y6isIPp3Hju9AWvYW4PGbAz8BtWLgGWhQ"
             //Logger.d("token: $token")
             val request = chain.request().newBuilder()
 //            .header("Authorization", String.format("Bearer %s", token))
-                .header("token", String.format("%s", token))
+//                .header("token", String.format("%s", token))
                 .header("Application-Version", AppCommon.getVersionName(context))
                 .build()
             val response = chain.proceed(request)
@@ -143,19 +144,19 @@ class ApiModule(private val context: Context) {
             // fix for response 200 vs re-format response
             try {
                 if (response.code == 200) {
-                    var jsonObject = JSONObject()
-                    val bodyStr = response.body?.string()
-                    if (bodyStr.isNullOrEmpty() || bodyStr == "{}") {
-                        jsonObject.put("status", 200)
-                        jsonObject.put("message", "SUCCESS")
-                    } else {
-                        jsonObject = JSONObject(bodyStr)
-                    }
+//                    var jsonObject = JSONObject()
+//                    val bodyStr = response.body?.string()
+//                    if (bodyStr.isNullOrEmpty() || bodyStr == "{}") {
+//                        jsonObject.put("status", 200)
+//                        jsonObject.put("message", "SUCCESS")
+//                    } else {
+//                        jsonObject = JSONObject(bodyStr)
+//                    }
 
-                    val contentType = response.body?.contentType()
-                    val body = ResponseBody.create(contentType, jsonObject.toString())
+//                    val contentType = response.body?.contentType()
+//                    val body = ResponseBody.create(contentType, jsonObject.toString())
                     //val body = jsonObject.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
-                    return response.newBuilder().body(body).build()
+                    return response
                 }
             } catch (e: JSONException) {
                 e.printStackTrace()
@@ -169,5 +170,11 @@ class ApiModule(private val context: Context) {
     @Singleton
     fun provideBaseApi(retrofit: Retrofit): BaseApi {
         return retrofit.create<BaseApi>(BaseApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiService(retrofit: Retrofit): ApiService {
+        return retrofit.create<ApiService>(ApiService::class.java)
     }
 }
