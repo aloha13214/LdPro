@@ -4,6 +4,7 @@ import com.fsoc.template.common.di.module.*
 import com.fsoc.template.presentation.main.detail.DetailFragment
 import com.fsoc.template.presentation.main.favorite.FavoriteFragment
 import com.fsoc.template.presentation.main.home.HomeFragment
+import com.fsoc.template.presentation.main.login.LoginFragment
 import com.fsoc.template.presentation.main.setting.SettingFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -16,4 +17,5 @@ interface AppComponent {
     fun inject(fragment: FavoriteFragment)
     fun inject(fragment: SettingFragment)
     fun inject(fragment: DetailFragment)
+    fun inject(fragment: LoginFragment)
 }

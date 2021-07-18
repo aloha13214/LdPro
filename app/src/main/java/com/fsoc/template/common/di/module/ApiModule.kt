@@ -32,7 +32,7 @@ class ApiModule(private val context: Context) {
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL_TEST)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -107,7 +107,7 @@ class ApiModule(private val context: Context) {
                 override fun verify(hostname: String?, session: SSLSession?): Boolean {
                     Logger.d("hostname: $hostname")
                     hostname?.let {
-                        if (BuildConfig.BASE_URL.contains(hostname)) {
+                        if (BuildConfig.BASE_URL_TEST.contains(hostname)) {
                             return true
                         }
                     }

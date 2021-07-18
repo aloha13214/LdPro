@@ -12,4 +12,5 @@ object ApiConfig {
     const val CHECK_MAINTENANCE_MODE = "maintenance-status"
 
     const val CHECK_APP_EXPIRE = "check-using-app-6months"
+    const val GET_TODO = "todos"
 }

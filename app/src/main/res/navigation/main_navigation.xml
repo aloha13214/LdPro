@@ -23,4 +23,8 @@
         android:name="com.fsoc.template.presentation.main.detail.DetailFragment"
         android:label="DetailFragment"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.fsoc.template.presentation.main.login.LoginFragment"
+        android:label="LoginFragment" />
 </navigation>

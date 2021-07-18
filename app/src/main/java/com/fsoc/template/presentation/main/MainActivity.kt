@@ -34,7 +34,7 @@ class MainActivity : BaseActivity() {
             menuItem.isChecked = true
             mNavController.navigate(
                 when (menuItem.itemId) {
-                    R.id.nav_tc -> R.id.homeFragment
+                    R.id.nav_tc -> R.id.loginFragment
                     R.id.nav_cd -> R.id.settingFragment
                     else -> R.id.homeFragment
                 }
