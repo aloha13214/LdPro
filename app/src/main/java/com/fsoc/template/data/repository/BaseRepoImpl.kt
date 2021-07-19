@@ -2,6 +2,7 @@ package com.fsoc.template.data.repository
 
 import com.fsoc.template.data.api.BaseApi
 import com.fsoc.template.data.api.entity.BaseDto
+import com.fsoc.template.data.api.entity.Todo
 import com.fsoc.template.data.db.AppDatabase
 import com.fsoc.template.data.mapper.Mapper
 import com.fsoc.template.domain.entity.BaseModel
@@ -27,5 +28,9 @@ class BaseRepoImpl @Inject constructor() : BaseRepo {
         return baseApi.checkMaintenanceMode().map {
             return@map mapperBaseDto.map(it)
         }
+    }
+
+    override fun fetchTodo(): List<Todo> {
+        return baseApi.getTodos()
     }
 }

@@ -93,9 +93,7 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initViewModel()
-
         // notification registerReceiver
         val filter = IntentFilter(AppCommon.ACTION_NOTIFICATION_FILTER)
         requireActivity().registerReceiver(notificationBroadcastReceiver, filter)
@@ -128,9 +126,6 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
         fireData()
 
-        observe(viewModel.mLoading) { loading ->
-            showLoading(loading == LOADING.START)
-        }
         observe(viewModel.mError) { t ->
             showErrorMsg(t)
             // reset error

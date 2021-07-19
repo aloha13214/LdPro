@@ -15,5 +15,5 @@ interface BaseApi {
     fun checkMaintenanceMode(): Single<BaseDto>
 
     @GET(ApiConfig.GET_TODO)
-    fun getTodos(): Call<Todo>
+    fun getTodos(): List<Todo>
 }

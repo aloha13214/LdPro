@@ -7,16 +7,16 @@ import io.reactivex.Flowable
 @Dao
 interface UserDao {
     @Query("SELECT * FROM userentity")
-    fun getAll(): Flowable<List<UserEntity>?>
+    suspend fun getAll(): List<UserEntity>
 
     @Query("SELECT * FROM userentity WHERE uid IN (:userIds)")
-    fun loadAllByIds(userIds: IntArray): Flowable<List<UserEntity>?>
+    suspend fun loadAllByIds(userIds: IntArray): List<UserEntity>?
 
 //    @Query("SELECT * FROM user WHERE username LIKE :username AND " + " LIMIT 1")
 //    fun findByName(username: String): Observable<UserEntity?>
 
     @Insert
-    fun insertAll(vararg users: UserEntity)
+    fun insertUser(user: UserEntity)
 
     @Delete
     fun delete(user: UserEntity)
