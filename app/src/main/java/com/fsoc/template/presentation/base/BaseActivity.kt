@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.fsoc.template.R
 import com.fsoc.template.common.extension.show
+import com.fsoc.template.common.preferences.SharedPrefsHelper
+import com.fsoc.template.domain.entity.setting.*
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.toolbar_base.*
 
@@ -40,6 +42,40 @@ abstract class BaseActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(mNavController)
+
+        val firstSetting = SharedPrefsHelper.getString(this, FIRST_SETTING)
+        if (firstSetting == null) {
+            initDefaultSetting()
+        }
+    }
+
+    private fun initDefaultSetting() {
+        SharedPrefsHelper.saveString(this, REWARD_SETTING, RewardSettingEnum.NO_REWARD.name)
+        SharedPrefsHelper.saveString(this, UNIT_SETTING, UnitSettingEnum.MONEY_TRANSFER.name)
+        SharedPrefsHelper.saveString(this, ROUND_SETTING, RoundSettingEnum.NO_ROUND.name)
+        SharedPrefsHelper.saveString(
+            this,
+            CHARACTER_SETTING,
+            CharacterSettingEnum.NO_CHARACTER.name
+        )
+        SharedPrefsHelper.saveString(this, TIME_SETTING, TimeSettingEnum.NO_NOTIFICATION.name)
+        SharedPrefsHelper.saveString(this, MESSAGE_SETTING, MessageSettingEnum.SAME_MESSAGE.name)
+        SharedPrefsHelper.saveString(this, REPORT_SETTING, ReportSettingEnum.REPORT_OLD.name)
+        SharedPrefsHelper.saveString(this, SORT_SETTING, SortSettingEnum.SORT_ONE.name)
+        SharedPrefsHelper.saveString(
+            this,
+            PAY_BONUS_SETTING,
+            PayBonusSettingEnum.PAY_BONUS_ONE.name
+        )
+        SharedPrefsHelper.saveString(this, ERR_SETTING, ErrSettingEnum.ERR_ONE.name)
+        SharedPrefsHelper.saveString(this, DETACHED_SETTING, DetachedSettingEnum.NO_DETACHED.name)
+        SharedPrefsHelper.saveString(
+            this,
+            MINOR_REPORT_SETTING,
+            MinorReportSettingEnum.MINOR_REPORT_ONE.name
+        )
+
+        SharedPrefsHelper.saveString(this, FIRST_SETTING, "FIRST_SETTING")
     }
 
     override fun onSupportNavigateUp() = mNavController.navigateUp()

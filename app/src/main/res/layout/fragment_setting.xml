@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:text="Cài đặt"
+            android:text="@string/title_setting"
             android:textAllCaps="true"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trả thưởng áp nạm 3 càng:"
+                android:text="@string/lbl_setting_1"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -51,7 +51,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Đơn vị chuyển xiên đi:"
+                android:text="@string/lbl_setting_2"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Làm tròn tiền khi xuất số:"
+                android:text="@string/lbl_setting_3"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -92,7 +92,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giới hạn kí tự khi xuất tin nhắn: "
+                android:text="@string/lbl_setting_4"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -113,7 +113,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nhắn hết giờ (khi nhận tin quá giờ):"
+                android:text="@string/lbl_setting_5"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -134,7 +134,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Xử lý tin nhắn trùng:"
+                android:text="@string/lbl_setting_6"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -155,7 +155,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chọn dạng báo cáo: "
+                android:text="@string/lbl_setting_7"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -176,7 +176,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sắp xếp số nhận:"
+                android:text="@string/lbl_setting_8"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -195,10 +195,10 @@
             android:padding="2dp">
 
             <TextView
-                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trả thưởng nháy lô:" />
+                android:text="@string/lbl_setting_9"
+                android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/sp8"
@@ -218,7 +218,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Báo lỗi (lô > 1000/đề>5000/xiên,bx>2000) thiếu đơn vị"
+                android:text="@string/lbl_setting_10"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -238,7 +238,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tách xiên cho tin chốt tiền:"
+                android:text="@string/lbl_setting_11"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -258,7 +258,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Cài đặt báo thiếu tin:"
+                android:text="@string/lbl_setting_12"
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatSpinner
