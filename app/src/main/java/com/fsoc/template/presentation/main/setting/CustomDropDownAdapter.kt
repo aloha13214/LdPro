@@ -11,14 +11,11 @@ import com.fsoc.template.domain.entity.setting.Model
 
 class CustomDropDownAdapter(val context: Context, var dataSource: List<Model>) : BaseAdapter() {
 
-    private val inflater: LayoutInflater =
-        context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View
         val vh: ItemHolder
         if (convertView == null) {
-            view = inflater.inflate(R.layout.custom_spinner_item, parent, false)
+            view = LayoutInflater.from(context).inflate(R.layout.custom_spinner_item, parent, false)
             vh = ItemHolder(view)
             view?.tag = vh
         } else {

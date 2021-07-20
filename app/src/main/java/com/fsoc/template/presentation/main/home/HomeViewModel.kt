@@ -19,8 +19,7 @@ import kotlin.coroutines.CoroutineContext
 class HomeViewModel @Inject constructor(
     private val apiHelper: ApiHelper,
     private val databaseHelper: DatabaseHelper
-) :
-    BaseViewModel() {
+) : BaseViewModel() {
 
     private val listTodo = MutableLiveData<Resource<List<Todo>>>()
     private val usersFromDatabase = MutableLiveData<Resource<List<UserEntity>>>()
@@ -45,7 +44,7 @@ class HomeViewModel @Inject constructor(
             try {
                 val users = databaseHelper.getUsers()
                 usersFromDatabase.postValue(Resource.success(users))
-            }catch (ex: Exception){
+            } catch (ex: Exception) {
                 usersFromDatabase.postValue(Resource.error(ex.fillInStackTrace(), null))
             }
         }

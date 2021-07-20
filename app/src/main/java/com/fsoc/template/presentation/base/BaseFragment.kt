@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
+import androidx.viewbinding.ViewBinding
 import com.fsoc.template.R
 import com.fsoc.template.common.AppCommon
 import com.fsoc.template.common.di.AppComponent
@@ -22,19 +22,22 @@ import com.fsoc.template.data.api.ApiConfig
 import com.fsoc.template.data.api.entity.BaseDto
 import com.fsoc.template.presentation.MyApplication
 import com.orhanobut.logger.Logger
-import kotlinx.android.synthetic.main.fragment_base.*
-import kotlinx.android.synthetic.main.toolbar_base.*
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-abstract class BaseFragment<T : BaseViewModel> : Fragment() {
+abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
 
     @Inject
     lateinit var viewModel: T
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    private var _binding: L? = null
+    val binding get() = _binding!!
+
+    fun getBaseContext() = requireContext()
 
     @Inject
     lateinit var errorHandler: BaseErrorHandler
@@ -60,6 +63,7 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
      * inject fragment
      */
     abstract fun inject(appComponent: AppComponent)
+
 
     /**
      * res id of layout
@@ -110,17 +114,18 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_base, container, false)
-        View.inflate(context, layoutRes(), view.findViewById(R.id.content))
-        return view
+        _binding = setUpBinding(inflater, container)
+        return binding.root
     }
+
+    abstract fun setUpBinding(inflater: LayoutInflater, container: ViewGroup?): L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         hideKeyBoardWhenTouchOutside()
         hideKeyboard()
 
-        setUpToolbar()
+//        setUpToolbar()
 
         setUpView()
 
@@ -139,44 +144,42 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
             fireData()
             viewModel.checkMaintenanceModeLiveData.value = null
         }
-
-        loading.show(false)
-        error.show(false)
     }
 
-    private fun setUpToolbar() {
-        (requireActivity() as BaseActivity).toolbar?.apply {
-            title?.let {
-                toolbarFragmentTitle.text = title
-            }
-            toolbarFragmentIcon.show(navigationIcon != null)
-        }
-
-        toolbarFragmentIcon.click {
-            activity?.onBackPressed()
-        }
-    }
-
-    protected fun hideBackButton() {
-        toolbarFragmentIcon.show(false)
-    }
-
-    protected fun updateTitle(title: String) {
-        toolbarFragmentTitle.text = title
-    }
-
-    protected fun showToolbar(b: Boolean) {
-        toolbarFragment.show(b)
-    }
+//    private fun setUpToolbar() {
+//        (requireActivity() as BaseActivity).toolbar?.apply {
+//            title?.let {
+//                toolbarFragmentTitle.text = title
+//            }
+//            toolbarFragmentIcon.show(navigationIcon != null)
+//        }
+//
+//        toolbarFragmentIcon.click {
+//            activity?.onBackPressed()
+//        }
+//    }
+//
+//    protected fun hideBackButton() {
+//        toolbarFragmentIcon.show(false)
+//    }
+//
+//    protected fun updateTitle(title: String) {
+//        toolbarFragmentTitle.text = title
+//    }
+//
+//    protected fun showToolbar(b: Boolean) {
+//        toolbarFragment.show(b)
+//    }
 
     open fun showLoading(isLoading: Boolean) {
         //Logger.d("Loading: $isLoading")
-        if (LOADING_FULL_MODE) {
-            showLoadingFull(isLoading)
-        } else {
-            // fragment
-            showLoadingInside(isLoading)
-        }
+        (requireActivity() as BaseActivity<*>).toggleLoading(isLoading)
+//        if (LOADING_FULL_MODE) {
+//            showLoadingFull(isLoading)
+//        } else {
+//            // fragment
+////            showLoadingInside(isLoading)
+//        }
     }
 
     open fun showErrorMsg(err: Throwable) {
@@ -196,26 +199,26 @@ abstract class BaseFragment<T : BaseViewModel> : Fragment() {
 
     private fun showLoadingFull(isLoading: Boolean) {
         // activity
-        (activity as BaseActivity).showLoading(isLoading)
+        (activity as BaseActivity<*>).showLoading(isLoading)
     }
-
-    private fun showLoadingInside(isLoading: Boolean) {
-        if (isLoading && error.isVisible) {
-            error.show(false)
-        }
-        loading.show(isLoading)
-    }
+//
+//    private fun showLoadingInside(isLoading: Boolean) {
+//        if (isLoading && error.isVisible) {
+//            error.show(false)
+//        }
+//        loading.show(isLoading)
+//    }
 
     private fun showErrorBottom(err: Throwable) {
         val msg = errorHandler.handleMsg(err)
         // activity
-        (activity as BaseActivity).showError(msg)
+        (activity as BaseActivity<*>).showError(msg)
     }
 
     private fun showErrorInside(err: Throwable) {
         val msg = errorHandler.handleMsg(err)
-        error.show(true)
-        error.text = msg
+//        error.show(true)
+//        error.text = msg
     }
 
     // MARK HANDLE ERROR

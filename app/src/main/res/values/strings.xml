@@ -4,4 +4,13 @@
     <string name="error">Error</string>
     <string name="close">Close</string>
     <string name="str_not_connect_internet">Kiểm tra lại kết nối mạng</string>
+    <string-array name="don_vi_chuyen_xien_di">
+        <item>Chuyển theo tiền</item>
+        <item>Chuyển theo điểm</item>
+    </string-array>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="str_ok">OK</string>
+    <string name="str_cancel">Huỷ</string>
 </resources>

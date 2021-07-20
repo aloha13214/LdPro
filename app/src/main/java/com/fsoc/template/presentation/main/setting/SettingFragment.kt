@@ -1,14 +1,16 @@
 package com.fsoc.template.presentation.main.setting
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
 import com.fsoc.template.R
 import com.fsoc.template.common.di.AppComponent
+import com.fsoc.template.databinding.FragmentSettingBinding
 import com.fsoc.template.domain.entity.setting.Model
 import com.fsoc.template.presentation.base.BaseFragment
 import com.fsoc.template.presentation.main.MainViewModel
-import kotlinx.android.synthetic.main.fragment_setting.*
 
-class SettingFragment: BaseFragment<MainViewModel>() {
+class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -35,7 +37,8 @@ class SettingFragment: BaseFragment<MainViewModel>() {
         val modelList10: List<Model> = genData10()
         val modelList11: List<Model> = genData11()
 
-        val customDropDownAdapter = context?.let { CustomDropDownAdapter(it, modelList) }
+
+        val customDropDownAdapter = CustomDropDownAdapter(getBaseContext(), modelList)
         val customDropDownAdapter1 = context?.let { CustomDropDownAdapter(it, modelList1) }
         val customDropDownAdapter2 = context?.let { CustomDropDownAdapter(it, modelList2) }
         val customDropDownAdapter3 = context?.let { CustomDropDownAdapter(it, modelList3) }
@@ -48,18 +51,18 @@ class SettingFragment: BaseFragment<MainViewModel>() {
         val customDropDownAdapter10 = context?.let { CustomDropDownAdapter(it, modelList10) }
         val customDropDownAdapter11 = context?.let { CustomDropDownAdapter(it, modelList11) }
         
-        sp.adapter = customDropDownAdapter
-        sp1.adapter = customDropDownAdapter1
-        sp2.adapter = customDropDownAdapter2
-        sp3.adapter = customDropDownAdapter3
-        sp4.adapter = customDropDownAdapter4
-        sp5.adapter = customDropDownAdapter5
-        sp6.adapter = customDropDownAdapter6
-        sp7.adapter = customDropDownAdapter7
-        sp8.adapter = customDropDownAdapter8
-        sp9.adapter = customDropDownAdapter9
-        sp10.adapter = customDropDownAdapter10
-        sp11.adapter = customDropDownAdapter11
+        binding.sp.adapter = customDropDownAdapter
+        binding.sp1.adapter = customDropDownAdapter1
+        binding.sp2.adapter = customDropDownAdapter2
+        binding.sp3.adapter = customDropDownAdapter3
+        binding.sp4.adapter = customDropDownAdapter4
+        binding.sp5.adapter = customDropDownAdapter5
+        binding.sp6.adapter = customDropDownAdapter6
+        binding.sp7.adapter = customDropDownAdapter7
+        binding.sp8.adapter = customDropDownAdapter8
+        binding.sp9.adapter = customDropDownAdapter9
+        binding.sp10.adapter = customDropDownAdapter10
+        binding.sp11.adapter = customDropDownAdapter11
     }
 
     private fun genData5(): List<Model> {
@@ -161,5 +164,12 @@ class SettingFragment: BaseFragment<MainViewModel>() {
 
     override fun fireData() {
 //        viewModel.checkAppExpire()
+    }
+
+    override fun setUpBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSettingBinding {
+        return FragmentSettingBinding.inflate(inflater, container, false)
     }
 }
