@@ -1,6 +1,7 @@
 package com.fsoc.template.presentation.main
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -16,10 +17,15 @@ import com.fsoc.template.presentation.base.BaseActivity
 import com.fsoc.template.presentation.main.menu.MenuAdapter
 import com.fsoc.template.presentation.main.menu.MenuMode
 import com.fsoc.template.presentation.main.menu.MenuModel
+import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private lateinit var toggle: ActionBarDrawerToggle
+    val cal = Calendar.getInstance()
+    val myFormat = "MM-dd-yyyy"
 
     override fun layoutRes(): Int {
         return R.layout.activity_main
@@ -33,6 +39,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setUpToolbar()
         setUpDrawerLayout()
+        handleDatePicker()
+
     }
 
     private fun setUpDrawerLayout() {
@@ -72,14 +80,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
 
         })
-        val menuAdapter = MenuAdapter(getMenuList()){
+        val menuAdapter = MenuAdapter(getMenuList()) {
             decideFragmentClicked(it)
         }
         binding.rcvMenu.adapter = menuAdapter
+
     }
 
     private fun decideFragmentClicked(menu: MenuModel) {
-        layoutFragment = when(menu.key){
+        layoutFragment = when (menu.key) {
             MenuMode.TRANGCHU -> {
                 R.id.homeFragment
             }
@@ -95,7 +104,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @SuppressLint("SetTextI18n")
     private fun setUpToolbar() {
-        val bindingToolBar =  LayoutToolbarBinding.inflate(layoutInflater)
+        val bindingToolBar = LayoutToolbarBinding.inflate(layoutInflater)
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
@@ -105,7 +114,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun setUpBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-
     override fun onDestroy() {
         super.onDestroy()
         binding.drawerLayout.removeDrawerListener(toggle)
@@ -113,5 +121,30 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     companion object {
         var layoutFragment = R.id.homeFragment
+    }
+
+    private fun handleDatePicker() {
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                timePicker.text = sdf.format(cal.time)
+            }
+
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        timePicker.text = sdf.format(cal.time)
+
+        timePicker.setOnClickListener {
+            DatePickerDialog(
+                this@MainActivity,
+                dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
     }
 }

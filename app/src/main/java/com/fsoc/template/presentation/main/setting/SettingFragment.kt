@@ -2,15 +2,23 @@ package com.fsoc.template.presentation.main.setting
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.lifecycle.ViewModelProviders
 import com.fsoc.template.R
 import com.fsoc.template.common.di.AppComponent
 import com.fsoc.template.databinding.FragmentSettingBinding
 import com.fsoc.template.domain.entity.setting.Model
+import com.fsoc.template.common.preferences.SharedPrefsHelper
+import com.fsoc.template.domain.entity.setting.*
 import com.fsoc.template.presentation.base.BaseFragment
 import com.fsoc.template.presentation.main.MainViewModel
 
 class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
+
+    val shared = SharedPrefsHelper
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -20,7 +28,8 @@ class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
     }
 
     override fun initViewModel() {
-        viewModel = ViewModelProviders.of(activity?:return, viewModelFactory).get(MainViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity ?: return, viewModelFactory)
+            .get(MainViewModel::class.java)
     }
 
     override fun setUpView() {
@@ -63,107 +72,153 @@ class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
         binding.sp9.adapter = customDropDownAdapter9
         binding.sp10.adapter = customDropDownAdapter10
         binding.sp11.adapter = customDropDownAdapter11
+
+        saveKey(genData(), sp, REWARD_SETTING)
+        saveKey(genData1(), sp1, UNIT_SETTING)
+        saveKey(genData2(), sp2, ROUND_SETTING)
+        saveKey(genData3(), sp3, CHARACTER_SETTING)
+        saveKey(genData4(), sp4, TIME_SETTING)
+        saveKey(genData5(), sp5, MESSAGE_SETTING)
+        saveKey(genData6(), sp6, REPORT_SETTING)
+        saveKey(genData7(), sp7, SORT_SETTING)
+        saveKey(genData8(), sp8, PAY_BONUS_SETTING)
+        saveKey(genData9(), sp9, ERR_SETTING)
+        saveKey(genData10(), sp10, DETACHED_SETTING)
+        saveKey(genData11(), sp11, MINOR_REPORT_SETTING)
     }
 
-    private fun genData5(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Có nhận tin trùng"))
-        tmp.add(Model("2. Không nhận tin trùng"))
-        return tmp
+    private fun saveKey(genData1: List<Model>, spinner: AppCompatSpinner, keyShared: String) {
+        val value = context?.let { shared.getString(it, keyShared) }
+        genData1.forEachIndexed { index, model ->
+            if (value == null) {
+                spinner.setSelection(index)
+                return@forEachIndexed
+            } else if (model.name == value) {
+                model.isCheck = true
+                spinner.setSelection(index)
+            }
+        }
+
+        spinner.onItemSelectedListener = object : OnItemSelectedListener {
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View,
+                position: Int,
+                id: Long
+            ) {
+                context?.let {
+                    shared.remove(it, keyShared)
+                    shared.saveString(it, keyShared, genData1[position].name)
+                }
+
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {}
+        }
     }
 
-    private fun genData6(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Báo cáo kiểu cũ "))
-        tmp.add(Model("2. Báo cáo kiểu mới "))
-        return tmp
+    private fun genData(): List<Model> {
+        val lst = arrayListOf<Model>()
+        lst.add(Model(RewardSettingEnum.NO_REWARD.value))
+        lst.add(Model(RewardSettingEnum.REWARD_ONE.value))
+        lst.add(Model(RewardSettingEnum.REWARD_TWO.value))
+        lst.add(Model(RewardSettingEnum.REWARD_THREE.value))
+        lst.add(Model(RewardSettingEnum.REWARD_FOUR.value))
+        lst.add(Model(RewardSettingEnum.REWARD_FIVE.value))
+        lst.add(Model(RewardSettingEnum.REWARD_SIX.value))
+        lst.add(Model(RewardSettingEnum.REWARD_SEVEN.value))
+        lst.add(Model(RewardSettingEnum.REWARD_EIGHT.value))
+        lst.add(Model(RewardSettingEnum.REWARD_NINE.value))
+        lst.add(Model(RewardSettingEnum.REWARD_TEN.value))
+        return lst
     }
 
-    private fun genData7(): List<Model> {
+    private fun genData1(): List<Model> {
         val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Theo tổng tiền nhận "))
-        tmp.add(Model("2. Theo tổng tiền tồn "))
-        return tmp
-    }
-
-    private fun genData8(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Trả đủ "))
-        tmp.add(Model("2. Trả nhiều nhất 2 nháy "))
-        tmp.add(Model("3. Trả nhiều nhất 3 nháy "))
-        tmp.add(Model("4. Trả nhiều nhất 4 nháy "))
-        return tmp
-    }
-
-    private fun genData9(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Không cảnh báo "))
-        tmp.add(Model("2. Có cảnh báo "))
-        return tmp
-    }
-
-    private fun genData10(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Không tách xiên "))
-        tmp.add(Model("2. Tách riêng xiên 2-3-4 "))
-        return tmp
-    }
-
-    private fun genData11(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Không báo thiếu tin "))
-        tmp.add(Model("2. Có báo thiếu tin "))
-        return tmp
-    }
-
-    private fun genData4(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Không nhắn hết giờ"))
-        tmp.add(Model("2. Nhắn hết giờ"))
-        return tmp
-    }
-
-    private fun genData3(): List<Model> {
-        val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Không giới hạn"))
-        tmp.add(Model("2. 160 kí tự"))
-        tmp.add(Model("3. 320 kí tự"))
-        tmp.add(Model("4. 480 kí tự"))
-        tmp.add(Model("5. 1000 kí tự"))
-        tmp.add(Model("6. 2000 kí tự (Zalo)"))
+        tmp.add(Model(UnitSettingEnum.MONEY_TRANSFER.value))
+        tmp.add(Model(UnitSettingEnum.POINT_TRANSFER.value))
         return tmp
     }
 
     private fun genData2(): List<Model> {
         val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Không làm tròn"))
-        tmp.add(Model("2. Làm tròn đến 10"))
-        tmp.add(Model("3. Làm tròn đến 50"))
-        tmp.add(Model("4. Làm tròn đến 100"))
+        tmp.add(Model(RoundSettingEnum.NO_ROUND.value))
+        tmp.add(Model(RoundSettingEnum.ROUND_ONE.value))
+        tmp.add(Model(RoundSettingEnum.ROUND_TWO.value))
+        tmp.add(Model(RoundSettingEnum.ROUND_THREE.value))
         return tmp
     }
 
-    private fun genData1(): List<Model> {
+    private fun genData3(): List<Model> {
         val tmp = arrayListOf<Model>()
-        tmp.add(Model("1. Chuyển theo tiền"))
-        tmp.add(Model("2. Chuyển theo điểm"))
+        tmp.add(Model(CharacterSettingEnum.NO_CHARACTER.value))
+        tmp.add(Model(CharacterSettingEnum.ROUND_ONE.value))
+        tmp.add(Model(CharacterSettingEnum.ROUND_TWO.value))
+        tmp.add(Model(CharacterSettingEnum.ROUND_THREE.value))
+        tmp.add(Model(CharacterSettingEnum.ROUND_FOUR.value))
+        tmp.add(Model(CharacterSettingEnum.ROUND_FIVE.value))
         return tmp
     }
 
-    private fun genData(): List<Model> {
-        val lst = arrayListOf<Model>()
-        lst.add(Model("0 trả thưởng"))
-        for ( i in 1..10){
-            lst.add(Model("Nhân $i lần"))
-        }
-        return lst
+    private fun genData4(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(TimeSettingEnum.NO_NOTIFICATION.value))
+        tmp.add(Model(TimeSettingEnum.NOTIFICATION.value))
+        return tmp
     }
 
-//    override fun observable() {
-//    }
+    private fun genData5(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(MessageSettingEnum.SAME_MESSAGE.value))
+        tmp.add(Model(MessageSettingEnum.NO_SAME_MESSAGE.value))
+        return tmp
+    }
+
+    private fun genData6(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(ReportSettingEnum.REPORT_OLD.value))
+        tmp.add(Model(ReportSettingEnum.REPORT_NEW.value))
+        return tmp
+    }
+
+    private fun genData7(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(SortSettingEnum.SORT_ONE.value))
+        tmp.add(Model(SortSettingEnum.SORT_TWO.value))
+        return tmp
+    }
+
+    private fun genData8(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(PayBonusSettingEnum.PAY_BONUS_ONE.value))
+        tmp.add(Model(PayBonusSettingEnum.PAY_BONUS_TWO.value))
+        tmp.add(Model(PayBonusSettingEnum.PAY_BONUS_THREE.value))
+        tmp.add(Model(PayBonusSettingEnum.PAY_BONUS_FOUR.value))
+        return tmp
+    }
+
+    private fun genData9(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(ErrSettingEnum.ERR_ONE.value))
+        tmp.add(Model(ErrSettingEnum.ERR_TWO.value))
+        return tmp
+    }
+
+    private fun genData10(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(DetachedSettingEnum.NO_DETACHED.value))
+        tmp.add(Model(DetachedSettingEnum.DETACHED.value))
+        return tmp
+    }
+
+    private fun genData11(): List<Model> {
+        val tmp = arrayListOf<Model>()
+        tmp.add(Model(MinorReportSettingEnum.MINOR_REPORT_ONE.value))
+        tmp.add(Model(MinorReportSettingEnum.MINOR_REPORT_TWO.value))
+        return tmp
+    }
 
     override fun fireData() {
-//        viewModel.checkAppExpire()
     }
 
     override fun setUpBinding(

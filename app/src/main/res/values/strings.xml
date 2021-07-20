@@ -13,4 +13,26 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="str_ok">OK</string>
     <string name="str_cancel">Huỷ</string>
+
+
+    <!--Start Home-->
+    <string name="lbl_home_1">Ngày:</string>
+    <string name="lbl_home_2">Menu</string>
+    <!--End Home-->
+
+    <!--Start Setting-->
+    <string name="lbl_setting_1">Trả thưởng áp nạm 3 càng:</string>
+    <string name="lbl_setting_2">Đơn vị chuyển xiên đi:</string>
+    <string name="lbl_setting_3">Làm tròn tiền khi xuất số:</string>
+    <string name="lbl_setting_4">Giới hạn kí tự khi xuất tin nhắn:</string>
+    <string name="lbl_setting_5">Nhắn hết giờ (khi nhận tin quá giờ):</string>
+    <string name="lbl_setting_6">Xử lý tin nhắn trùng:</string>
+    <string name="lbl_setting_7">Chọn dạng báo cáo:</string>
+    <string name="lbl_setting_8">Sắp xếp số nhận:</string>
+    <string name="lbl_setting_9">Trả thưởng nháy lô:</string>
+    <string name="lbl_setting_10"><![CDATA[Báo lỗi (lô > 1000/đề>5000/xiên,bx>2000) thiếu đơn vị]]></string>
+    <string name="lbl_setting_11">Tách xiên cho tin chốt tiền:</string>
+    <string name="lbl_setting_12">Cài đặt báo thiếu tin:</string>
+    <string name="title_setting">Cài đặt</string>
+    <!--End Setting-->
 </resources>
