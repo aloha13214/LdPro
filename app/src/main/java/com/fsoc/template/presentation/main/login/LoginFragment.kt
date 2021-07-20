@@ -1,13 +1,15 @@
 package com.fsoc.template.presentation.main.login
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.fsoc.template.R
 import com.fsoc.template.common.di.AppComponent
 import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.withViewModel
+import com.fsoc.template.databinding.FragmentLoginBinding
 import com.fsoc.template.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_login.*
 
-class LoginFragment: BaseFragment<LoginViewModel>() {
+class LoginFragment: BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -21,11 +23,18 @@ class LoginFragment: BaseFragment<LoginViewModel>() {
     }
 
     override fun setUpView() {
-        btn_get_todos.click {
+        binding.btnGetTodos.click {
             viewModel.fetchUser()
         }
     }
 
     override fun fireData() {
+    }
+
+    override fun setUpBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentLoginBinding {
+        return FragmentLoginBinding.inflate(inflater, container, false)
     }
 }

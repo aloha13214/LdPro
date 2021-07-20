@@ -1,18 +1,21 @@
 package com.fsoc.template.presentation.main.home
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import com.fsoc.template.R
 import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
-import com.fsoc.template.common.extension.click
+import com.fsoc.template.common.extension.getIMEI
 import com.fsoc.template.common.extension.observe
 import com.fsoc.template.common.extension.toast
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.data.api.entity.Todo
+import com.fsoc.template.databinding.FragmentHomeBinding
 import com.fsoc.template.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_home.*
 
-class HomeFragment: BaseFragment<HomeViewModel>() {
+
+class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -44,17 +47,14 @@ class HomeFragment: BaseFragment<HomeViewModel>() {
     }
 
     override fun setUpView() {
-        homeClick.click {
-            viewModel.fetch()
-        }
-    }
-
-    override fun showErrorMsg(err: Throwable) {
-        super.showErrorMsg(err)
-        homeClick.text = "Go to detail"
+        binding.imeiDevice.text = getIMEI()
     }
 
     override fun fireData() {
-//        viewModel.checkAppExpire()
     }
+
+    override fun setUpBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 }

@@ -2,19 +2,17 @@ package com.fsoc.template.presentation.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.viewbinding.ViewBinding
 import com.fsoc.template.R
-import com.fsoc.template.common.extension.show
-import kotlinx.android.synthetic.main.activity_base.*
-import kotlinx.android.synthetic.main.toolbar_base.*
+import com.fsoc.template.common.extension.showConfirmDialog
+import com.fsoc.template.common.extension.toast
 
-abstract class BaseActivity : AppCompatActivity() {
+
+abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
 
     private var disableBack = false
 
@@ -22,6 +20,13 @@ abstract class BaseActivity : AppCompatActivity() {
         findNavController(getNavControllerId())
     }
 
+    val progressBarHandler by lazy {
+        ProgressBarHandler(this)
+    }
+
+    lateinit var binding: L
+
+    abstract fun setUpBinding(): L
     /**
      * layout res of activity
      */
@@ -34,12 +39,8 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_base)
-        View.inflate(this, layoutRes(), findViewById(R.id.activityContent))
-
-        setSupportActionBar(toolbar)
-        setupActionBarWithNavController(mNavController)
+        binding = setUpBinding()
+        setContentView(binding.root)
     }
 
     override fun onSupportNavigateUp() = mNavController.navigateUp()
@@ -60,21 +61,32 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (!disableBack) {
-            super.onBackPressed()
+        showConfirmDialog("Bạn có muốn thoát khỏi ứng dụng không?"){
+            val homeIntent = Intent(Intent.ACTION_MAIN)
+            homeIntent.addCategory(Intent.CATEGORY_HOME)
+            homeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(homeIntent)
         }
     }
 
     fun showLoading(isLoading: Boolean) {
-        if (isLoading && activityError.isVisible) {
-            activityError.show(false)
+//        if (isLoading && activityError.isVisible) {
+//            activityError.show(false)
+//        }
+//        activityLoading.show(isLoading)
+    }
+
+    fun toggleLoading(isLoading: Boolean){
+        if (isLoading){
+            progressBarHandler.show()
+        }else{
+            progressBarHandler.hide()
         }
-        activityLoading.show(isLoading)
     }
 
     fun showError(msg: String) {
-        activityError.show(true)
-        activityError.text = msg
+//        activityError.show(true)
+//        activityError.text = msg
     }
 
     /**

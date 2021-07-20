@@ -59,6 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
+                android:textSize="8sp"
+                android:textColor="@color/red"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
 

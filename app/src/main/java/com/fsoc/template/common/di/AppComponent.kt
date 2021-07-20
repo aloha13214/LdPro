@@ -1,7 +1,6 @@
 package com.fsoc.template.common.di
 
 import com.fsoc.template.common.di.module.*
-import com.fsoc.template.presentation.main.detail.DetailFragment
 import com.fsoc.template.presentation.main.home.HomeFragment
 import com.fsoc.template.presentation.main.login.LoginFragment
 import com.fsoc.template.presentation.main.setting.SettingFragment
@@ -14,6 +13,5 @@ interface AppComponent {
     // inject fragment
     fun inject(fragment: HomeFragment)
     fun inject(fragment: SettingFragment)
-    fun inject(fragment: DetailFragment)
     fun inject(fragment: LoginFragment)
 }

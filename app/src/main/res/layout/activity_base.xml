@@ -5,7 +5,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_base" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="@string/app_name_string" />
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/activityError"
@@ -19,7 +32,8 @@
         android:textColor="@android:color/holo_red_light"
         android:textSize="10sp"
         android:visibility="gone"
-        tools:text="Error" />
+        tools:text="Error"
+        tools:ignore="SmallSp" />
 
     <FrameLayout
         android:id="@+id/activityContent"
