@@ -11,9 +11,6 @@ import com.fsoc.template.R
 import com.fsoc.template.common.extension.showConfirmDialog
 import com.fsoc.template.common.preferences.SharedPrefsHelper
 import com.fsoc.template.domain.entity.setting.*
-import kotlinx.android.synthetic.main.activity_base.*
-import kotlinx.android.synthetic.main.toolbar_base.*
-
 
 abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
 

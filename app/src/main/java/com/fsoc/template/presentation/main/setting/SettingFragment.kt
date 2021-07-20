@@ -46,7 +46,6 @@ class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
         val modelList10: List<Model> = genData10()
         val modelList11: List<Model> = genData11()
 
-
         val customDropDownAdapter = CustomDropDownAdapter(getBaseContext(), modelList)
         val customDropDownAdapter1 = context?.let { CustomDropDownAdapter(it, modelList1) }
         val customDropDownAdapter2 = context?.let { CustomDropDownAdapter(it, modelList2) }
@@ -73,18 +72,18 @@ class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
         binding.sp10.adapter = customDropDownAdapter10
         binding.sp11.adapter = customDropDownAdapter11
 
-        saveKey(genData(), sp, REWARD_SETTING)
-        saveKey(genData1(), sp1, UNIT_SETTING)
-        saveKey(genData2(), sp2, ROUND_SETTING)
-        saveKey(genData3(), sp3, CHARACTER_SETTING)
-        saveKey(genData4(), sp4, TIME_SETTING)
-        saveKey(genData5(), sp5, MESSAGE_SETTING)
-        saveKey(genData6(), sp6, REPORT_SETTING)
-        saveKey(genData7(), sp7, SORT_SETTING)
-        saveKey(genData8(), sp8, PAY_BONUS_SETTING)
-        saveKey(genData9(), sp9, ERR_SETTING)
-        saveKey(genData10(), sp10, DETACHED_SETTING)
-        saveKey(genData11(), sp11, MINOR_REPORT_SETTING)
+        saveKey(genData(), binding.sp, REWARD_SETTING)
+        saveKey(genData1(), binding.sp1, UNIT_SETTING)
+        saveKey(genData2(), binding.sp2, ROUND_SETTING)
+        saveKey(genData3(), binding.sp3, CHARACTER_SETTING)
+        saveKey(genData4(), binding.sp4, TIME_SETTING)
+        saveKey(genData5(), binding.sp5, MESSAGE_SETTING)
+        saveKey(genData6(), binding.sp6, REPORT_SETTING)
+        saveKey(genData7(), binding.sp7, SORT_SETTING)
+        saveKey(genData8(), binding.sp8, PAY_BONUS_SETTING)
+        saveKey(genData9(), binding.sp9, ERR_SETTING)
+        saveKey(genData10(), binding.sp10, DETACHED_SETTING)
+        saveKey(genData11(), binding.sp11, MINOR_REPORT_SETTING)
     }
 
     private fun saveKey(genData1: List<Model>, spinner: AppCompatSpinner, keyShared: String) {

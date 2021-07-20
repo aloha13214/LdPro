@@ -1,7 +1,6 @@
 package com.fsoc.template.presentation.main
 
 import android.annotation.SuppressLint
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
@@ -17,8 +16,6 @@ import com.fsoc.template.presentation.base.BaseActivity
 import com.fsoc.template.presentation.main.menu.MenuAdapter
 import com.fsoc.template.presentation.main.menu.MenuMode
 import com.fsoc.template.presentation.main.menu.MenuModel
-import kotlinx.android.synthetic.main.activity_main.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -39,8 +36,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         setUpToolbar()
         setUpDrawerLayout()
-        handleDatePicker()
-
     }
 
     private fun setUpDrawerLayout() {
@@ -121,30 +116,5 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     companion object {
         var layoutFragment = R.id.homeFragment
-    }
-
-    private fun handleDatePicker() {
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
-                timePicker.text = sdf.format(cal.time)
-            }
-
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        timePicker.text = sdf.format(cal.time)
-
-        timePicker.setOnClickListener {
-            DatePickerDialog(
-                this@MainActivity,
-                dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
     }
 }
