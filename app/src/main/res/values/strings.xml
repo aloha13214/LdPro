@@ -5,12 +5,15 @@
     <string name="close">Close</string>
     <string name="str_not_connect_internet">Kiểm tra lại kết nối mạng</string>
     <string-array name="don_vi_chuyen_xien_di">
-        <item>Chuyển theo tiền</item>
-        <item>Chuyển theo điểm</item>
+        <item>1. Chuyển theo tiền</item>
+        <item>2. Chuyển theo điểm</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="str_ok">OK</string>
     <string name="str_cancel">Huỷ</string>
+    <string name="str_sign_in">Đăng nhập</string>
+    <string name="str_hint_user_name">Tài khoản</string>
+    <string name="str_hint_password">Mật khẩu</string>
 </resources>

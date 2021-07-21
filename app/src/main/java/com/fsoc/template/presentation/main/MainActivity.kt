@@ -45,18 +45,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            menuItem.isChecked = true
-            mNavController.navigate(
-                when (menuItem.itemId) {
-                    R.id.nav_tc -> R.id.loginFragment
-                    R.id.nav_cd -> R.id.settingFragment
-                    else -> R.id.homeFragment
-                }
-            )
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
             }
@@ -85,6 +73,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
             MenuMode.CAI_DAT -> {
                 R.id.settingFragment
+            }
+            MenuMode.SUATINNHAN -> {
+                R.id.loginFragment
             }
             else -> {
                 R.id.homeFragment

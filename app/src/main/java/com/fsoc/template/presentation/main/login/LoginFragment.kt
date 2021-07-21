@@ -23,9 +23,7 @@ class LoginFragment: BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     override fun setUpView() {
-        binding.btnGetTodos.click {
-            viewModel.fetchUser()
-        }
+
     }
 
     override fun fireData() {
