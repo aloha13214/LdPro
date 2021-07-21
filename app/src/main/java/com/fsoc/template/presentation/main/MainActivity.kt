@@ -16,10 +16,13 @@ import com.fsoc.template.presentation.base.BaseActivity
 import com.fsoc.template.presentation.main.menu.MenuAdapter
 import com.fsoc.template.presentation.main.menu.MenuMode
 import com.fsoc.template.presentation.main.menu.MenuModel
+import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private lateinit var toggle: ActionBarDrawerToggle
+    val cal = Calendar.getInstance()
+    val myFormat = "MM-dd-yyyy"
 
     override fun layoutRes(): Int {
         return R.layout.activity_main
@@ -60,14 +63,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
 
         })
-        val menuAdapter = MenuAdapter(getMenuList()){
+        val menuAdapter = MenuAdapter(getMenuList()) {
             decideFragmentClicked(it)
         }
         binding.rcvMenu.adapter = menuAdapter
+
     }
 
     private fun decideFragmentClicked(menu: MenuModel) {
-        layoutFragment = when(menu.key){
+        layoutFragment = when (menu.key) {
             MenuMode.TRANGCHU -> {
                 R.id.homeFragment
             }
@@ -86,7 +90,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     @SuppressLint("SetTextI18n")
     private fun setUpToolbar() {
-        val bindingToolBar =  LayoutToolbarBinding.inflate(layoutInflater)
+        val bindingToolBar = LayoutToolbarBinding.inflate(layoutInflater)
         val params = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
@@ -96,7 +100,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     override fun setUpBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-
     override fun onDestroy() {
         super.onDestroy()
         binding.drawerLayout.removeDrawerListener(toggle)
