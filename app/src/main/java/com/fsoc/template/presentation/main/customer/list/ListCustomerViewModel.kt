@@ -17,6 +17,8 @@ class ListCustomerViewModel @Inject constructor(private val databaseHelper: Data
     BaseViewModel() {
 
     private var _customers = MutableLiveData<Resource<List<CustomerEntity>>>()
+    private var _deleteCustomer = MutableLiveData<Resource<Unit>>()
+    var deleteCustomer: LiveData<Resource<Unit>> = _deleteCustomer
 
     fun getAllCustomer() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -36,8 +38,20 @@ class ListCustomerViewModel @Inject constructor(private val databaseHelper: Data
             try {
                 val customerIsPicked = databaseHelper.getCustomerById(idCustomer)
                 Log.i("ListCustomerViewModel", customerIsPicked.toString())
-            }catch (ex: Exception) {
+            } catch (ex: Exception) {
 
+            }
+        }
+    }
+
+    fun deleteCustomer(customerEntity: CustomerEntity) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _deleteCustomer.postValue(Resource.loading(null))
+            try {
+                val result = databaseHelper.deleteCustomer(customerEntity)
+                _deleteCustomer.postValue(Resource.success(result))
+            } catch (ex: Exception) {
+                _deleteCustomer.postValue(Resource.error(ex.fillInStackTrace(), null))
             }
         }
     }

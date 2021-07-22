@@ -8,6 +8,7 @@ import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
 import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.observe
+import com.fsoc.template.common.extension.showConfirmDialog
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.data.db.entity.CustomerEntity
 import com.fsoc.template.databinding.FragmentListCustomerBinding
@@ -15,9 +16,13 @@ import com.fsoc.template.presentation.base.BaseFragment
 
 class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCustomerBinding>() {
     private val listCustomerAdapter by lazy {
-        ListCustomerAdapter {idCustomer ->
+        ListCustomerAdapter({ idCustomer ->
             //TODO next to detail customer
             viewModel.findCustomer(idCustomer)
+        }) { customerEntity ->
+            showConfirmDialog("Bạn có muốn xoá ${customerEntity.customerName} khỏi danh sách hay không?") {
+                viewModel.deleteCustomer(customerEntity)
+            }
         }
     }
 
@@ -28,6 +33,23 @@ class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCus
     override fun initViewModel() {
         viewModel = withViewModel(viewModelFactory) {
             observe(getCustomers(), ::observerListUser)
+            observe(deleteCustomer, ::observerDeleteCustomer)
+        }
+    }
+
+    private fun observerDeleteCustomer(resource: Resource<Unit>) {
+        when (resource.status) {
+            Status.LOADING -> {
+                showLoading(true)
+            }
+            Status.ERROR -> {
+                showLoading(false)
+                resource.e?.let { showErrorMsg(it) }
+            }
+            Status.SUCCESS -> {
+                showLoading(false)
+                viewModel.getAllCustomer()
+            }
         }
     }
 
@@ -45,7 +67,7 @@ class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCus
                 resource.data?.let {
                     listCustomerAdapter.addCustomers(it)
                     binding.rcvCustomers.adapter = listCustomerAdapter
-                }?: run {}
+                } ?: run {}
             }
         }
     }

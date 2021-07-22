@@ -9,4 +9,5 @@ interface DatabaseHelper {
     suspend fun insertCustomer(customerEntity: CustomerEntity)
     suspend fun getAllCustomer(): List<CustomerEntity>
     suspend fun getCustomerById(customerId: Long): CustomerEntity
+    suspend fun deleteCustomer(customer: CustomerEntity)
 }
