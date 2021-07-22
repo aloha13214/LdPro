@@ -1,4 +1,4 @@
-package com.fsoc.template.data.db
+package com.fsoc.template.data.db.dao
 
 import androidx.room.*
 import com.fsoc.template.data.db.entity.UserEntity
