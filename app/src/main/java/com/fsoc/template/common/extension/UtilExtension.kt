@@ -21,6 +21,8 @@ import com.fsoc.template.R
 import com.fsoc.template.presentation.main.customer.add.AddSettingCustomerModel
 import com.fsoc.template.presentation.main.menu.MenuMode
 import com.fsoc.template.presentation.main.menu.MenuModel
+import com.google.gson.Gson
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executors
@@ -141,6 +143,8 @@ fun getMenuList(): List<MenuModel> {
         )
     )
 }
+
+
 
 fun getSettingCustomerList(): List<AddSettingCustomerModel> {
     return listOf(

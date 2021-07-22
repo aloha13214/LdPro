@@ -21,6 +21,7 @@ import com.fsoc.template.common.preferences.SharedPrefsHelper
 import com.fsoc.template.data.api.ApiConfig
 import com.fsoc.template.data.api.entity.BaseDto
 import com.fsoc.template.presentation.MyApplication
+import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -41,6 +42,9 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
 
     @Inject
     lateinit var errorHandler: BaseErrorHandler
+
+    @Inject
+    lateinit var gson: Gson
 
     // animation for switch fragment
     private val navOptions = navOptions {
@@ -202,6 +206,22 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
 //        }
 //        loading.show(isLoading)
 //    }
+
+    fun <T> objectToString(value: T): String? {
+        return try {
+            gson.toJson(value)
+        }catch (ex: java.lang.Exception){
+            null
+        }
+    }
+
+    inline fun <reified T> stringToObject(value: String): T? {
+        return try {
+            gson.fromJson(value, T::class.java)
+        }catch (ex: java.lang.Exception){
+            null
+        }
+    }
 
     private fun showErrorBottom(err: Throwable) {
         val msg = errorHandler.handleMsg(err)

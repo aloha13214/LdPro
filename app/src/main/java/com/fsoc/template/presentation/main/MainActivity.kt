@@ -1,5 +1,6 @@
 package com.fsoc.template.presentation.main
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -13,6 +14,12 @@ import com.fsoc.template.common.extension.getCurrentDate
 import com.fsoc.template.databinding.ActivityMainBinding
 import com.fsoc.template.databinding.LayoutToolbarBinding
 import com.fsoc.template.presentation.base.BaseActivity
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -25,6 +32,29 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpDrawerLayout()
+        requirePermissionsIfNeeded()
+    }
+
+    private fun requirePermissionsIfNeeded() {
+        Dexter.withContext(this)
+            .withPermissions(
+                Manifest.permission.RECEIVE_SMS,
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.READ_SMS,
+                Manifest.permission.READ_CONTACTS,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECEIVE_SMS,
+            ).withListener(object : MultiplePermissionsListener {
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest?>?,
+                    token: PermissionToken?
+                ) {
+
+                }
+            }).check()
     }
 
     private fun setUpDrawerLayout() {

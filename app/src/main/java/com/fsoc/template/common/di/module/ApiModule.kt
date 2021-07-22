@@ -5,6 +5,8 @@ import com.fsoc.template.BuildConfig
 import com.fsoc.template.common.AppCommon
 import com.fsoc.template.data.api.ApiService
 import com.fsoc.template.data.api.BaseApi
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.orhanobut.logger.Logger
 import dagger.Module
 import dagger.Provides
@@ -39,6 +41,13 @@ class ApiModule(private val context: Context) {
             .addConverterFactory(ScalarsConverterFactory.create())
             .client(okHttpClient)
             .build()
+
+    @Provides
+    @Singleton
+    internal fun provideGson(): Gson {
+        return GsonBuilder()
+            .create()
+    }
 
     @Provides
     @Singleton
