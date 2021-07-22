@@ -8,6 +8,8 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -16,6 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.fsoc.template.R
+import com.fsoc.template.presentation.main.customer.add.AddSettingCustomerModel
 import com.fsoc.template.presentation.main.menu.MenuMode
 import com.fsoc.template.presentation.main.menu.MenuModel
 import java.text.SimpleDateFormat
@@ -138,6 +141,59 @@ fun getMenuList(): List<MenuModel> {
         )
     )
 }
+
+fun getSettingCustomerList(): List<AddSettingCustomerModel> {
+    return listOf(
+        AddSettingCustomerModel(
+            "Giá đề", null, null
+        ),
+        AddSettingCustomerModel(
+            "Đầu ĐB (dea): "
+        ),
+        AddSettingCustomerModel(
+            "Đít ĐB (deb): "
+        ),
+        AddSettingCustomerModel(
+            "Đầu nhất (dec): "
+        ),
+        AddSettingCustomerModel(
+            "Đít nhất (ded): ", 0.76F
+        ),
+        AddSettingCustomerModel(
+            "Đầu ăn 80 (det): ", 0.82F, 80F
+        ),
+        AddSettingCustomerModel("Giá lô", null, null),
+        AddSettingCustomerModel(
+            "Lô ", 21.8F, 80f
+        ),
+        AddSettingCustomerModel("Giá xiên"),
+        AddSettingCustomerModel("Xiên 2:", 0.7f, 10f),
+        AddSettingCustomerModel("Xiên 3:", 0.7f, 40f),
+        AddSettingCustomerModel("Xiên 4:", 0.7f, 100f),
+        AddSettingCustomerModel("Xiên nháy:", 1.0f, 10f),
+        AddSettingCustomerModel("Giá 3 càng"),
+        AddSettingCustomerModel("Ba càng", 0.9f, 400f),
+    )
+}
+
+fun EditText.addSimpleTextWatcher(onTextChanged: (CharSequence?) -> Unit) {
+    addTextChangedListener(createSimpleTextWatcher(onTextChanged))
+}
+
+private fun createSimpleTextWatcher(onTextChanged: (CharSequence?) -> Unit) =
+    object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            /* NOP */
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            /* NOP */
+            onTextChanged(s)
+        }
+    }
 
 @SuppressLint("HardwareIds")
 fun Fragment.getIMEI(): String {

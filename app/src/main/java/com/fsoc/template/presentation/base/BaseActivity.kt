@@ -16,9 +16,9 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
 
     private var disableBack = false
 
-    protected val mNavController: NavController by lazy {
-        findNavController(getNavControllerId())
-    }
+//    protected val mNavController: NavController by lazy {
+//        findNavController(getNavControllerId())
+//    }
 
     val progressBarHandler by lazy {
         ProgressBarHandler(this)
@@ -35,7 +35,7 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
     /**
      * navigation controller id in layout
      */
-    abstract fun getNavControllerId(): Int
+//    abstract fun getNavControllerId(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +77,6 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
         SharedPrefsHelper.saveString(this, FIRST_SETTING, "FIRST_SETTING")
     }
 
-    override fun onSupportNavigateUp() = mNavController.navigateUp()
-
     override fun startActivity(intent: Intent?) {
         super.startActivity(intent)
         overridePendingTransitionEnter()
@@ -93,15 +91,15 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
         super.finish()
         overridePendingTransitionExit()
     }
-
-    override fun onBackPressed() {
-        showConfirmDialog("Bạn có muốn thoát khỏi ứng dụng không?"){
-            val homeIntent = Intent(Intent.ACTION_MAIN)
-            homeIntent.addCategory(Intent.CATEGORY_HOME)
-            homeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(homeIntent)
-        }
-    }
+//
+//    override fun onBackPressed() {
+//        showConfirmDialog("Bạn có muốn thoát khỏi ứng dụng không?"){
+//            val homeIntent = Intent(Intent.ACTION_MAIN)
+//            homeIntent.addCategory(Intent.CATEGORY_HOME)
+//            homeIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(homeIntent)
+//        }
+//    }
 
     fun showLoading(isLoading: Boolean) {
 //        if (isLoading && activityError.isVisible) {
@@ -137,12 +135,12 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
-    fun currentFragment(): Fragment? {
-        val navHostFragment = supportFragmentManager.findFragmentById(getNavControllerId())
-        navHostFragment?.childFragmentManager?.apply {
-            return fragments[0]
-        }
-        return null
-    }
+//    fun currentFragment(): Fragment? {
+//        val navHostFragment = supportFragmentManager.findFragmentById(getNavControllerId())
+//        navHostFragment?.childFragmentManager?.apply {
+//            return fragments[0]
+//        }
+//        return null
+//    }
 
 }

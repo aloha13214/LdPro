@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.fsoc.template.common.di.qualifier.ViewModelKey
 import com.fsoc.template.presentation.base.ViewModelFactory
 import com.fsoc.template.presentation.main.MainViewModel
+import com.fsoc.template.presentation.main.customer.add.AddCustomerViewModel
+import com.fsoc.template.presentation.main.customer.list.ListCustomerViewModel
 import com.fsoc.template.presentation.main.home.HomeViewModel
 import com.fsoc.template.presentation.main.login.LoginViewModel
 import dagger.Binds
@@ -33,4 +35,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     abstract fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ListCustomerViewModel::class)
+    abstract fun bindListCustomerViewModel(viewModel: ListCustomerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AddCustomerViewModel::class)
+    abstract fun bindAddCustomerViewModel(viewModel: AddCustomerViewModel): ViewModel
 }

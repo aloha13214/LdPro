@@ -2,29 +2,35 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/nav_home">
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/nav_home"
         android:name="com.fsoc.template.presentation.main.home.HomeFragment"
-        android:label="Home"
+        android:label="Trang chủ"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.fsoc.template.presentation.main.favorite.FavoriteFragment"
-        android:label="Favorite"
-        tools:layout="@layout/fragment_favorite" />
-    <fragment
-        android:id="@+id/settingFragment"
+        android:id="@+id/nav_setting"
         android:name="com.fsoc.template.presentation.main.setting.SettingFragment"
-        android:label="Setting"
+        android:label="Cài đặt"
         tools:layout="@layout/fragment_setting" />
-    <fragment
-        android:id="@+id/detailFragment"
-        android:name="com.fsoc.template.presentation.main.detail.DetailFragment"
-        android:label="DetailFragment"
-        tools:layout="@layout/fragment_detail" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.fsoc.template.presentation.main.login.LoginFragment"
         android:label="LoginFragment" />
+    <fragment
+        android:id="@+id/nav_listCustomerFragment"
+        android:name="com.fsoc.template.presentation.main.customer.list.ListCustomerFragment"
+        android:label="Danh sách khách hàng" >
+        <action
+            android:id="@+id/action_listCustomerFragment_to_addCustomerFragment"
+            app:destination="@id/addCustomerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCustomerFragment"
+        android:name="com.fsoc.template.presentation.main.customer.add.AddCustomerFragment"
+        android:label="Thêm khách hàng" />
 </navigation>

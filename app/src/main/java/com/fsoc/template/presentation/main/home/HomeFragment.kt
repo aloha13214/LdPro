@@ -2,7 +2,6 @@ package com.fsoc.template.presentation.main.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.fsoc.template.R
 import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
@@ -18,10 +17,6 @@ import com.fsoc.template.presentation.base.BaseFragment
 class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
-    }
-
-    override fun layoutRes(): Int {
-        return R.layout.fragment_home
     }
 
     override fun initViewModel() {
