@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:textSize="8sp"
+                android:entries="@array/don_vi_chuyen_xien_di"
                 android:textColor="@color/red"
                 tools:ignore="RtlCompat" />
         </LinearLayout>

@@ -2,99 +2,45 @@ package com.fsoc.template.presentation.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
 import android.widget.LinearLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.fsoc.template.R
 import com.fsoc.template.common.extension.getCurrentDate
-import com.fsoc.template.common.extension.getMenuList
 import com.fsoc.template.databinding.ActivityMainBinding
 import com.fsoc.template.databinding.LayoutToolbarBinding
 import com.fsoc.template.presentation.base.BaseActivity
-import com.fsoc.template.presentation.main.menu.MenuAdapter
-import com.fsoc.template.presentation.main.menu.MenuMode
-import com.fsoc.template.presentation.main.menu.MenuModel
-import java.util.*
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var toggle: ActionBarDrawerToggle
-    val cal = Calendar.getInstance()
-    val myFormat = "MM-dd-yyyy"
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun layoutRes(): Int {
         return R.layout.activity_main
     }
 
-    override fun getNavControllerId(): Int {
-        return R.id.mainNavHostFragment
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setUpToolbar()
         setUpDrawerLayout()
     }
 
     private fun setUpDrawerLayout() {
-        toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
+        setSupportActionBar(binding.appBarMain.toolbar)
+        setUpToolbar()
+        appBarConfiguration = AppBarConfiguration(
+            setOf(R.id.nav_home, R.id.nav_setting, R.id.nav_listCustomerFragment), binding.drawerLayout
         )
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            menuItem.isChecked = true
-            mNavController.navigate(
-                when (menuItem.itemId) {
-                    R.id.nav_tc -> R.id.loginFragment
-                    R.id.nav_cd -> R.id.settingFragment
-                    else -> R.id.homeFragment
-                }
-            )
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
-            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-            }
-
-            override fun onDrawerOpened(drawerView: View) {
-            }
-
-            override fun onDrawerClosed(drawerView: View) {
-                mNavController.navigate(layoutFragment)
-            }
-
-            override fun onDrawerStateChanged(newState: Int) {
-            }
-
-        })
-        val menuAdapter = MenuAdapter(getMenuList()) {
-            decideFragmentClicked(it)
-        }
-        binding.rcvMenu.adapter = menuAdapter
-
+        val mNavController = findNavController(R.id.nav_host_fragment_content)
+        setupActionBarWithNavController(mNavController, appBarConfiguration)
+        binding.navView.setupWithNavController(mNavController)
     }
 
-    private fun decideFragmentClicked(menu: MenuModel) {
-        layoutFragment = when (menu.key) {
-            MenuMode.TRANGCHU -> {
-                R.id.homeFragment
-            }
-            MenuMode.CAI_DAT -> {
-                R.id.settingFragment
-            }
-            else -> {
-                R.id.homeFragment
-            }
-        }
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     @SuppressLint("SetTextI18n")
@@ -104,17 +50,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.MATCH_PARENT
         )
-        binding.toolbar.addView(bindingToolBar.root, params)
+        binding.appBarMain.toolbar.addView(bindingToolBar.root, params)
         bindingToolBar.currentDate.text = "Ngày: ${getCurrentDate()}"
     }
 
     override fun setUpBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.drawerLayout.removeDrawerListener(toggle)
-    }
-
-    companion object {
-        var layoutFragment = R.id.homeFragment
-    }
 }

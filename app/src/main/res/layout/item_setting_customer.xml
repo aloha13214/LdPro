@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/dimen_6dp"
+    android:paddingHorizontal="@dimen/dimen_8dp"
+    android:layout_height="match_parent">
+    <TableRow android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView android:layout_width="120dp"
+            android:id="@+id/type_prize"
+            android:layout_height="wrap_content"/>
+        <EditText android:layout_width="@dimen/dimen_64dp"
+            android:id="@+id/value_prize"
+            android:background="@drawable/bg_edit_text"
+            android:maxLength="5"
+            android:inputType="numberDecimal"
+            android:gravity="end|center_vertical"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dimen_4dp" />
+    </TableRow>
+    <TableRow android:layout_width="@dimen/dimen_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_12dp"
+        android:layout_weight="1">
+        <TextView android:layout_width="@dimen/dimen_0dp"
+            android:layout_weight="1"
+            android:text="Lần ăn:"
+            android:layout_height="wrap_content"/>
+        <EditText android:layout_width="@dimen/dimen_0dp"
+            android:layout_weight="1"
+            android:id="@+id/counter"
+            android:gravity="end|center_vertical"
+            android:background="@drawable/bg_edit_text"
+            android:inputType="numberDecimal"
+            android:maxLength="5"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dimen_4dp" />
+    </TableRow>
+</androidx.appcompat.widget.LinearLayoutCompat>

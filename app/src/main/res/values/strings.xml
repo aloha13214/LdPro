@@ -5,14 +5,17 @@
     <string name="close">Close</string>
     <string name="str_not_connect_internet">Kiểm tra lại kết nối mạng</string>
     <string-array name="don_vi_chuyen_xien_di">
-        <item>Chuyển theo tiền</item>
-        <item>Chuyển theo điểm</item>
+        <item>1. Chuyển theo tiền</item>
+        <item>2. Chuyển theo điểm</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="str_ok">OK</string>
     <string name="str_cancel">Huỷ</string>
+    <string name="str_sign_in">Đăng nhập</string>
+    <string name="str_hint_user_name">Tài khoản</string>
+    <string name="str_hint_password">Mật khẩu</string>
 
 
     <!--Start Home-->
@@ -34,5 +37,14 @@
     <string name="lbl_setting_11">Tách xiên cho tin chốt tiền:</string>
     <string name="lbl_setting_12">Cài đặt báo thiếu tin:</string>
     <string name="title_setting">Cài đặt</string>
+    <string name="str_add_customer">Thêm khách hàng</string>
+    <string name="str_home">Trang chủ</string>
+    <string name="str_setting">Cài đặt</string>
+    <string name="str_list_customer">Danh sách khách hàng</string>
+    <string name="str_guess">Khách</string>
+    <string name="str_phone_book">Danh bạ</string>
+    <string name="str_customer_name">Tên khách hàng</string>
+    <string name="str_add">Thêm</string>
+    <string name="str_phone_number">Số điện thoại</string>
     <!--End Setting-->
 </resources>

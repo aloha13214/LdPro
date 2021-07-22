@@ -1,4 +1,4 @@
-package com.fsoc.template.presentation.main.login
+package com.fsoc.template.presentation.main.customer.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,10 +6,10 @@ import com.fsoc.template.R
 import com.fsoc.template.common.di.AppComponent
 import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.withViewModel
-import com.fsoc.template.databinding.FragmentLoginBinding
+import com.fsoc.template.databinding.FragmentListCustomerBinding
 import com.fsoc.template.presentation.base.BaseFragment
 
-class LoginFragment: BaseFragment<LoginViewModel, FragmentLoginBinding>() {
+class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCustomerBinding>() {
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -21,7 +21,9 @@ class LoginFragment: BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     override fun setUpView() {
-
+        binding.fab.click {
+            navigate(R.id.addCustomerFragment)
+        }
     }
 
     override fun fireData() {
@@ -30,7 +32,6 @@ class LoginFragment: BaseFragment<LoginViewModel, FragmentLoginBinding>() {
     override fun setUpBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentLoginBinding {
-        return FragmentLoginBinding.inflate(inflater, container, false)
-    }
+    ): FragmentListCustomerBinding = FragmentListCustomerBinding.inflate(inflater, container, false)
+
 }

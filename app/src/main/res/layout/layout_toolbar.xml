@@ -9,14 +9,13 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="Menu"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         android:textColor="@color/white" />
     <TextView
         android:layout_width="0dp"
         android:layout_weight="2"
-        android:text="Ngày 19/07/2021"
         android:gravity="end|center"
         android:textSize="20sp"
         android:id="@+id/current_date"

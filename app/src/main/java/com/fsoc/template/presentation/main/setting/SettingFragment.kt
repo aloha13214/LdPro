@@ -23,10 +23,6 @@ class SettingFragment: BaseFragment<MainViewModel, FragmentSettingBinding>() {
         appComponent.inject(this)
     }
 
-    override fun layoutRes(): Int {
-        return R.layout.fragment_setting
-    }
-
     override fun initViewModel() {
         viewModel = ViewModelProviders.of(activity ?: return, viewModelFactory)
             .get(MainViewModel::class.java)

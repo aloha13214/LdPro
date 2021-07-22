@@ -64,12 +64,6 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
      */
     abstract fun inject(appComponent: AppComponent)
 
-
-    /**
-     * res id of layout
-     */
-    abstract fun layoutRes(): Int
-
     /**
      * init or get view model
      */
