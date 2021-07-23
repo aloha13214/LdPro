@@ -80,6 +80,7 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
         if (isAddType(mode)) {
             bindDataSettingPrice(SettingPrice())
             binding.btnAdd.text = getString(R.string.str_add)
+            binding.rgChooseType.check(R.id.rb_guess)
         } else {
             viewModel.findCustomer()
             binding.btnAdd.text = getString(R.string.str_edit)
