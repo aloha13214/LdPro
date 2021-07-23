@@ -1,5 +1,6 @@
 package com.fsoc.template.presentation.main.customer.list
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.fsoc.template.R
@@ -15,16 +16,31 @@ import com.fsoc.template.databinding.FragmentListCustomerBinding
 import com.fsoc.template.presentation.base.BaseFragment
 
 class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCustomerBinding>() {
+    private var bottomSheetFragment: BottomSheetFragment? = null
     private val listCustomerAdapter by lazy {
         ListCustomerAdapter({ idCustomer ->
-            //TODO next to detail customer
-            viewModel.findCustomer(idCustomer)
+            bottomSheetFragment = BottomSheetFragment({
+                val bundle = Bundle().apply {
+                    putSerializable(MODE_KEY, Mode.Edit)
+                    putLong(CUSTOMER_ID, idCustomer)
+                }
+                bottomSheetFragment?.dismiss()
+                navigate(R.id.addCustomerFragment, bundle)
+            }) {
+
+                bottomSheetFragment?.dismiss()
+            }
+            bottomSheetFragment?.show(
+                requireActivity().supportFragmentManager,
+                bottomSheetFragment?.tag
+            )
         }) { customerEntity ->
             showConfirmDialog("Bạn có muốn xoá ${customerEntity.customerName} khỏi danh sách hay không?") {
                 viewModel.deleteCustomer(customerEntity)
             }
         }
     }
+
 
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
@@ -74,7 +90,10 @@ class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCus
 
     override fun setUpView() {
         binding.fab.click {
-            navigate(R.id.addCustomerFragment)
+            val bundle = Bundle().apply {
+                putSerializable(MODE_KEY, Mode.Add)
+            }
+            navigate(R.id.addCustomerFragment, bundle)
         }
     }
 
@@ -91,4 +110,13 @@ class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCus
         container: ViewGroup?
     ): FragmentListCustomerBinding = FragmentListCustomerBinding.inflate(inflater, container, false)
 
+    companion object {
+        const val MODE_KEY = "Mode"
+        const val CUSTOMER_ID = "CustomerId"
+    }
+}
+
+enum class Mode {
+    Add,
+    Edit
 }

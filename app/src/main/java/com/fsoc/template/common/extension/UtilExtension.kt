@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executors
 
+val regexPhone = "(84|0[3|5|7|8|9])+([0-9]{8})\\b".toRegex()
+fun checkRegex(regex: Regex, inputString: String) = regex.containsMatchIn(inputString)
 
 fun Context.hideKeyboardFrom(view: View) {
     val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -18,4 +18,7 @@ interface CustomerDao {
 
     @Delete
     suspend fun delete(customerEntity: CustomerEntity)
+
+    @Update
+    suspend fun update(customer: CustomerEntity)
 }

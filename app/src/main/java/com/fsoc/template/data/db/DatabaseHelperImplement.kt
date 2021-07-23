@@ -30,4 +30,8 @@ class DatabaseHelperImplement @Inject constructor(): DatabaseHelper {
     override suspend fun deleteCustomer(customer: CustomerEntity) {
         return database.customerDao().delete(customer)
     }
+
+    override suspend fun updateCustomer(customer: CustomerEntity) {
+        return database.customerDao().update(customer)
+    }
 }

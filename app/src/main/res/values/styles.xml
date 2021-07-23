@@ -40,6 +40,41 @@
 
     <style name="Theme.NavigationDrawer.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="SettingCustomerGia">
+        <item name="android:layout_width">@dimen/dimen_64dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="android:maxLength">5</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+    <style name="SettingCustomerLanAn">
+        <item name="android:layout_width">@dimen/dimen_0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_edit_text</item>
+        <item name="android:maxLength">5</item>
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:paddingRight">4dp</item>
+    </style>
+
+    <style name="ViewItemSettingCustomer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingHorizontal" tools:ignore="NewApi">@dimen/dimen_8dp</item>
+        <item name="android:paddingVertical" tools:ignore="NewApi">@dimen/dimen_6dp</item>
+    </style>
+    <style name="HeaderSettingCustomer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">@dimen/dimen_12dp</item>
+        <item name="android:paddingVertical" tools:targetApi="o">@dimen/dimen_8dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
     <!-- Base style for TextInputLayout. You should use one of the sub-styles instead. -->
     <style name="Base.Widget.MaterialComponents.TextInputLayout" parent="Widget.Design.TextInputLayout">
         <item name="enforceMaterialTheme">true</item>

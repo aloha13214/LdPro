@@ -293,7 +293,7 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
         showErrorDialog(message ?: "Error", name)
     }
 
-    private fun showErrorDialog(errStr: String, name: String? = null) {
+    fun showErrorDialog(errStr: String, name: String? = null) {
         if (showErrorDialogStt) {
             // skip show if showing
             return
@@ -313,6 +313,10 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
      */
     fun navigate(resId: Int, args: Bundle? = null, navOptions: NavOptions = this.navOptions) {
         findNavController().navigate(resId, args, navOptions)
+    }
+
+    fun navigateUp() {
+        findNavController().navigateUp()
     }
 
     fun navigatePopUpTo(resId: Int, args: Bundle? = null, resIdPopUpTo: Int) {

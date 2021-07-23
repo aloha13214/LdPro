@@ -33,16 +33,6 @@ class ListCustomerViewModel @Inject constructor(private val databaseHelper: Data
     }
 
     fun getCustomers(): LiveData<Resource<List<CustomerEntity>>> = _customers
-    fun findCustomer(idCustomer: Long) {
-        viewModelScope.launch {
-            try {
-                val customerIsPicked = databaseHelper.getCustomerById(idCustomer)
-                Log.i("ListCustomerViewModel", customerIsPicked.toString())
-            } catch (ex: Exception) {
-
-            }
-        }
-    }
 
     fun deleteCustomer(customerEntity: CustomerEntity) {
         viewModelScope.launch(Dispatchers.IO) {

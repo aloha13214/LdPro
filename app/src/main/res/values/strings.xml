@@ -46,5 +46,8 @@
     <string name="str_customer_name">Tên khách hàng</string>
     <string name="str_add">Thêm</string>
     <string name="str_phone_number">Số điện thoại</string>
+    <string name="str_validate_customer_name">Vui lòng điền tên khách hàng</string>
+    <string name="str_validate_phone">Nhập sai định dạng số điện thoại</string>
+    <string name="str_edit">Sửa</string>
     <!--End Setting-->
 </resources>
