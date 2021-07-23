@@ -1,4 +1,8 @@
 <resources>
+    <string name="notification_listener_service">"Notification Listener Service"</string>
+    <string name="notification_listener_service_explanation">"For the the app. to work you need to enable the Notification Listener Service. Enable it now?"</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="app_name_string">Template</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
@@ -17,6 +21,16 @@
     <string name="str_hint_user_name">Tài khoản</string>
     <string name="str_hint_password">Mật khẩu</string>
 
+    <!--Start Menu-->
+    <string name="str_home">Trang chủ</string>
+    <string name="str_list_customer">Danh sách khách hàng</string>
+    <string name="str_setting">Cài đặt</string>
+    <string name="str_message">Quản lý tin nhắn</string>
+    <!--End Menu-->
+
+    <!-- Start message-->
+    <string name="lbl_message">Cài đặt thông báo</string>
+    <!-- End message-->
 
     <!--Start Home-->
     <string name="lbl_home_1">Ngày:</string>
@@ -38,9 +52,6 @@
     <string name="lbl_setting_12">Cài đặt báo thiếu tin:</string>
     <string name="title_setting">Cài đặt</string>
     <string name="str_add_customer">Thêm khách hàng</string>
-    <string name="str_home">Trang chủ</string>
-    <string name="str_setting">Cài đặt</string>
-    <string name="str_list_customer">Danh sách khách hàng</string>
     <string name="str_guess">Khách</string>
     <string name="str_phone_book">Danh bạ</string>
     <string name="str_customer_name">Tên khách hàng</string>

@@ -26,4 +26,8 @@
         android:id="@+id/addCustomerFragment"
         android:name="com.fsoc.template.presentation.main.customer.add.AddCustomerFragment"
         android:label="Thêm khách hàng" />
+    <fragment
+        android:id="@+id/nav_listMessage"
+        android:name="com.fsoc.template.presentation.main.message.MessageListFragment"
+        android:label="Quản lý tin nhắn" />
 </navigation>

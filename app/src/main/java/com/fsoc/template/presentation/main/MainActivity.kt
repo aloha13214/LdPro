@@ -61,7 +61,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setSupportActionBar(binding.appBarMain.toolbar)
         setUpToolbar()
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.nav_home, R.id.nav_setting, R.id.nav_listCustomerFragment), binding.drawerLayout
+            setOf(
+                R.id.nav_home,
+                R.id.nav_listMessage,
+                R.id.nav_listCustomerFragment,
+                R.id.nav_setting
+            ), binding.drawerLayout
         )
         val mNavController = findNavController(R.id.nav_host_fragment_content)
         setupActionBarWithNavController(mNavController, appBarConfiguration)

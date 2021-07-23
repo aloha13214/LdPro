@@ -9,6 +9,7 @@ import com.fsoc.template.presentation.main.customer.add.AddCustomerViewModel
 import com.fsoc.template.presentation.main.customer.list.ListCustomerViewModel
 import com.fsoc.template.presentation.main.home.HomeViewModel
 import com.fsoc.template.presentation.main.login.LoginViewModel
+import com.fsoc.template.presentation.main.message.MessageListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -45,4 +46,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(AddCustomerViewModel::class)
     abstract fun bindAddCustomerViewModel(viewModel: AddCustomerViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessageListViewModel::class)
+    abstract fun bindMessageListFragmentViewModel(viewModel: MessageListViewModel): ViewModel
 }

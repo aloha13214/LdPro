@@ -1,19 +1,34 @@
 package com.fsoc.template.presentation.base
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.BroadcastReceiver
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.text.TextUtils
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import com.fsoc.template.R
-import com.fsoc.template.common.extension.showConfirmDialog
 import com.fsoc.template.common.preferences.SharedPrefsHelper
 import com.fsoc.template.domain.entity.setting.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
 
+    companion object {
+        const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
+        const val ACTION_NOTIFICATION_LISTENER_SETTINGS =
+            "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
+    }
+
+    private var enableNotificationListenerAlertDialog: AlertDialog? = null
     private var disableBack = false
 
 //    protected val mNavController: NavController by lazy {
@@ -27,6 +42,7 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
     lateinit var binding: L
 
     abstract fun setUpBinding(): L
+
     /**
      * layout res of activity
      */
@@ -45,6 +61,11 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
         val firstSetting = SharedPrefsHelper.getString(this, FIRST_SETTING)
         if (firstSetting == null) {
             initDefaultSetting()
+        }
+
+        if (!isNotificationServiceEnabled()) {
+            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
+            enableNotificationListenerAlertDialog?.show()
         }
     }
 
@@ -108,10 +129,10 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
 //        activityLoading.show(isLoading)
     }
 
-    fun toggleLoading(isLoading: Boolean){
-        if (isLoading){
+    fun toggleLoading(isLoading: Boolean) {
+        if (isLoading) {
             progressBarHandler.show()
-        }else{
+        } else {
             progressBarHandler.hide()
         }
     }
@@ -134,6 +155,51 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
     private fun overridePendingTransitionExit() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
+
+    /**
+     * Is Notification Service Enabled.
+     */
+    private fun isNotificationServiceEnabled(): Boolean {
+        val pkgName = packageName
+        val flat = Settings.Secure.getString(
+            contentResolver,
+            ENABLED_NOTIFICATION_LISTENERS
+        )
+        if (!TextUtils.isEmpty(flat)) {
+            val names = flat.split(":").toTypedArray()
+            for (i in names.indices) {
+                val cn = ComponentName.unflattenFromString(names[i])
+                if (cn != null) {
+                    if (TextUtils.equals(pkgName, cn.packageName)) {
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    /**
+     * Build Notification Listener Alert Dialog.
+     */
+    private fun buildNotificationServiceAlertDialog(): AlertDialog? {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle(R.string.notification_listener_service)
+        alertDialogBuilder.setMessage(R.string.notification_listener_service_explanation)
+        alertDialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
+            startActivity(
+                Intent(
+                    ACTION_NOTIFICATION_LISTENER_SETTINGS
+                )
+            )
+        }
+        alertDialogBuilder.setNegativeButton(R.string.no) { _, _ ->
+            // If you choose to not enable the notification listener
+            // the app. will not work as expected
+        }
+        return alertDialogBuilder.create()
+    }
+
 
 //    fun currentFragment(): Fragment? {
 //        val navHostFragment = supportFragmentManager.findFragmentById(getNavControllerId())

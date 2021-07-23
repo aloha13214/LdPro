@@ -9,12 +9,16 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/str_home" />
         <item
-            android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/str_setting" />
+            android:id="@+id/nav_listMessage"
+            android:icon="@drawable/ic_message"
+            android:title="@string/str_message" />
         <item
             android:id="@+id/nav_listCustomerFragment"
             android:icon="@drawable/ic_baseline_supervised_user_circle_24"
             android:title="@string/str_list_customer" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/str_setting" />
     </group>
 </menu>

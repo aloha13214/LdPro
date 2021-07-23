@@ -79,11 +79,6 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
     abstract fun setUpView()
 
     /**
-     * listener update data for view
-     */
-//    abstract fun observable()
-
-    /**
      * fire to get data
      */
     abstract fun fireData()
@@ -123,8 +118,6 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
         hideKeyBoardWhenTouchOutside()
         hideKeyboard()
 
-//        setUpToolbar()
-
         setUpView()
 
         fireData()
@@ -144,40 +137,8 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
         }
     }
 
-//    private fun setUpToolbar() {
-//        (requireActivity() as BaseActivity).toolbar?.apply {
-//            title?.let {
-//                toolbarFragmentTitle.text = title
-//            }
-//            toolbarFragmentIcon.show(navigationIcon != null)
-//        }
-//
-//        toolbarFragmentIcon.click {
-//            activity?.onBackPressed()
-//        }
-//    }
-//
-//    protected fun hideBackButton() {
-//        toolbarFragmentIcon.show(false)
-//    }
-//
-//    protected fun updateTitle(title: String) {
-//        toolbarFragmentTitle.text = title
-//    }
-//
-//    protected fun showToolbar(b: Boolean) {
-//        toolbarFragment.show(b)
-//    }
-
     open fun showLoading(isLoading: Boolean) {
-        //Logger.d("Loading: $isLoading")
         (requireActivity() as BaseActivity<*>).toggleLoading(isLoading)
-//        if (LOADING_FULL_MODE) {
-//            showLoadingFull(isLoading)
-//        } else {
-//            // fragment
-////            showLoadingInside(isLoading)
-//        }
     }
 
     open fun showErrorMsg(err: Throwable) {
@@ -199,13 +160,6 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
         // activity
         (activity as BaseActivity<*>).showLoading(isLoading)
     }
-//
-//    private fun showLoadingInside(isLoading: Boolean) {
-//        if (isLoading && error.isVisible) {
-//            error.show(false)
-//        }
-//        loading.show(isLoading)
-//    }
 
     fun <T> objectToString(value: T): String? {
         return try {
