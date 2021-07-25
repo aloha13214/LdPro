@@ -21,6 +21,7 @@ import com.fsoc.template.common.preferences.SharedPrefsHelper
 import com.fsoc.template.data.api.ApiConfig
 import com.fsoc.template.data.api.entity.BaseDto
 import com.fsoc.template.presentation.MyApplication
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.orhanobut.logger.Logger
 import retrofit2.HttpException
@@ -28,10 +29,12 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
+
+abstract class BaseFragment<T : BaseViewModel, L : ViewBinding> : Fragment() {
 
     @Inject
     lateinit var viewModel: T
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -144,30 +147,11 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
         }
     }
 
-//    private fun setUpToolbar() {
-//        (requireActivity() as BaseActivity).toolbar?.apply {
-//            title?.let {
-//                toolbarFragmentTitle.text = title
-//            }
-//            toolbarFragmentIcon.show(navigationIcon != null)
-//        }
-//
-//        toolbarFragmentIcon.click {
-//            activity?.onBackPressed()
-//        }
-//    }
-//
-//    protected fun hideBackButton() {
-//        toolbarFragmentIcon.show(false)
-//    }
-//
-//    protected fun updateTitle(title: String) {
-//        toolbarFragmentTitle.text = title
-//    }
-//
-//    protected fun showToolbar(b: Boolean) {
-//        toolbarFragment.show(b)
-//    }
+    fun showSnackbar(message: String) {
+        val snackbar = Snackbar
+            .make(binding.root, message, Snackbar.LENGTH_SHORT)
+        snackbar.show()
+    }
 
     open fun showLoading(isLoading: Boolean) {
         //Logger.d("Loading: $isLoading")
@@ -210,7 +194,7 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
     fun <T> objectToString(value: T): String? {
         return try {
             gson.toJson(value)
-        }catch (ex: java.lang.Exception){
+        } catch (ex: java.lang.Exception) {
             null
         }
     }
@@ -218,7 +202,7 @@ abstract class BaseFragment<T : BaseViewModel, L: ViewBinding> : Fragment() {
     inline fun <reified T> stringToObject(value: String): T? {
         return try {
             gson.fromJson(value, T::class.java)
-        }catch (ex: java.lang.Exception){
+        } catch (ex: java.lang.Exception) {
             null
         }
     }

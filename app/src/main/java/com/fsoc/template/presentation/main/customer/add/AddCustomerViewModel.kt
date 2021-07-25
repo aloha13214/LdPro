@@ -9,6 +9,7 @@ import com.fsoc.template.common.extension.checkRegex
 import com.fsoc.template.common.extension.regexPhone
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.entity.CustomerEntity
+import com.fsoc.template.data.db.entity.SettingTime
 import com.fsoc.template.presentation.base.BaseViewModel
 import com.fsoc.template.presentation.main.customer.list.Mode
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +20,8 @@ import javax.inject.Inject
 class AddCustomerViewModel @Inject constructor(private val databaseHelper: DatabaseHelper) :
     BaseViewModel() {
 
+    var settingTime: SettingTime? = null
+    var customerEntity: CustomerEntity? = null
     var customerType: Int = 0
     var mode = MutableLiveData<Mode>(null)
     var idCustomer: Long? = null
@@ -30,6 +33,7 @@ class AddCustomerViewModel @Inject constructor(private val databaseHelper: Datab
 
     private var _updateCustomer = MutableLiveData<Resource<Unit>>()
     val updateCustomer: LiveData<Resource<Unit>> = _updateCustomer
+    fun isAddType(mode: Mode?): Boolean = mode == null || mode == Mode.Add
 
     fun insertUser(customerEntity: CustomerEntity) {
         viewModelScope.launch(Dispatchers.IO) {

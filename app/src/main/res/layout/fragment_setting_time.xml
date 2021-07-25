@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_8dp"
+        android:layout_marginBottom="@dimen/dimen_12dp"
+        android:paddingHorizontal="@dimen/dimen_8dp">
+
+        <TextView
+            android:id="@+id/tv_customer_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/ButtonInApp"
+            android:layout_width="120dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dimen_12dp"
+            android:layout_marginLeft="@dimen/dimen_12dp"
+            android:paddingHorizontal="@dimen/dimen_8dp"
+            android:text="@string/str_save"
+            android:textSize="@dimen/dimen_12sp" />
+    </TableRow>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableRow style="@style/ViewItemSettingCustomer">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:text="Trả lời tin nhắn:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sp_traloitn"
+                        style="@style/SpinnerSettingTime"
+                        android:entries="@array/tra_loi_tn"
+                        android:paddingEnd="@dimen/dimen_32dp"
+                        android:paddingRight="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow style="@style/ViewItemSettingCustomer">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:text="Đơn vị tính tiền:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sp_nhanXien"
+                        style="@style/SpinnerSettingTime"
+                        android:entries="@array/don_vi_tinh_tien"
+                        android:paddingRight="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow style="@style/ViewItemSettingCustomer">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:text="Nhắn chốt tiền:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sp_Chot_sodu"
+                        style="@style/SpinnerSettingTime"
+                        android:entries="@array/nhan_chot_tien"
+                        android:paddingRight="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow style="@style/ViewItemSettingCustomer">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:text="Báo lỗi đơn vị:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sp_baoloidonvi"
+                        style="@style/SpinnerSettingTime"
+                        android:entries="@array/bao_loi_don_vi"
+                        android:paddingRight="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow style="@style/ViewItemSettingCustomer">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:paddingRight="@dimen/dimen_32dp"
+                    android:text="Khách đề:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sp_khachde"
+                        style="@style/SpinnerSettingTime"
+                        android:entries="@array/khach_de"
+                        android:paddingRight="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow style="@style/ViewItemSettingCustomer">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.5"
+                    android:text="Chuyển đề 7 -> 8:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/sp_hesode"
+                        style="@style/SpinnerSettingTime"
+                        android:entries="@array/chuyen_de_7_8"
+                        android:paddingRight="@dimen/dimen_32dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_arrow_drop_down_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow
+                style="@style/ViewItemSettingCustomer"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.5"
+                    android:text="Không nhận lô/xiên sau:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:id="@+id/fr_time_lo_xien"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dimen_32dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
+                    android:paddingLeft="@dimen/dimen_8_5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:id="@+id/tv_time_lo_xien"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_access_time_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TableRow
+                style="@style/ViewItemSettingCustomer"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.5"
+                    android:text="Không nhận đề/càng sau:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:id="@+id/fr_time_de_cang"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dimen_32dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_edit_text"
+                    android:paddingLeft="@dimen/dimen_8_5dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="start|center_vertical"
+                        android:id="@+id/tv_time_de_cang"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="@dimen/dimen_8dp"
+                        android:layout_marginRight="@dimen/dimen_8dp"
+                        android:src="@drawable/ic_baseline_access_time_24"
+                        tools:ignore="ContentDescription" />
+                </FrameLayout>
+            </TableRow>
+
+            <TextView
+                style="@style/HeaderSettingCustomer"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text="Đại lý giữ: (Giữ lại cho mình)"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ đề:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/de_dly"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_de_dly"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ lô:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/lo_dly"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_lo_dly"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ xiên:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/xi_dly"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_xien_dly"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ 3càng:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/bc_dly"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_bc_dly"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TextView
+                style="@style/HeaderSettingCustomer"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text="Khách hàng giữ: (Giữ cho khách chuyển)"
+                android:textStyle="bold" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ đề:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/de_khach"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_de_khach"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ lô:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/lo_khach"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_lo_khach"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ xiên:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/xi_khach"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_xien_khach"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dimen_8dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="@dimen/dimen_8dp">
+
+                <TextView
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Giữ 3càng:"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <androidx.appcompat.widget.AppCompatSeekBar
+                    android:id="@+id/bc_khach"
+                    android:layout_width="@dimen/dimen_0dp"
+                    android:layout_weight="1"
+                    android:max="20" />
+
+                <TextView
+                    android:layout_width="@dimen/dimen_40dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pt_giu_bc_khach"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TextView
+                style="@style/HeaderSettingCustomer"
+                android:layout_marginBottom="@dimen/dimen_12dp"
+                android:text="Khống max Nhận/Chuyển (Nhận vượt tự trả lại)"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="@dimen/dimen_12dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Đề: Không khống"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lô: Không khống"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Xiên 2: 0"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Xiên 3: 0"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Xiên 4: 0"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Càng: 0"
+                    android:textColor="@color/black" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -37,8 +37,8 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
     override fun initViewModel() {
         viewModel = withViewModel(viewModelFactory) {
             observe(mode, ::observerMode)
-            observe(insertUser, ::observeInsertUser)
             observe(customerIsPicked, ::observerCustomerIsPicked)
+            observe(insertUser, ::observeInsertUser)
             observe(updateCustomer, ::observeInsertUser)
         }
     }
@@ -77,7 +77,7 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
 
 
     private fun observerMode(mode: Mode?) {
-        if (isAddType(mode)) {
+        if (viewModel.isAddType(mode)) {
             bindDataSettingPrice(SettingPrice())
             binding.btnAdd.text = getString(R.string.str_add)
             binding.rgChooseType.check(R.id.rb_guess)
@@ -87,9 +87,11 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
         }
     }
 
-    private fun isAddType(mode: Mode?): Boolean = mode == null || mode == Mode.Add
+//    private fun isAddType(mode: Mode?): Boolean = mode == null || mode == Mode.Add
 
     private fun settingEditCustomer(customerEntity: CustomerEntity) {
+        viewModel.settingTime = stringToObject(customerEntity.settingTime)
+        viewModel.customerEntity = customerEntity
         binding.edtCustomerName.setText(customerEntity.customerName)
         binding.edtPhone.setText(customerEntity.phoneNumber)
         val settingPrice = stringToObject<SettingPrice>(customerEntity.settingPrice) ?: return
@@ -144,7 +146,7 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
             startActivityReadContacts()
         }
         binding.btnAdd.click {
-            if (isAddType(viewModel.mode.value)) {
+            if (viewModel.isAddType(viewModel.mode.value)) {
                 handleAddCustomer()
             } else {
                 handleEditCustomer()
@@ -182,10 +184,10 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
             return null
         }
         val settingPrice = getSettingPrice()
-        val settingTime = SettingTime()
+        val settingTime = viewModel.settingTime ?: SettingTime()
         val settingPriceString = objectToString(settingPrice) ?: return null
         val settingTimeString = objectToString(settingTime) ?: return null
-        return if (isAddType(viewModel.mode.value)) {
+        return if (viewModel.isAddType(viewModel.mode.value)) {
             CustomerEntity(
                 customerName = customerName,
                 phoneNumber = phone,

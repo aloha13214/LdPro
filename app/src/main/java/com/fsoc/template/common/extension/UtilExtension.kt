@@ -12,8 +12,12 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.EditText
+import android.widget.SeekBar
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -146,42 +150,6 @@ fun getMenuList(): List<MenuModel> {
     )
 }
 
-
-
-fun getSettingCustomerList(): List<AddSettingCustomerModel> {
-    return listOf(
-        AddSettingCustomerModel(
-            "Giá đề", null, null
-        ),
-        AddSettingCustomerModel(
-            "Đầu ĐB (dea): "
-        ),
-        AddSettingCustomerModel(
-            "Đít ĐB (deb): "
-        ),
-        AddSettingCustomerModel(
-            "Đầu nhất (dec): "
-        ),
-        AddSettingCustomerModel(
-            "Đít nhất (ded): ", 0.76F
-        ),
-        AddSettingCustomerModel(
-            "Đầu ăn 80 (det): ", 0.82F, 80F
-        ),
-        AddSettingCustomerModel("Giá lô", null, null),
-        AddSettingCustomerModel(
-            "Lô ", 21.8F, 80f
-        ),
-        AddSettingCustomerModel("Giá xiên"),
-        AddSettingCustomerModel("Xiên 2:", 0.7f, 10f),
-        AddSettingCustomerModel("Xiên 3:", 0.7f, 40f),
-        AddSettingCustomerModel("Xiên 4:", 0.7f, 100f),
-        AddSettingCustomerModel("Xiên nháy:", 1.0f, 10f),
-        AddSettingCustomerModel("Giá 3 càng"),
-        AddSettingCustomerModel("Ba càng", 0.9f, 400f),
-    )
-}
-
 fun EditText.addSimpleTextWatcher(onTextChanged: (CharSequence?) -> Unit) {
     addTextChangedListener(createSimpleTextWatcher(onTextChanged))
 }
@@ -201,6 +169,37 @@ private fun createSimpleTextWatcher(onTextChanged: (CharSequence?) -> Unit) =
         }
     }
 
+fun AppCompatSpinner.addSimpleOnItemSelectedListener(onItemSelected: (Int) -> Unit) {
+    onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            onItemSelected(position)
+        }
+
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+    }
+}
+
+const val INTERVAL_SEEKBAR = 5
+fun AppCompatSeekBar.addSimpleSeekbarListener(onProgress: (String) -> Unit, onStop: (Int) -> Unit) {
+    setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            val realResult = progress * INTERVAL_SEEKBAR
+            onProgress("$realResult%")
+        }
+
+        override fun onStartTrackingTouch(seekBar: SeekBar?) {
+        }
+
+        override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            seekBar?.let {
+                val realResult = seekBar.progress * INTERVAL_SEEKBAR
+                onStop(realResult)
+            } ?: run { onStop(0) }
+        }
+    })
+}
+
 @SuppressLint("HardwareIds")
 fun Fragment.getIMEI(): String {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -209,7 +208,11 @@ fun Fragment.getIMEI(): String {
         val mTelephony =
             requireContext().getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.READ_PHONE_STATE
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
                 return ""
             }
         }
@@ -227,14 +230,21 @@ fun Fragment.getIMEI(): String {
         }
     }
 }
+
 fun Activity.showConfirmDialog(message: String, callback: () -> Unit) {
     val alertDialog = AlertDialog.Builder(this).create()
     alertDialog.setMessage(message)
-    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, resources.getString(R.string.str_ok)) { dialog, which ->
+    alertDialog.setButton(
+        AlertDialog.BUTTON_POSITIVE,
+        resources.getString(R.string.str_ok)
+    ) { dialog, which ->
         callback()
         dialog.dismiss()
     }
-    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, resources.getString(R.string.str_cancel)) { dialog, which ->
+    alertDialog.setButton(
+        AlertDialog.BUTTON_NEGATIVE,
+        resources.getString(R.string.str_cancel)
+    ) { dialog, which ->
         dialog.dismiss()
     }
     alertDialog.setCancelable(false)
@@ -244,18 +254,24 @@ fun Activity.showConfirmDialog(message: String, callback: () -> Unit) {
 fun Fragment.showConfirmDialog(message: String, callback: () -> Unit) {
     val alertDialog = AlertDialog.Builder(requireContext()).create()
     alertDialog.setMessage(message)
-    alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, resources.getString(R.string.str_ok)) { dialog, which ->
+    alertDialog.setButton(
+        AlertDialog.BUTTON_POSITIVE,
+        resources.getString(R.string.str_ok)
+    ) { dialog, which ->
         callback()
         dialog.dismiss()
     }
-    alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, resources.getString(R.string.str_cancel)) { dialog, which ->
+    alertDialog.setButton(
+        AlertDialog.BUTTON_NEGATIVE,
+        resources.getString(R.string.str_cancel)
+    ) { dialog, which ->
         dialog.dismiss()
     }
     alertDialog.setCancelable(false)
     alertDialog.show()
 }
 
-fun getCurrentDate():String{
+fun getCurrentDate(): String {
     val sdf = SimpleDateFormat("dd/MM/yyyy")
     return sdf.format(Date())
 }
