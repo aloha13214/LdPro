@@ -2,20 +2,21 @@ package com.fsoc.template.presentation.base
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.fsoc.template.R
+import com.fsoc.template.common.extension.postEvent
+import com.fsoc.template.common.extension.registerEventBus
+import com.fsoc.template.common.extension.unregisterEventBus
 import com.fsoc.template.common.preferences.SharedPrefsHelper
 import com.fsoc.template.domain.entity.setting.*
+import com.fsoc.template.presentation.evenbus.MessageEvenBus
+import com.fsoc.template.presentation.main.message.adapter.MessageModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +30,8 @@ abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
     }
 
     private var enableNotificationListenerAlertDialog: AlertDialog? = null
+    private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
+
     private var disableBack = false
 
 //    protected val mNavController: NavController by lazy {
@@ -57,6 +60,7 @@ abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = setUpBinding()
         setContentView(binding.root)
+        registerEventBus()
 
         val firstSetting = SharedPrefsHelper.getString(this, FIRST_SETTING)
         if (firstSetting == null) {
@@ -67,6 +71,17 @@ abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
             enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
             enableNotificationListenerAlertDialog?.show()
         }
+
+        // Finally we register a receiver to tell the MainActivity when a notification has been received
+        imageChangeBroadcastReceiver = ReceiveBroadcastReceiver()
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
+        registerReceiver(imageChangeBroadcastReceiver, intentFilter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterEventBus()
     }
 
     private fun initDefaultSetting() {
@@ -180,13 +195,42 @@ abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
     }
 
     /**
+     * Receive Broadcast Receiver.
+     */
+    class ReceiveBroadcastReceiver : BroadcastReceiver() {
+        @SuppressLint("HardwareIds", "SimpleDateFormat")
+        override fun onReceive(context: Context, intent: Intent) {
+            val receivedNotificationCode = intent.getIntExtra("Notification Code", -1)
+            val packages = intent.getStringExtra("package")
+            val title = intent.getStringExtra("title")
+            val text = intent.getStringExtra("text")
+            if (text != null) {
+                if (!text.contains("new messages") &&
+                    !text.contains("WhatsApp Web is currently active") &&
+                    !text.contains("WhatsApp Web login")
+                ) {
+                    val android_id = Settings.Secure.getString(
+                        context.contentResolver,
+                        Settings.Secure.ANDROID_ID
+                    )
+                    val deviceModel = Build.MANUFACTURER + Build.MODEL + Build.BRAND + Build.SERIAL
+                    val df: DateFormat = SimpleDateFormat("ddMMyyyyHHmmssSSS")
+                    val date = df.format(Calendar.getInstance().time)
+
+                    postEvent(title?.let { MessageEvenBus(MessageModel("", it, text, false)) })
+                }
+            }
+        }
+    }
+
+    /**
      * Build Notification Listener Alert Dialog.
      */
     private fun buildNotificationServiceAlertDialog(): AlertDialog? {
         val alertDialogBuilder = AlertDialog.Builder(this)
         alertDialogBuilder.setTitle(R.string.notification_listener_service)
         alertDialogBuilder.setMessage(R.string.notification_listener_service_explanation)
-        alertDialogBuilder.setPositiveButton(R.string.yes) { _, _ ->
+        alertDialogBuilder.setPositiveButton(R.string.ok) { _, _ ->
             startActivity(
                 Intent(
                     ACTION_NOTIFICATION_LISTENER_SETTINGS

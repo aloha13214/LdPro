@@ -1,8 +1,7 @@
 <resources>
-    <string name="notification_listener_service">"Notification Listener Service"</string>
-    <string name="notification_listener_service_explanation">"For the the app. to work you need to enable the Notification Listener Service. Enable it now?"</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="notification_listener_service">Truy cập thông báo!</string>
+    <string name="notification_listener_service_explanation">Hãy cho phép phần mềm được truy cập thông báo của điện thoại để kích hoạt tính năng nhắn tin.</string>
+    <string name="no">CANCEL</string>
     <string name="app_name_string">Template</string>
     <string name="ok">OK</string>
     <string name="error">Error</string>
@@ -60,5 +59,6 @@
     <string name="str_validate_customer_name">Vui lòng điền tên khách hàng</string>
     <string name="str_validate_phone">Nhập sai định dạng số điện thoại</string>
     <string name="str_edit">Sửa</string>
+    <string name="message_delete">xóa</string>
     <!--End Setting-->
 </resources>

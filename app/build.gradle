@@ -113,4 +113,7 @@ dependencies {
 
     //permission
     implementation 'com.karumi:dexter:6.2.3'
+
+    implementation 'org.greenrobot:eventbus:3.2.0'
+
 }
