@@ -6,14 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class ListMessageEntity(
-    @PrimaryKey(autoGenerate = true) var id: Long,
-    @ColumnInfo(name = "title") var title: String = "",
+    @PrimaryKey var title: String = "",
     @ColumnInfo(name = "lastMessage") var lastMessage: String = "",
     @ColumnInfo(name = "isAdd") var isAdd: Boolean = false,
+    @ColumnInfo(name = "time") var time: Long,
 ) {
-    constructor(
-        title: String,
-        lastMessage: String,
-        isAdd: Boolean,
-    ) : this(0, title, lastMessage, isAdd)
 }

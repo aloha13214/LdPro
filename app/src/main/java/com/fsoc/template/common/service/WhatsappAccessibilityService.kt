@@ -72,7 +72,8 @@ class WhatsappAccessibilityService : NotificationListenerService() {
                 sendBroadcast(intent)
                 /* End */
 
-                /* Used Used for SendBroadcast */if (!text.contains("new messages") && !text.contains(
+                /* Used Used for SendBroadcast */
+                if (!text.contains("new messages") && !text.contains(
                         "WhatsApp Web is currently active"
                     ) && !text.contains("WhatsApp Web login")
                 ) {

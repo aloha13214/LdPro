@@ -8,8 +8,8 @@ interface ListMessageDao {
     @Query("SELECT * FROM listmessageentity")
     suspend fun getAllListMessage(): List<ListMessageEntity>
 
-    @Query("SELECT * FROM listmessageentity WHERE id = :messageId")
-    suspend fun getMessageById(messageId: Long): ListMessageEntity
+    @Query("SELECT * FROM listmessageentity WHERE title = :title")
+    suspend fun getMessageById(title: String): ListMessageEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMessages(messageEntity: ListMessageEntity)

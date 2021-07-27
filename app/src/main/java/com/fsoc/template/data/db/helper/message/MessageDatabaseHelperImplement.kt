@@ -15,8 +15,8 @@ class MessageDatabaseHelperImplement @Inject constructor() : MessageDatabaseHelp
         return database.listMessageDao().getAllListMessage()
     }
 
-    override suspend fun getListMessageById(listMessageId: Long): ListMessageEntity {
-        return database.listMessageDao().getMessageById(listMessageId)
+    override suspend fun getListMessageById(title: String): ListMessageEntity {
+        return database.listMessageDao().getMessageById(title)
     }
 
     override suspend fun deleteListMessage(listMessageEntity: ListMessageEntity) {

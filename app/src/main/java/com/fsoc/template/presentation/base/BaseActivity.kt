@@ -23,15 +23,6 @@ import java.util.*
 
 abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
 
-    companion object {
-        const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
-        const val ACTION_NOTIFICATION_LISTENER_SETTINGS =
-            "android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"
-    }
-
-    private var enableNotificationListenerAlertDialog: AlertDialog? = null
-    private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
-
     private var disableBack = false
 
 //    protected val mNavController: NavController by lazy {
@@ -60,58 +51,8 @@ abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = setUpBinding()
         setContentView(binding.root)
-        registerEventBus()
-
-        val firstSetting = SharedPrefsHelper.getString(this, FIRST_SETTING)
-        if (firstSetting == null) {
-            initDefaultSetting()
-        }
-
-        if (!isNotificationServiceEnabled()) {
-            enableNotificationListenerAlertDialog = buildNotificationServiceAlertDialog()
-            enableNotificationListenerAlertDialog?.show()
-        }
-
-        // Finally we register a receiver to tell the MainActivity when a notification has been received
-        imageChangeBroadcastReceiver = ReceiveBroadcastReceiver()
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
-        registerReceiver(imageChangeBroadcastReceiver, intentFilter)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterEventBus()
-    }
-
-    private fun initDefaultSetting() {
-        SharedPrefsHelper.saveString(this, REWARD_SETTING, RewardSettingEnum.NO_REWARD.name)
-        SharedPrefsHelper.saveString(this, UNIT_SETTING, UnitSettingEnum.MONEY_TRANSFER.name)
-        SharedPrefsHelper.saveString(this, ROUND_SETTING, RoundSettingEnum.NO_ROUND.name)
-        SharedPrefsHelper.saveString(
-            this,
-            CHARACTER_SETTING,
-            CharacterSettingEnum.NO_CHARACTER.name
-        )
-        SharedPrefsHelper.saveString(this, TIME_SETTING, TimeSettingEnum.NO_NOTIFICATION.name)
-        SharedPrefsHelper.saveString(this, MESSAGE_SETTING, MessageSettingEnum.SAME_MESSAGE.name)
-        SharedPrefsHelper.saveString(this, REPORT_SETTING, ReportSettingEnum.REPORT_OLD.name)
-        SharedPrefsHelper.saveString(this, SORT_SETTING, SortSettingEnum.SORT_ONE.name)
-        SharedPrefsHelper.saveString(
-            this,
-            PAY_BONUS_SETTING,
-            PayBonusSettingEnum.PAY_BONUS_ONE.name
-        )
-        SharedPrefsHelper.saveString(this, ERR_SETTING, ErrSettingEnum.ERR_ONE.name)
-        SharedPrefsHelper.saveString(this, DETACHED_SETTING, DetachedSettingEnum.NO_DETACHED.name)
-        SharedPrefsHelper.saveString(
-            this,
-            MINOR_REPORT_SETTING,
-            MinorReportSettingEnum.MINOR_REPORT_ONE.name
-        )
-
-        SharedPrefsHelper.saveString(this, FIRST_SETTING, "FIRST_SETTING")
-    }
 
     override fun startActivity(intent: Intent?) {
         super.startActivity(intent)
@@ -170,80 +111,6 @@ abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
     private fun overridePendingTransitionExit() {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
-
-    /**
-     * Is Notification Service Enabled.
-     */
-    private fun isNotificationServiceEnabled(): Boolean {
-        val pkgName = packageName
-        val flat = Settings.Secure.getString(
-            contentResolver,
-            ENABLED_NOTIFICATION_LISTENERS
-        )
-        if (!TextUtils.isEmpty(flat)) {
-            val names = flat.split(":").toTypedArray()
-            for (i in names.indices) {
-                val cn = ComponentName.unflattenFromString(names[i])
-                if (cn != null) {
-                    if (TextUtils.equals(pkgName, cn.packageName)) {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-
-    /**
-     * Receive Broadcast Receiver.
-     */
-    class ReceiveBroadcastReceiver : BroadcastReceiver() {
-        @SuppressLint("HardwareIds", "SimpleDateFormat")
-        override fun onReceive(context: Context, intent: Intent) {
-            val receivedNotificationCode = intent.getIntExtra("Notification Code", -1)
-            val packages = intent.getStringExtra("package")
-            val title = intent.getStringExtra("title")
-            val text = intent.getStringExtra("text")
-            if (text != null) {
-                if (!text.contains("new messages") &&
-                    !text.contains("WhatsApp Web is currently active") &&
-                    !text.contains("WhatsApp Web login")
-                ) {
-                    val android_id = Settings.Secure.getString(
-                        context.contentResolver,
-                        Settings.Secure.ANDROID_ID
-                    )
-                    val deviceModel = Build.MANUFACTURER + Build.MODEL + Build.BRAND + Build.SERIAL
-                    val df: DateFormat = SimpleDateFormat("ddMMyyyyHHmmssSSS")
-                    val date = df.format(Calendar.getInstance().time)
-
-                    postEvent(title?.let { MessageEvenBus(MessageModel("", it, text, false)) })
-                }
-            }
-        }
-    }
-
-    /**
-     * Build Notification Listener Alert Dialog.
-     */
-    private fun buildNotificationServiceAlertDialog(): AlertDialog? {
-        val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle(R.string.notification_listener_service)
-        alertDialogBuilder.setMessage(R.string.notification_listener_service_explanation)
-        alertDialogBuilder.setPositiveButton(R.string.ok) { _, _ ->
-            startActivity(
-                Intent(
-                    ACTION_NOTIFICATION_LISTENER_SETTINGS
-                )
-            )
-        }
-        alertDialogBuilder.setNegativeButton(R.string.no) { _, _ ->
-            // If you choose to not enable the notification listener
-            // the app. will not work as expected
-        }
-        return alertDialogBuilder.create()
-    }
-
 
 //    fun currentFragment(): Fragment? {
 //        val navHostFragment = supportFragmentManager.findFragmentById(getNavControllerId())

@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class MessageListViewModel @Inject constructor(
     private val apiHelper: ApiHelper,
-    private val databaseHelper: MessageDatabaseHelper
+    val databaseHelper: MessageDatabaseHelper
 ) : BaseViewModel() {
 
     private var _message = MutableLiveData<Resource<List<ListMessageEntity>>>()

@@ -4,15 +4,20 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fsoc.template.common.extension.loadImage
+import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.databinding.ItemListMessageBinding
 
-class ListMessageAdapter(val lstMessage: ArrayList<MessageModel>) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ListMessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    fun addData(messageModel: MessageModel) {
-        lstMessage.add(messageModel)
-        notifyItemChanged(lstMessage.size - 1)
+    private val lstMessage = arrayListOf<ListMessageEntity>()
+
+    fun setData(list: ArrayList<ListMessageEntity>) {
+        lstMessage.clear()
+        lstMessage.addAll(list)
+        notifyDataSetChanged()
     }
+
+    fun getData() = lstMessage
 
     inner class ListMessageViewHolder(val binding: ItemListMessageBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -26,9 +31,9 @@ class ListMessageAdapter(val lstMessage: ArrayList<MessageModel>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = lstMessage[position]
         (holder as ListMessageViewHolder).binding.apply {
-            tvName.text = data.name
+            tvName.text = data.title
             tvLastMessage.text = data.lastMessage
-            imgProfile.loadImage(data.url)
+//            imgProfile.loadImage("")
         }
     }
 
