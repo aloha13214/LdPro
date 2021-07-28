@@ -1,5 +1,6 @@
 package com.fsoc.template.presentation.main.home
 
+import android.content.IntentFilter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.fsoc.template.common.Resource
@@ -9,12 +10,16 @@ import com.fsoc.template.common.extension.getIMEI
 import com.fsoc.template.common.extension.observe
 import com.fsoc.template.common.extension.toast
 import com.fsoc.template.common.extension.withViewModel
+import com.fsoc.template.common.service.ReceiveBroadcastReceiver
 import com.fsoc.template.data.api.entity.Todo
 import com.fsoc.template.databinding.FragmentHomeBinding
 import com.fsoc.template.presentation.base.BaseFragment
 
 
 class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
+
+    private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
+
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -43,6 +48,11 @@ class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     override fun setUpView() {
         binding.imeiDevice.text = getIMEI()
+
+        imageChangeBroadcastReceiver = ReceiveBroadcastReceiver(viewModel.databaseHelperMessage){}
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
+        activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
     }
 
     override fun fireData() {

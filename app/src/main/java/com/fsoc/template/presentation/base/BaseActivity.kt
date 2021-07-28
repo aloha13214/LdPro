@@ -1,18 +1,27 @@
 package com.fsoc.template.presentation.base
 
-import android.content.Intent
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.*
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import com.fsoc.template.R
-import com.fsoc.template.common.extension.showConfirmDialog
+import com.fsoc.template.common.extension.postEvent
+import com.fsoc.template.common.extension.registerEventBus
+import com.fsoc.template.common.extension.unregisterEventBus
 import com.fsoc.template.common.preferences.SharedPrefsHelper
 import com.fsoc.template.domain.entity.setting.*
+import com.fsoc.template.presentation.evenbus.MessageEvenBus
+import com.fsoc.template.presentation.main.message.adapter.MessageModel
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
-abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
+abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
 
     private var disableBack = false
 
@@ -27,6 +36,7 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
     lateinit var binding: L
 
     abstract fun setUpBinding(): L
+
     /**
      * layout res of activity
      */
@@ -41,41 +51,8 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = setUpBinding()
         setContentView(binding.root)
-
-        val firstSetting = SharedPrefsHelper.getString(this, FIRST_SETTING)
-        if (firstSetting == null) {
-            initDefaultSetting()
-        }
     }
 
-    private fun initDefaultSetting() {
-        SharedPrefsHelper.saveString(this, REWARD_SETTING, RewardSettingEnum.NO_REWARD.name)
-        SharedPrefsHelper.saveString(this, UNIT_SETTING, UnitSettingEnum.MONEY_TRANSFER.name)
-        SharedPrefsHelper.saveString(this, ROUND_SETTING, RoundSettingEnum.NO_ROUND.name)
-        SharedPrefsHelper.saveString(
-            this,
-            CHARACTER_SETTING,
-            CharacterSettingEnum.NO_CHARACTER.name
-        )
-        SharedPrefsHelper.saveString(this, TIME_SETTING, TimeSettingEnum.NO_NOTIFICATION.name)
-        SharedPrefsHelper.saveString(this, MESSAGE_SETTING, MessageSettingEnum.SAME_MESSAGE.name)
-        SharedPrefsHelper.saveString(this, REPORT_SETTING, ReportSettingEnum.REPORT_OLD.name)
-        SharedPrefsHelper.saveString(this, SORT_SETTING, SortSettingEnum.SORT_ONE.name)
-        SharedPrefsHelper.saveString(
-            this,
-            PAY_BONUS_SETTING,
-            PayBonusSettingEnum.PAY_BONUS_ONE.name
-        )
-        SharedPrefsHelper.saveString(this, ERR_SETTING, ErrSettingEnum.ERR_ONE.name)
-        SharedPrefsHelper.saveString(this, DETACHED_SETTING, DetachedSettingEnum.NO_DETACHED.name)
-        SharedPrefsHelper.saveString(
-            this,
-            MINOR_REPORT_SETTING,
-            MinorReportSettingEnum.MINOR_REPORT_ONE.name
-        )
-
-        SharedPrefsHelper.saveString(this, FIRST_SETTING, "FIRST_SETTING")
-    }
 
     override fun startActivity(intent: Intent?) {
         super.startActivity(intent)
@@ -108,10 +85,10 @@ abstract class BaseActivity<L: ViewBinding> : AppCompatActivity() {
 //        activityLoading.show(isLoading)
     }
 
-    fun toggleLoading(isLoading: Boolean){
-        if (isLoading){
+    fun toggleLoading(isLoading: Boolean) {
+        if (isLoading) {
             progressBarHandler.show()
-        }else{
+        } else {
             progressBarHandler.hide()
         }
     }

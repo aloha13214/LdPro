@@ -1,10 +1,9 @@
-package com.ominext.healthy.common.extension
+package com.fsoc.template.common.extension
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.fsoc.template.R
-
 
 const val THUMBNAIL_SIZE = 128
 
