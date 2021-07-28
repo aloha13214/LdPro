@@ -11,7 +11,36 @@
         <item>1. Chuyển theo tiền</item>
         <item>2. Chuyển theo điểm</item>
     </string-array>
-
+    <string-array name="tra_loi_tn">
+        <item>1. OK tin và nội dung phân tích</item>
+        <item>2. Chỉ Ok tin</item>
+        <item>3. Không trả lời</item>
+        <item>4. Ok tin nguyên mẫu</item>
+        <item>5. Chỉ Ok tin (ngay khi nhận)</item>
+        <item>6. Ok nguyên mẫu</item>
+    </string-array>
+    <string-array name="don_vi_tinh_tien">
+        <item>1. Giữ nguyên giá</item>
+        <item>2. Nhân 10 khi là điểm</item>
+        <item>3. Nhân 10 tất cả xiên</item>
+    </string-array>
+    <string-array name="nhan_chot_tien">
+        <item>1. Chốt tiền trong ngày</item>
+        <item>2. Chốt có công nợ</item>
+    </string-array>
+    <string-array name="bao_loi_don_vi">
+        <item>1. Không báo lỗi sai đơn vị</item>
+        <item>2. Báo lỗi khi sai đơn vị</item>
+    </string-array>
+    <string-array name="khach_de">
+        <item>1. Thường (de = deb, de8 = det)</item>
+        <item>2. Đề 8 (de = det)</item>
+    </string-array>
+    <string-array name="chuyen_de_7_8">
+        <item>1. Giữ nguyên (HS = 1)</item>
+        <item>2. Đề 8 -> 7 (HS = 1,143)</item>
+        <item>3. Đề 7 -> 8 (HS = 0,875)</item>
+    </string-array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="str_ok">OK</string>
@@ -60,5 +89,6 @@
     <string name="str_validate_phone">Nhập sai định dạng số điện thoại</string>
     <string name="str_edit">Sửa</string>
     <string name="message_delete">xóa</string>
+    <string name="str_save">Lưu lại</string>
     <!--End Setting-->
 </resources>

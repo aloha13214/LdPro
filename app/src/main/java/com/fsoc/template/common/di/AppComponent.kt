@@ -3,6 +3,7 @@ package com.fsoc.template.common.di
 import com.fsoc.template.common.di.module.*
 import com.fsoc.template.presentation.main.customer.add.AddCustomerFragment
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment
+import com.fsoc.template.presentation.main.customer.setting.SettingTimeFragment
 import com.fsoc.template.presentation.main.home.HomeFragment
 import com.fsoc.template.presentation.main.login.LoginFragment
 import com.fsoc.template.presentation.main.message.MessageListFragment
@@ -19,4 +20,5 @@ interface AppComponent {
     fun inject(fragment: ListCustomerFragment)
     fun inject(fragment: AddCustomerFragment)
     fun inject(fragment: MessageListFragment)
+    fun inject(fragment: SettingTimeFragment)
 }

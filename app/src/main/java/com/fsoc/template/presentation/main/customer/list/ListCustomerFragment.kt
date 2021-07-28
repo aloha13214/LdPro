@@ -18,23 +18,25 @@ import com.fsoc.template.presentation.base.BaseFragment
 class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCustomerBinding>() {
     private var bottomSheetFragment: BottomSheetFragment? = null
     private val listCustomerAdapter by lazy {
-        ListCustomerAdapter({ idCustomer ->
-            bottomSheetFragment = BottomSheetFragment({
+        ListCustomerAdapter(
+            { idCustomer ->
                 val bundle = Bundle().apply {
                     putSerializable(MODE_KEY, Mode.Edit)
                     putLong(CUSTOMER_ID, idCustomer)
                 }
-                bottomSheetFragment?.dismiss()
-                navigate(R.id.addCustomerFragment, bundle)
-            }) {
-
-                bottomSheetFragment?.dismiss()
-            }
-            bottomSheetFragment?.show(
-                requireActivity().supportFragmentManager,
-                bottomSheetFragment?.tag
-            )
-        }) { customerEntity ->
+                bottomSheetFragment = BottomSheetFragment({
+                    bottomSheetFragment?.dismiss()
+                    navigate(R.id.addCustomerFragment, bundle)
+                })
+                {
+                    bottomSheetFragment?.dismiss()
+                    navigate(R.id.nav_settingTimeFragment, bundle)
+                }
+                bottomSheetFragment?.show(
+                    requireActivity().supportFragmentManager,
+                    bottomSheetFragment?.tag
+                )
+            }) { customerEntity ->
             showConfirmDialog("Bạn có muốn xoá ${customerEntity.customerName} khỏi danh sách hay không?") {
                 viewModel.deleteCustomer(customerEntity)
             }
