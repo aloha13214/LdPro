@@ -21,6 +21,8 @@ import com.fsoc.template.presentation.base.BaseFragment
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment.Companion.CUSTOMER_ID
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment.Companion.MODE_KEY
 import com.fsoc.template.presentation.main.customer.list.Mode
+import com.fsoc.template.presentation.main.message.MessageListFragment
+import com.fsoc.template.presentation.main.message.adapter.MessageModel
 
 enum class CustomerType(val customerType: Int) {
     Guess(0),
@@ -245,6 +247,20 @@ class AddCustomerFragment : BaseFragment<AddCustomerViewModel, FragmentAddCustom
         arguments?.let {
             viewModel.mode.value = it.getSerializable(MODE_KEY) as? Mode
             viewModel.idCustomer = it.getLong(CUSTOMER_ID)
+            viewModel.modelMessage =
+                it.getSerializable(MessageListFragment.KEY_MESSAGE_ADD_CUSTOMER) as? MessageModel
+        }
+
+        if (viewModel.modelMessage != null) {
+            binding.edtCustomerName.apply {
+                isClickable = false
+                setText(viewModel.modelMessage?.title)
+            }
+            binding.edtPhone.apply {
+                isClickable = false
+                setText(viewModel.modelMessage?.title)
+            }
+            binding.btnReadContacts.isClickable = false
         }
     }
 

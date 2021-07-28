@@ -3,11 +3,16 @@ package com.fsoc.template.presentation.main.message.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fsoc.template.common.extension.loadImage
+import com.fsoc.template.common.extension.click
+import com.fsoc.template.common.extension.show
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.databinding.ItemListMessageBinding
 
-class ListMessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ListMessageAdapter(
+    private val onItemAdd: (position: Int) -> Unit,
+    private val onItemDelete: (position: Int) -> Unit
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val lstMessage = arrayListOf<ListMessageEntity>()
 
@@ -34,7 +39,18 @@ class ListMessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             tvName.text = data.title
             tvLastMessage.text = data.lastMessage
 //            imgProfile.loadImage("")
+            tvDelete.click { onItemClick(position) }
+            imgAdd.show(!data.isAdd)
+            imgAdd.click { onClickAdd(position) }
         }
+    }
+
+    private fun onItemClick(position: Int) {
+        onItemDelete.invoke(position)
+    }
+
+    private fun onClickAdd(position: Int) {
+        onItemAdd.invoke(position)
     }
 
     override fun getItemCount(): Int = lstMessage.size
