@@ -90,5 +90,7 @@
     <string name="str_edit">Sửa</string>
     <string name="message_delete">xóa</string>
     <string name="str_save">Lưu lại</string>
+    <string name="str_khong_nhan_de">Nhập khống: \nví dụ: 100 so x 10000 \nđầu 1 x 4000</string>
+    <string name="str_title_khong_nhan_so">BẢNG KHỐNG NHẬN SỐ \n(Tự động trả lại số thừa)</string>
     <!--End Setting-->
 </resources>

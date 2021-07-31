@@ -24,13 +24,16 @@ class ListCustomerFragment : BaseFragment<ListCustomerViewModel, FragmentListCus
                     putSerializable(MODE_KEY, Mode.Edit)
                     putLong(CUSTOMER_ID, idCustomer)
                 }
-                bottomSheetFragment = BottomSheetFragment({
+                bottomSheetFragment = BottomSheetFragment {
                     bottomSheetFragment?.dismiss()
-                    navigate(R.id.addCustomerFragment, bundle)
-                })
-                {
-                    bottomSheetFragment?.dismiss()
-                    navigate(R.id.nav_settingTimeFragment, bundle)
+                    when (it) {
+                        TypeSetting.SettingPrice -> {
+                            navigate(R.id.addCustomerFragment, bundle)
+                        }
+                        TypeSetting.SettingTime -> {
+                            navigate(R.id.nav_settingTimeFragment, bundle)
+                        }
+                    }
                 }
                 bottomSheetFragment?.show(
                     requireActivity().supportFragmentManager,

@@ -1,60 +1,29 @@
-package com.fsoc.template.presentation.main.customer.add
+package com.fsoc.template.presentation.main.customer.setting
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.fsoc.template.common.Resource
-import com.fsoc.template.common.extension.checkRegex
-import com.fsoc.template.common.extension.regexPhone
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.entity.CustomerEntity
 import com.fsoc.template.data.db.entity.SettingTime
 import com.fsoc.template.presentation.base.BaseViewModel
-import com.fsoc.template.presentation.main.customer.list.Mode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
 
-class AddCustomerViewModel @Inject constructor(private val databaseHelper: DatabaseHelper) :
-    BaseViewModel() {
-
+class SettingKhongNhanSoViewModel @Inject constructor(val databaseHelper: DatabaseHelper): BaseViewModel() {
     var settingTime: SettingTime? = null
     var customerEntity: CustomerEntity? = null
     var customerType: Int = 0
-    var mode = MutableLiveData<Mode>(null)
     var idCustomer: Long? = null
-    private var _insertUser = MutableLiveData<Resource<Unit>>()
-    val insertUser: LiveData<Resource<Unit>> = _insertUser
 
     private var _customerIsPicked = MutableLiveData<Resource<CustomerEntity>>()
     var customerIsPicked: LiveData<Resource<CustomerEntity>> = _customerIsPicked
 
     private var _updateCustomer = MutableLiveData<Resource<Unit>>()
     val updateCustomer: LiveData<Resource<Unit>> = _updateCustomer
-
-    fun isAddType(mode: Mode?): Boolean = mode == null || mode == Mode.Add
-
-    fun insertUser(customerEntity: CustomerEntity) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _insertUser.postValue(Resource.loading(null))
-            try {
-                val result = databaseHelper.insertCustomer(customerEntity)
-                _insertUser.postValue(Resource.success(result))
-            } catch (ex: Exception) {
-                _insertUser.postValue(Resource.error(ex.fillInStackTrace(), null))
-            }
-        }
-    }
-
-    fun getUsers() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val users = databaseHelper.getAllCustomer()
-            users.forEach {
-                print("$it \n")
-            }
-        }
-    }
 
     fun findCustomer() {
         val id = idCustomer ?: return
@@ -79,12 +48,5 @@ class AddCustomerViewModel @Inject constructor(private val databaseHelper: Datab
                 _updateCustomer.postValue(Resource.error(ex.fillInStackTrace(), null))
             }
         }
-    }
-
-    fun validateCustomerName(customerName: String): Boolean = customerName.isNotBlank()
-    fun validatePhoneNumber(phone: String) = checkRegex(regexPhone, phone)
-
-    override fun onCleared() {
-        super.onCleared()
     }
 }

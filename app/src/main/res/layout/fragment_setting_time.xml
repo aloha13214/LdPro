@@ -579,6 +579,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/ln_view_max_khong"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/dimen_12dp">
 
@@ -586,36 +587,42 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Đề: Không khống"
+                    android:id="@+id/tv_giu_de"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lô: Không khống"
+                    android:id="@+id/tv_giu_lo"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Xiên 2: 0"
+                    android:id="@+id/tv_giu_xien_2"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Xiên 3: 0"
+                    android:id="@+id/tv_giu_xien_3"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Xiên 4: 0"
+                    android:id="@+id/tv_giu_xien_4"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Càng: 0"
+                    android:id="@+id/tv_giu_3_cang"
                     android:textColor="@color/black" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
