@@ -10,5 +10,4 @@ data class ListMessageEntity(
     @ColumnInfo(name = "lastMessage") var lastMessage: String = "",
     @ColumnInfo(name = "isAdd") var isAdd: Boolean = false,
     @ColumnInfo(name = "time") var time: Long,
-) {
-}
+)

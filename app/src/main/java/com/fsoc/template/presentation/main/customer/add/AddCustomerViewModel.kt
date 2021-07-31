@@ -9,14 +9,18 @@ import com.fsoc.template.common.extension.regexPhone
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.entity.CustomerEntity
 import com.fsoc.template.data.db.entity.SettingTime
+import com.fsoc.template.data.db.helper.message.MessageDatabaseHelper
 import com.fsoc.template.presentation.base.BaseViewModel
 import com.fsoc.template.presentation.main.customer.list.Mode
+import com.fsoc.template.presentation.main.message.adapter.MessageModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import javax.inject.Inject
 
-class AddCustomerViewModel @Inject constructor(private val databaseHelper: DatabaseHelper) :
+class AddCustomerViewModel @Inject constructor(
+    private val databaseHelper: DatabaseHelper,
+    private val messageDatabaseHelper: MessageDatabaseHelper
+) :
     BaseViewModel() {
 
     var settingTime: SettingTime? = null
@@ -24,6 +28,7 @@ class AddCustomerViewModel @Inject constructor(private val databaseHelper: Datab
     var customerType: Int = 0
     var mode = MutableLiveData<Mode>(null)
     var idCustomer: Long? = null
+    var modelMessage: MessageModel? = null
     private var _insertUser = MutableLiveData<Resource<Unit>>()
     val insertUser: LiveData<Resource<Unit>> = _insertUser
 
@@ -39,6 +44,9 @@ class AddCustomerViewModel @Inject constructor(private val databaseHelper: Datab
         viewModelScope.launch(Dispatchers.IO) {
             _insertUser.postValue(Resource.loading(null))
             try {
+                if (modelMessage != null) messageDatabaseHelper.updateListMessage(
+                    MessageModel.convertEntity(modelMessage)
+                )
                 val result = databaseHelper.insertCustomer(customerEntity)
                 _insertUser.postValue(Resource.success(result))
             } catch (ex: Exception) {
@@ -70,12 +78,12 @@ class AddCustomerViewModel @Inject constructor(private val databaseHelper: Datab
     }
 
     fun updateCustomer(customerEntity: CustomerEntity) {
-        viewModelScope.launch (Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 _updateCustomer.postValue(Resource.loading(null))
                 val result = databaseHelper.updateCustomer(customerEntity)
                 _updateCustomer.postValue(Resource.success(result))
-            }catch (ex: Exception) {
+            } catch (ex: Exception) {
                 _updateCustomer.postValue(Resource.error(ex.fillInStackTrace(), null))
             }
         }
