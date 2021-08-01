@@ -1,25 +1,10 @@
 package com.fsoc.template.presentation.base
 
-import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.*
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.fsoc.template.R
-import com.fsoc.template.common.extension.postEvent
-import com.fsoc.template.common.extension.registerEventBus
-import com.fsoc.template.common.extension.unregisterEventBus
-import com.fsoc.template.common.preferences.SharedPrefsHelper
-import com.fsoc.template.domain.entity.setting.*
-import com.fsoc.template.presentation.evenbus.MessageEvenBus
-import com.fsoc.template.presentation.main.message.adapter.MessageModel
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 abstract class BaseActivity<L : ViewBinding> : AppCompatActivity() {
 

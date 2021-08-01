@@ -9,17 +9,17 @@ import com.fsoc.template.common.extension.regexPhone
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.entity.CustomerEntity
 import com.fsoc.template.data.db.entity.SettingTime
-import com.fsoc.template.data.db.helper.message.MessageDatabaseHelper
+import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import com.fsoc.template.presentation.base.BaseViewModel
 import com.fsoc.template.presentation.main.customer.list.Mode
-import com.fsoc.template.presentation.main.message.adapter.MessageModel
+import com.fsoc.template.presentation.main.message.list.adapter.MessageModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddCustomerViewModel @Inject constructor(
     private val databaseHelper: DatabaseHelper,
-    private val messageDatabaseHelper: MessageDatabaseHelper
+    private val messageDatabaseHelper: MessagesDatabaseHelper
 ) :
     BaseViewModel() {
 

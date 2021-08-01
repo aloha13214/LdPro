@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingVertical="10dp"
+    android:paddingLeft="60dp"
+    android:paddingRight="15dp"
+    tools:ignore="RtlHardcoded">
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/my_message"
+        android:elevation="@dimen/dimen_2dp"
+        android:padding="10dp"
+        android:textColor="#fff"
+        android:textSize="@dimen/dimen_18dp"
+        tools:ignore="SpUsage,UnusedAttribute"
+        tools:text="Placeholder message" />
+
+</RelativeLayout>

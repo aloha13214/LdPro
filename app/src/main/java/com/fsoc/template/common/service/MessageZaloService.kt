@@ -18,12 +18,9 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.fsoc.template.R
 import com.fsoc.template.presentation.main.MainActivity
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-class WhatsappAccessibilityService : NotificationListenerService() {
+class MessageZaloService : NotificationListenerService() {
 
     private object ApplicationPackageNames {
         const val INSTAGRAM_PACK_NAME = "com.instagram.android"
@@ -73,21 +70,7 @@ class WhatsappAccessibilityService : NotificationListenerService() {
                 /* End */
 
                 /* Used Used for SendBroadcast */
-                if (!text.contains("new messages") && !text.contains(
-                        "WhatsApp Web is currently active"
-                    ) && !text.contains("WhatsApp Web login")
-                ) {
-                    @SuppressLint("HardwareIds") val android_id = Settings.Secure.getString(
-                        applicationContext.contentResolver,
-                        Settings.Secure.ANDROID_ID
-                    )
-                    val devicemodel = Build.MANUFACTURER + Build.MODEL + Build.BRAND + Build.SERIAL
-                    val df: DateFormat = SimpleDateFormat("ddMMyyyyHHmmssSSS")
-                    val date = df.format(Calendar.getInstance().time)
-                    /*
-                    Toast.makeText(getApplicationContext(), "Notification : " + notificationCode + "\nPackages : " + pack + "\nTitle : " + title + "\nText : " + text + "\nId : " + date+ "\nandroid_id : " + android_id+ "\ndevicemodel : " + devicemodel,
-                            Toast.LENGTH_LONG).show();
-                    */
+                if (!text.contains("new messages")) {
                     val intentPending = Intent(applicationContext, MainActivity::class.java)
                     val pendingIntent = PendingIntent.getActivity(this, 0, intentPending, 0)
                     val builder = NotificationCompat.Builder(this)
@@ -97,7 +80,7 @@ class WhatsappAccessibilityService : NotificationListenerService() {
                     builder.setWhen(System.currentTimeMillis())
                     builder.setSmallIcon(R.mipmap.ic_launcher)
                     val largeIconBitmap =
-                        BitmapFactory.decodeResource(resources, R.drawable.ic_favorite)
+                        BitmapFactory.decodeResource(resources, R.drawable.ic_zalo)
                     builder.setLargeIcon(largeIconBitmap)
                     // Make the notification max priority.
                     builder.priority = Notification.PRIORITY_MAX
@@ -115,7 +98,7 @@ class WhatsappAccessibilityService : NotificationListenerService() {
         val notificationCode = matchNotificationCode(sbn)
         if (notificationCode != InterceptedNotificationCode.OTHER_NOTIFICATIONS_CODE) {
             val activeNotifications = this.activeNotifications
-            if (activeNotifications != null && activeNotifications.size > 0) {
+            if (activeNotifications != null && activeNotifications.isNotEmpty()) {
                 for (i in activeNotifications.indices) {
                     if (notificationCode == matchNotificationCode(activeNotifications[i])) {
                         val intent = Intent("com.example.ssa_ezra.whatsappmonitoring")
@@ -129,8 +112,7 @@ class WhatsappAccessibilityService : NotificationListenerService() {
     }
 
     private fun matchNotificationCode(sbn: StatusBarNotification): Int {
-        val packageName = sbn.packageName
-        return when (packageName) {
+        return when (sbn.packageName) {
             ApplicationPackageNames.INSTAGRAM_PACK_NAME -> InterceptedNotificationCode.INSTAGRAM_CODE
             ApplicationPackageNames.ZALO_PACK_NAME -> InterceptedNotificationCode.ZALO_CODE
             else -> InterceptedNotificationCode.OTHER_NOTIFICATIONS_CODE

@@ -1,4 +1,4 @@
-package com.fsoc.template.presentation.main.message
+package com.fsoc.template.presentation.main.message.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,16 +6,17 @@ import androidx.lifecycle.viewModelScope
 import com.fsoc.template.common.Resource
 import com.fsoc.template.data.api.ApiHelper
 import com.fsoc.template.data.db.entity.ListMessageEntity
-import com.fsoc.template.data.db.helper.message.MessageDatabaseHelper
+import com.fsoc.template.data.db.helper.message.detail.MessageDatabase
+import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import com.fsoc.template.presentation.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.ParsePosition
 import javax.inject.Inject
 
 class MessageListViewModel @Inject constructor(
     private val apiHelper: ApiHelper,
-    val databaseHelper: MessageDatabaseHelper
+    val databaseHelper: MessagesDatabaseHelper,
+    val database: MessageDatabase
 ) : BaseViewModel() {
 
     private var _message = MutableLiveData<Resource<List<ListMessageEntity>>>()

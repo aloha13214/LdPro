@@ -1,11 +1,11 @@
-package com.fsoc.template.data.db.helper.message
+package com.fsoc.template.data.db.helper.message.list
 
 import com.fsoc.template.data.db.entity.ListMessageEntity
 
-interface MessageDatabaseHelper {
+interface MessagesDatabaseHelper {
     suspend fun insertMessages(listMessageEntity: ListMessageEntity)
     suspend fun getAllListMessage(): List<ListMessageEntity>
-    suspend fun getListMessageById(title: String): ListMessageEntity
+    suspend fun getListMessageById(id: Int): ListMessageEntity
     suspend fun deleteListMessage(listMessageEntity: ListMessageEntity)
     suspend fun updateListMessage(listMessageEntity: ListMessageEntity)
 }

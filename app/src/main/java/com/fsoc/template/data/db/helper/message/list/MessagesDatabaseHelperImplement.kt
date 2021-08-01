@@ -1,10 +1,10 @@
-package com.fsoc.template.data.db.helper.message
+package com.fsoc.template.data.db.helper.message.list
 
 import com.fsoc.template.data.db.AppDatabase
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import javax.inject.Inject
 
-class MessageDatabaseHelperImplement @Inject constructor() : MessageDatabaseHelper {
+class MessagesDatabaseHelperImplement @Inject constructor() : MessagesDatabaseHelper {
     @Inject
     lateinit var database: AppDatabase
     override suspend fun insertMessages(listMessageEntity: ListMessageEntity) {
@@ -15,8 +15,8 @@ class MessageDatabaseHelperImplement @Inject constructor() : MessageDatabaseHelp
         return database.listMessageDao().getAllListMessage()
     }
 
-    override suspend fun getListMessageById(title: String): ListMessageEntity {
-        return database.listMessageDao().getMessageById(title)
+    override suspend fun getListMessageById(id: Int): ListMessageEntity {
+        return database.listMessageDao().getMessageById(id)
     }
 
     override suspend fun deleteListMessage(listMessageEntity: ListMessageEntity) {

@@ -1,4 +1,4 @@
-package com.fsoc.template.presentation.main.message
+package com.fsoc.template.presentation.main.message.list
 
 import android.content.Intent
 import android.content.IntentFilter
@@ -12,6 +12,7 @@ import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
 import com.fsoc.template.common.extension.observe
+import com.fsoc.template.common.extension.showConfirmDialog
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.common.service.ReceiveBroadcastReceiver
 import com.fsoc.template.data.db.entity.ListMessageEntity
@@ -19,12 +20,13 @@ import com.fsoc.template.databinding.FragmentMessageBinding
 import com.fsoc.template.presentation.base.BaseFragment
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment
 import com.fsoc.template.presentation.main.customer.list.Mode
-import com.fsoc.template.presentation.main.message.adapter.ListMessageAdapter
-import com.fsoc.template.presentation.main.message.adapter.MessageModel
+import com.fsoc.template.presentation.main.message.list.adapter.ListMessageAdapter
+import com.fsoc.template.presentation.main.message.list.adapter.MessageModel
 
 class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBinding>() {
     companion object {
         const val KEY_MESSAGE_ADD_CUSTOMER = "KEY_MESSAGE_ADD_CUSTOMER"
+        const val KEY_MESSAGE_DETAIL = "KEY_MESSAGE_DETAIL"
     }
 
     private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
@@ -70,7 +72,10 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
             Status.SUCCESS -> {
                 showLoading(false)
                 resource.data?.let {
-                    listMessageAdapter.setData(it.toCollection(arrayListOf()))
+                    val tmp = it.toCollection(arrayListOf())
+                    tmp.sortBy { obj -> obj.time }
+                    tmp.reverse()
+                    listMessageAdapter.setData(tmp)
                 } ?: run {}
             }
         }
@@ -83,6 +88,7 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
 
     override fun setUpView() {
         listMessageAdapter = ListMessageAdapter(
+            this@MessageListFragment::onItemClick,
             this@MessageListFragment::onItemAdd,
             this@MessageListFragment::onItemDelete
         )
@@ -102,9 +108,10 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
             }
         }
 
-        imageChangeBroadcastReceiver = ReceiveBroadcastReceiver(viewModel.databaseHelper) { db ->
-            viewModel.getAllListMessage()
-        }
+        imageChangeBroadcastReceiver =
+            ReceiveBroadcastReceiver(viewModel.databaseHelper, viewModel.database) { db ->
+                viewModel.getAllListMessage()
+            }
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
@@ -122,7 +129,17 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
     }
 
     private fun onItemDelete(position: Int) {
-        viewModel.removeListMessage(position)
+        val name = viewModel.getListMessage().value?.data?.get(position)?.title
+        showConfirmDialog("Bạn có muốn xoá $name khỏi danh sách hay không?") {
+            viewModel.removeListMessage(position)
+        }
+    }
+
+    private fun onItemClick(listMessageEntity: ListMessageEntity) {
+        val bundle = Bundle().apply {
+            putSerializable(KEY_MESSAGE_DETAIL, MessageModel.convertModel(listMessageEntity))
+        }
+        navigate(R.id.detailMessageFragment, bundle)
     }
 
     override fun fireData() {

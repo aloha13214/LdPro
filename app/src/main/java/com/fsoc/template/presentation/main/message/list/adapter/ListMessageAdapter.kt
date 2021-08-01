@@ -1,4 +1,4 @@
-package com.fsoc.template.presentation.main.message.adapter
+package com.fsoc.template.presentation.main.message.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,6 +9,7 @@ import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.databinding.ItemListMessageBinding
 
 class ListMessageAdapter(
+    private val onItemClick: (listMessageEntity: ListMessageEntity) -> Unit,
     private val onItemAdd: (position: Int) -> Unit,
     private val onItemDelete: (position: Int) -> Unit
 ) :
@@ -21,8 +22,6 @@ class ListMessageAdapter(
         lstMessage.addAll(list)
         notifyDataSetChanged()
     }
-
-    fun getData() = lstMessage
 
     inner class ListMessageViewHolder(val binding: ItemListMessageBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -42,6 +41,7 @@ class ListMessageAdapter(
             tvDelete.click { onItemClick(position) }
             imgAdd.show(!data.isAdd)
             imgAdd.click { onClickAdd(position) }
+            this.root.click { onClickItem(position) }
         }
     }
 
@@ -51,6 +51,10 @@ class ListMessageAdapter(
 
     private fun onClickAdd(position: Int) {
         onItemAdd.invoke(position)
+    }
+
+    private fun onClickItem(position: Int) {
+        onItemClick.invoke(lstMessage[position])
     }
 
     override fun getItemCount(): Int = lstMessage.size

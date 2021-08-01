@@ -21,8 +21,8 @@ import com.fsoc.template.presentation.base.BaseFragment
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment.Companion.CUSTOMER_ID
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment.Companion.MODE_KEY
 import com.fsoc.template.presentation.main.customer.list.Mode
-import com.fsoc.template.presentation.main.message.MessageListFragment
-import com.fsoc.template.presentation.main.message.adapter.MessageModel
+import com.fsoc.template.presentation.main.message.list.MessageListFragment
+import com.fsoc.template.presentation.main.message.list.adapter.MessageModel
 
 enum class CustomerType(val customerType: Int) {
     Guess(0),
