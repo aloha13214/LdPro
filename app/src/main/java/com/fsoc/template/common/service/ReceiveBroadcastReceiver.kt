@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.fsoc.template.R
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.data.db.helper.message.detail.MessageDatabase
@@ -29,12 +30,11 @@ class ReceiveBroadcastReceiver(
         val text = intent.getStringExtra("text")
         val id = intent.getIntExtra("id", 0)
         if (text != null) {
-
-            if (!text.contains("new messages") ) {
+            if (isCheck(context, text)) {
                 main(
                     ListMessageEntity(
                         id,
-                        title ?: "",
+                        title?.replace(getTextReplace(context, title), "") ?: "",
                         text,
                         false,
                         Calendar.getInstance().time.time
@@ -42,6 +42,29 @@ class ReceiveBroadcastReceiver(
                 )
             }
         }
+    }
+
+    private fun isCheck(context: Context, text: String): Boolean {
+        val lst = context.resources.getStringArray(R.array.message).toCollection(arrayListOf())
+        var isCheck = true
+        lst.forEach {
+            if (text.contains(it)) {
+                isCheck = false
+                return@forEach
+            }
+        }
+        return isCheck
+    }
+
+    private fun getTextReplace(context: Context, title: String?): String {
+        val tmp = context.resources.getStringArray(R.array.tin_nhan).toCollection(arrayListOf())
+        var replace = ""
+        tmp.forEach {
+            if (title?.contains(it) == true) {
+                replace = it
+            }
+        }
+        return replace
     }
 
     fun main(listMessageEntity: ListMessageEntity) = runBlocking<Unit> {

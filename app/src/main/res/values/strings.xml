@@ -46,6 +46,7 @@
 
     <string-array name="message">
         <item>tin nhắn chưa đọc.</item>
+        <item>new messages</item>
         <item>đã gửi tập tin cho bạn"</item>
         <item>cảm xúc với tin nhắn bạn gửi</item>
         <item>hình động cho bạn</item>
@@ -53,6 +54,24 @@
         <item>thêm vào nhóm</item>
         <item>gửi ảnh cho bạn</item>
         <item>cuộc trò chuyện</item>
+    </string-array>
+
+    <string-array name="tin_nhan">
+        <item> (1 tin nhắn)</item>
+        <item> (2 tin nhắn)</item>
+        <item> (3 tin nhắn)</item>
+        <item> (4 tin nhắn)</item>
+        <item> (5 tin nhắn)</item>
+        <item> (6 tin nhắn)</item>
+        <item> (7 tin nhắn)</item>
+        <item> (8 tin nhắn)</item>
+        <item> (9 tin nhắn)</item>
+        <item> (10 tin nhắn)</item>
+        <item> (11 tin nhắn)</item>
+        <item> (12 tin nhắn)</item>
+        <item> (13 tin nhắn)</item>
+        <item> (14 tin nhắn)</item>
+        <item> (15 tin nhắn)</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

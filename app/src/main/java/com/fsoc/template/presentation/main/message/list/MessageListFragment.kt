@@ -117,21 +117,19 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
     }
 
-    private fun onItemAdd(position: Int) {
-        val name = viewModel.getListMessage().value?.data?.get(position)
+    private fun onItemAdd(listMessageEntity: ListMessageEntity) {
         val bundle = Bundle().apply {
             putSerializable(ListCustomerFragment.MODE_KEY, Mode.Add)
-            putSerializable(KEY_MESSAGE_ADD_CUSTOMER, MessageModel.convertModel(name).apply {
+            putSerializable(KEY_MESSAGE_ADD_CUSTOMER, MessageModel.convertModel(listMessageEntity).apply {
                 this.isAdd = true
             })
         }
         navigate(R.id.addCustomerFragment, bundle)
     }
 
-    private fun onItemDelete(position: Int) {
-        val name = viewModel.getListMessage().value?.data?.get(position)?.title
-        showConfirmDialog("Bạn có muốn xoá $name khỏi danh sách hay không?") {
-            viewModel.removeListMessage(position)
+    private fun onItemDelete(listMessageEntity: ListMessageEntity) {
+        showConfirmDialog("Bạn có muốn xoá ${listMessageEntity.title} khỏi danh sách hay không?") {
+            viewModel.removeListMessage(listMessageEntity)
         }
     }
 

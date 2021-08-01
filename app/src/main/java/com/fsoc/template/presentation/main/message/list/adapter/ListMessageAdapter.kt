@@ -10,8 +10,8 @@ import com.fsoc.template.databinding.ItemListMessageBinding
 
 class ListMessageAdapter(
     private val onItemClick: (listMessageEntity: ListMessageEntity) -> Unit,
-    private val onItemAdd: (position: Int) -> Unit,
-    private val onItemDelete: (position: Int) -> Unit
+    private val onItemAdd: (listMessageEntity: ListMessageEntity) -> Unit,
+    private val onItemDelete: (listMessageEntity: ListMessageEntity) -> Unit
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -46,11 +46,11 @@ class ListMessageAdapter(
     }
 
     private fun onItemClick(position: Int) {
-        onItemDelete.invoke(position)
+        onItemDelete.invoke(lstMessage[position])
     }
 
     private fun onClickAdd(position: Int) {
-        onItemAdd.invoke(position)
+        onItemAdd.invoke(lstMessage[position])
     }
 
     private fun onClickItem(position: Int) {

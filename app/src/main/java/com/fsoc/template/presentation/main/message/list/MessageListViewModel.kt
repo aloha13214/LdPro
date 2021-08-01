@@ -38,12 +38,12 @@ class MessageListViewModel @Inject constructor(
 
     fun removeMessage(): LiveData<Resource<Unit>> = _isDelete
 
-    fun removeListMessage(position: Int) {
-        val listMessageEntity = _message.value?.data?.get(position)
+    fun removeListMessage(listMessageEntity: ListMessageEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             _isDelete.postValue(Resource.loading(null))
             try {
-                val result = listMessageEntity?.let { databaseHelper.deleteListMessage(it) }
+                val result = listMessageEntity.let { databaseHelper.deleteListMessage(it) }
+                database.deleteMessage(database.getAllMessage(listMessageEntity.id))
                 _isDelete.postValue(Resource.success(result))
             } catch (ex: Exception) {
                 _isDelete.postValue(Resource.error(ex.fillInStackTrace(), null))
