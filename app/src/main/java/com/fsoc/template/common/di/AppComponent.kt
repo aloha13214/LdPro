@@ -7,7 +7,8 @@ import com.fsoc.template.presentation.main.customer.setting.SettingKhongNhanSoFr
 import com.fsoc.template.presentation.main.customer.setting.SettingTimeFragment
 import com.fsoc.template.presentation.main.home.HomeFragment
 import com.fsoc.template.presentation.main.login.LoginFragment
-import com.fsoc.template.presentation.main.message.MessageListFragment
+import com.fsoc.template.presentation.main.message.detail.MessageFragment
+import com.fsoc.template.presentation.main.message.list.MessageListFragment
 import com.fsoc.template.presentation.main.setting.SettingFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -21,6 +22,7 @@ interface AppComponent {
     fun inject(fragment: ListCustomerFragment)
     fun inject(fragment: AddCustomerFragment)
     fun inject(fragment: MessageListFragment)
+    fun inject(fragment: MessageFragment)
     fun inject(fragment: SettingTimeFragment)
     fun inject(fragment: SettingKhongNhanSoFragment)
 }

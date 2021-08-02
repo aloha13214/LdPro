@@ -10,7 +10,8 @@ import com.fsoc.template.presentation.main.customer.list.ListCustomerViewModel
 import com.fsoc.template.presentation.main.customer.setting.SettingKhongNhanSoViewModel
 import com.fsoc.template.presentation.main.home.HomeViewModel
 import com.fsoc.template.presentation.main.login.LoginViewModel
-import com.fsoc.template.presentation.main.message.MessageListViewModel
+import com.fsoc.template.presentation.main.message.detail.MessagesViewModel
+import com.fsoc.template.presentation.main.message.list.MessageListViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -57,4 +58,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingKhongNhanSoViewModel::class)
     abstract fun bindSettingKhongNhanSoViewModel(viewModel: SettingKhongNhanSoViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessagesViewModel::class)
+    abstract fun bindMessageFragmentViewModel(viewModel: MessagesViewModel): ViewModel
 }

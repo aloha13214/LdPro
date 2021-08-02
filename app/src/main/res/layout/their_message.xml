@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingVertical="@dimen/dimen_11dp"
+    android:paddingLeft="@dimen/dimen_12dp"
+    android:paddingRight="@dimen/dimen_60dp"
+    tools:ignore="RtlHardcoded">
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/their_message"
+        android:elevation="@dimen/dimen_2dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:textSize="18sp"
+        tools:ignore="UnusedAttribute"
+        tools:text="How are you doing? This is a long message that should probably wrap." />
+</RelativeLayout>
