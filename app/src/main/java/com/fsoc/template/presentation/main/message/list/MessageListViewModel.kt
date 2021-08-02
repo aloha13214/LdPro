@@ -1,4 +1,4 @@
-package com.fsoc.template.presentation.main.message
+package com.fsoc.template.presentation.main.message.list
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,16 +6,17 @@ import androidx.lifecycle.viewModelScope
 import com.fsoc.template.common.Resource
 import com.fsoc.template.data.api.ApiHelper
 import com.fsoc.template.data.db.entity.ListMessageEntity
-import com.fsoc.template.data.db.helper.message.MessageDatabaseHelper
+import com.fsoc.template.data.db.helper.message.detail.ChatDatabaseHelper
+import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import com.fsoc.template.presentation.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.text.ParsePosition
 import javax.inject.Inject
 
 class MessageListViewModel @Inject constructor(
     private val apiHelper: ApiHelper,
-    val databaseHelper: MessageDatabaseHelper
+    val databaseHelper: MessagesDatabaseHelper,
+    val chatDatabaseHelper: ChatDatabaseHelper
 ) : BaseViewModel() {
 
     private var _message = MutableLiveData<Resource<List<ListMessageEntity>>>()
@@ -37,12 +38,12 @@ class MessageListViewModel @Inject constructor(
 
     fun removeMessage(): LiveData<Resource<Unit>> = _isDelete
 
-    fun removeListMessage(position: Int) {
-        val listMessageEntity = _message.value?.data?.get(position)
+    fun removeListMessage(listMessageEntity: ListMessageEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             _isDelete.postValue(Resource.loading(null))
             try {
-                val result = listMessageEntity?.let { databaseHelper.deleteListMessage(it) }
+                val result = listMessageEntity.let { databaseHelper.deleteListMessage(it) }
+                chatDatabaseHelper.deleteMessage(chatDatabaseHelper.getAllMessage(listMessageEntity.id))
                 _isDelete.postValue(Resource.success(result))
             } catch (ex: Exception) {
                 _isDelete.postValue(Resource.error(ex.fillInStackTrace(), null))

@@ -4,8 +4,10 @@ import com.fsoc.template.data.api.ApiHelper
 import com.fsoc.template.data.api.ApiHelperImplement
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.DatabaseHelperImplement
-import com.fsoc.template.data.db.helper.message.MessageDatabaseHelper
-import com.fsoc.template.data.db.helper.message.MessageDatabaseHelperImplement
+import com.fsoc.template.data.db.helper.message.detail.ChatDatabaseHelper
+import com.fsoc.template.data.db.helper.message.detail.MessagesDatabaseImplement
+import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
+import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelperImplement
 import com.fsoc.template.data.repository.BaseRepoImpl
 import com.fsoc.template.domain.repository.BaseRepo
 import dagger.Module
@@ -35,7 +37,13 @@ class RepoModule() {
 
     @Provides
     @Singleton
-    fun provideMessageDatabaseHelper(MessageDatabaseHelperImplement: MessageDatabaseHelperImplement): MessageDatabaseHelper {
+    fun provideMessageDatabaseHelper(MessageDatabaseHelperImplement: MessagesDatabaseHelperImplement): MessagesDatabaseHelper {
         return MessageDatabaseHelperImplement
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessagesDatabaseHelper(MessageDatabaseImplement: MessagesDatabaseImplement): ChatDatabaseHelper {
+        return MessageDatabaseImplement
     }
 }

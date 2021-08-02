@@ -16,7 +16,7 @@ import com.fsoc.template.databinding.FragmentHomeBinding
 import com.fsoc.template.presentation.base.BaseFragment
 
 
-class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
 
@@ -31,7 +31,7 @@ class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun observeListTodos(resource: Resource<List<Todo>>) {
-        when(resource.status){
+        when (resource.status) {
             Status.LOADING -> {
                 showLoading(true)
             }
@@ -49,7 +49,8 @@ class HomeFragment: BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override fun setUpView() {
         binding.imeiDevice.text = getIMEI()
 
-        imageChangeBroadcastReceiver = ReceiveBroadcastReceiver(viewModel.databaseHelperMessage){}
+        imageChangeBroadcastReceiver =
+            ReceiveBroadcastReceiver(viewModel.databaseHelperMessage, viewModel.database) {}
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)

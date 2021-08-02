@@ -26,9 +26,14 @@
         android:id="@+id/addCustomerFragment"
         android:name="com.fsoc.template.presentation.main.customer.add.AddCustomerFragment"
         android:label="Thêm khách hàng" />
+
+    <fragment
+        android:id="@+id/detailMessageFragment"
+        android:name="com.fsoc.template.presentation.main.message.detail.MessageFragment"
+        android:label="Chat" />
     <fragment
         android:id="@+id/nav_listMessage"
-        android:name="com.fsoc.template.presentation.main.message.MessageListFragment"
+        android:name="com.fsoc.template.presentation.main.message.list.MessageListFragment"
         android:label="Quản lý tin nhắn" />
     <fragment
         android:id="@+id/nav_settingTimeFragment"

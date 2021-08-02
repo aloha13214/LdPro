@@ -1,9 +1,10 @@
-package com.fsoc.template.presentation.main.message.adapter
+package com.fsoc.template.presentation.main.message.list.adapter
 
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import java.io.Serializable
 
 data class MessageModel(
+    var id: Int,
     var title: String,
     var lastMessage: String,
     var isAdd: Boolean,
@@ -12,6 +13,7 @@ data class MessageModel(
     companion object {
         fun convertModel(entity: ListMessageEntity?): MessageModel {
             return MessageModel(
+                entity?.id ?: 0,
                 entity?.title ?: "",
                 entity?.lastMessage ?: "",
                 entity?.isAdd ?: false,
@@ -21,6 +23,7 @@ data class MessageModel(
 
         fun convertEntity(model: MessageModel?): ListMessageEntity {
             return ListMessageEntity(
+                model?.id ?: 0,
                 model?.title ?: "",
                 model?.lastMessage ?: "",
                 model?.isAdd ?: false,

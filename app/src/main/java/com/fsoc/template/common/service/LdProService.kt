@@ -12,7 +12,7 @@ import androidx.core.app.NotificationCompat
 import com.fsoc.template.R
 import com.fsoc.template.presentation.main.MainActivity
 
-class MyForeGroundService : Service() {
+class LdProService : Service() {
     override fun onBind(intent: Intent): IBinder? {
         throw UnsupportedOperationException("Not yet implemented")
     }
@@ -67,9 +67,9 @@ class MyForeGroundService : Service() {
 
         // Create notification builder.
         val builder =
-            NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Music player implemented by foreground service.")
-                .setContentText("Android foreground service is a android service which can run in foreground always, it can be controlled by user via notification.")
+            NotificationCompat.Builder(this).setSmallIcon(R.drawable.ic_zalo)
+                .setContentTitle(getString(R.string.title_service))
+                .setContentText(getString(R.string.content_service))
         builder.setWhen(System.currentTimeMillis())
         builder.setSmallIcon(R.mipmap.ic_launcher)
         val largeIconBitmap = BitmapFactory.decodeResource(resources, R.drawable.ic_favorite)
@@ -80,7 +80,7 @@ class MyForeGroundService : Service() {
         builder.setFullScreenIntent(pendingIntent, true)
 
         // Add Play button intent in notification.
-        val playIntent = Intent(this, MyForeGroundService::class.java)
+        val playIntent = Intent(this, LdProService::class.java)
         playIntent.action = ACTION_PLAY
         val pendingPlayIntent = PendingIntent.getService(this, 0, playIntent, 0)
         val playAction =
@@ -88,7 +88,7 @@ class MyForeGroundService : Service() {
         builder.addAction(playAction)
 
         // Add Pause button intent in notification.
-        val pauseIntent = Intent(this, MyForeGroundService::class.java)
+        val pauseIntent = Intent(this, LdProService::class.java)
         pauseIntent.action = ACTION_PAUSE
         val pendingPrevIntent = PendingIntent.getService(this, 0, pauseIntent, 0)
         val prevAction =
