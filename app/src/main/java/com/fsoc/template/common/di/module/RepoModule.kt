@@ -4,7 +4,7 @@ import com.fsoc.template.data.api.ApiHelper
 import com.fsoc.template.data.api.ApiHelperImplement
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.DatabaseHelperImplement
-import com.fsoc.template.data.db.helper.message.detail.MessageDatabase
+import com.fsoc.template.data.db.helper.message.detail.ChatDatabaseHelper
 import com.fsoc.template.data.db.helper.message.detail.MessagesDatabaseImplement
 import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelperImplement
@@ -43,7 +43,7 @@ class RepoModule() {
 
     @Provides
     @Singleton
-    fun provideMessagesDatabaseHelper(MessageDatabaseImplement: MessagesDatabaseImplement): MessageDatabase {
+    fun provideMessagesDatabaseHelper(MessageDatabaseImplement: MessagesDatabaseImplement): ChatDatabaseHelper {
         return MessageDatabaseImplement
     }
 }

@@ -20,7 +20,7 @@ import com.fsoc.template.R
 import com.fsoc.template.presentation.main.MainActivity
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-class MessageZaloService : NotificationListenerService() {
+class MessageService : NotificationListenerService() {
 
     private object ApplicationPackageNames {
         const val INSTAGRAM_PACK_NAME = "com.instagram.android"

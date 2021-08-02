@@ -4,7 +4,7 @@ import com.fsoc.template.data.db.AppDatabase
 import com.fsoc.template.data.db.entity.MessageEntity
 import javax.inject.Inject
 
-class MessagesDatabaseImplement @Inject constructor() : MessageDatabase {
+class MessagesDatabaseImplement @Inject constructor() : ChatDatabaseHelper {
     @Inject
     lateinit var database: AppDatabase
     override suspend fun insertMessages(listMessageEntity: MessageEntity) {

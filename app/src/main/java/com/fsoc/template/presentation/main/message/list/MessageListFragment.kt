@@ -109,7 +109,7 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
         }
 
         imageChangeBroadcastReceiver =
-            ReceiveBroadcastReceiver(viewModel.databaseHelper, viewModel.database) { db ->
+            ReceiveBroadcastReceiver(viewModel.databaseHelper, viewModel.chatDatabaseHelper) { db ->
                 viewModel.getAllListMessage()
             }
         val intentFilter = IntentFilter()

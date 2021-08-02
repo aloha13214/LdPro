@@ -8,7 +8,7 @@ import com.fsoc.template.data.api.ApiHelper
 import com.fsoc.template.data.api.entity.Todo
 import com.fsoc.template.data.db.DatabaseHelper
 import com.fsoc.template.data.db.entity.UserEntity
-import com.fsoc.template.data.db.helper.message.detail.MessageDatabase
+import com.fsoc.template.data.db.helper.message.detail.ChatDatabaseHelper
 import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import com.fsoc.template.presentation.base.BaseViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     private val apiHelper: ApiHelper,
     private val databaseHelper: DatabaseHelper,
     val databaseHelperMessage: MessagesDatabaseHelper,
-    val database: MessageDatabase
+    val database: ChatDatabaseHelper
 ) : BaseViewModel() {
 
     private val listTodo = MutableLiveData<Resource<List<Todo>>>()

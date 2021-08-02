@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.fsoc.template.common.Resource
 import com.fsoc.template.data.api.ApiHelper
 import com.fsoc.template.data.db.entity.ListMessageEntity
-import com.fsoc.template.data.db.helper.message.detail.MessageDatabase
+import com.fsoc.template.data.db.helper.message.detail.ChatDatabaseHelper
 import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import com.fsoc.template.presentation.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MessageListViewModel @Inject constructor(
     private val apiHelper: ApiHelper,
     val databaseHelper: MessagesDatabaseHelper,
-    val database: MessageDatabase
+    val chatDatabaseHelper: ChatDatabaseHelper
 ) : BaseViewModel() {
 
     private var _message = MutableLiveData<Resource<List<ListMessageEntity>>>()
@@ -43,7 +43,7 @@ class MessageListViewModel @Inject constructor(
             _isDelete.postValue(Resource.loading(null))
             try {
                 val result = listMessageEntity.let { databaseHelper.deleteListMessage(it) }
-                database.deleteMessage(database.getAllMessage(listMessageEntity.id))
+                chatDatabaseHelper.deleteMessage(chatDatabaseHelper.getAllMessage(listMessageEntity.id))
                 _isDelete.postValue(Resource.success(result))
             } catch (ex: Exception) {
                 _isDelete.postValue(Resource.error(ex.fillInStackTrace(), null))

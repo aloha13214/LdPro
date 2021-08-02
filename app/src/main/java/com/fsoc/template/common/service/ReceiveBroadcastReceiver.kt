@@ -7,20 +7,19 @@ import android.content.Intent
 import com.fsoc.template.R
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.data.db.entity.MessageEntity
-import com.fsoc.template.data.db.helper.message.detail.MessageDatabase
+import com.fsoc.template.data.db.helper.message.detail.ChatDatabaseHelper
 import com.fsoc.template.data.db.helper.message.list.MessagesDatabaseHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
-
 /**
  * Receive Broadcast Receiver.
  */
 class ReceiveBroadcastReceiver(
     val databaseHelper: MessagesDatabaseHelper,
-    val database: MessageDatabase,
+    val chatDatabaseHelper: ChatDatabaseHelper,
     private val callback: (ListMessageEntity) -> Unit
 ) : BroadcastReceiver() {
 
@@ -79,7 +78,7 @@ class ReceiveBroadcastReceiver(
                 databaseHelper.insertMessages(listMessageEntity)
             }
 
-            database.insertMessages(
+            chatDatabaseHelper.insertMessages(
                 MessageEntity(
                     subId = listMessageEntity.id,
                     content = listMessageEntity.lastMessage,
