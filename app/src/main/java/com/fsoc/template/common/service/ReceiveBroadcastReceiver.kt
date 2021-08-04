@@ -28,15 +28,16 @@ class ReceiveBroadcastReceiver(
         val title = intent.getStringExtra("title")
         val text = intent.getStringExtra("text")
         val id = intent.getIntExtra("id", 0)
+        val time = intent.getLongExtra("time", 0)
         if (text != null) {
-            if (isCheck(context, text)) {
+            if (isCheck(context, text) && isCheckTitle(context, title ?: "")) {
                 main(
                     ListMessageEntity(
                         id,
                         title?.replace(getTextReplace(context, title), "") ?: "",
                         text,
                         false,
-                        Calendar.getInstance().time.time
+                        time
                     )
                 )
             }
@@ -47,7 +48,19 @@ class ReceiveBroadcastReceiver(
         val lst = context.resources.getStringArray(R.array.message).toCollection(arrayListOf())
         var isCheck = true
         lst.forEach {
-            if (text.contains(it)) {
+            if (text.contains(it, true)) {
+                isCheck = false
+                return@forEach
+            }
+        }
+        return isCheck
+    }
+
+    private fun isCheckTitle(context: Context, text: String): Boolean {
+        val lst = context.resources.getStringArray(R.array.titleMessage).toCollection(arrayListOf())
+        var isCheck = true
+        lst.forEach {
+            if (text.contains(it, true)) {
                 isCheck = false
                 return@forEach
             }
@@ -83,7 +96,7 @@ class ReceiveBroadcastReceiver(
                     subId = listMessageEntity.id,
                     content = listMessageEntity.lastMessage,
                     isUser = false,
-                    time = Calendar.getInstance().timeInMillis
+                    time = listMessageEntity.time
                 )
             )
             callback.invoke(listMessageEntity)

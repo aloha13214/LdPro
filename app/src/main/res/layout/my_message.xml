@@ -22,4 +22,13 @@
         tools:ignore="SpUsage,UnusedAttribute"
         tools:text="Placeholder message" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/timeMessage"
+        android:layout_below="@+id/content"
+        android:layout_width="match_parent"
+        android:paddingRight="@dimen/dimen_8dp"
+        android:layout_height="wrap_content"
+        tools:text="09:48:40"
+        android:gravity="end"
+        tools:ignore="RtlSymmetry" />
 </RelativeLayout>
