@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -128,7 +129,7 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
     }
 
     private fun onItemDelete(listMessageEntity: ListMessageEntity) {
-        showConfirmDialog("Bạn có muốn xoá ${listMessageEntity.title} khỏi danh sách hay không?") {
+        showConfirmDialog(getString(R.string.remove_message)) {
             viewModel.removeListMessage(listMessageEntity)
         }
     }

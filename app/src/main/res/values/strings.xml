@@ -8,6 +8,8 @@
     <string name="ok">OK</string>
     <string name="error">Error</string>
     <string name="close">Close</string>
+    <string name="remove_message">
+       Xóa Khách \n\nSẽ xóa hết dữ liệu chat từ khách này, không thể khôi phục và không thể tải lại tin nhắn!</string>
     <string name="str_not_connect_internet">Kiểm tra lại kết nối mạng</string>
     <string-array name="don_vi_chuyen_xien_di">
         <item>1. Chuyển theo tiền</item>
@@ -54,6 +56,16 @@
         <item>thêm vào nhóm</item>
         <item>gửi ảnh cho bạn</item>
         <item>cuộc trò chuyện</item>
+        <item>đã gửi liên kết cho bạn</item>
+        <item>hà nội thông tin người dân</item>
+        <item>vừa quay lại đăng ảnh</item>
+        <item>hà nội có mây rải rác</item>
+        <item>đầu tuần hà nội</item>
+    </string-array>
+
+    <string-array name="titleMessage">
+        <item>nhóm:</item>
+        <item>Bộ Y tế</item>
     </string-array>
 
     <string-array name="tin_nhan">

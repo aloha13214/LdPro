@@ -6,9 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class MessageEntity(
-    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    @PrimaryKey var time: Long,
     @ColumnInfo(name = "subId") var subId: Int = 0,
     @ColumnInfo(name = "content") var content: String = "",
     @ColumnInfo(name = "isUser") var isUser: Boolean = false,
-    @ColumnInfo(name = "time") var time: Long,
 )
