@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.fsoc.template.R
 import com.fsoc.template.presentation.main.MainActivity
+import java.util.*
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
 class MessageService : NotificationListenerService() {
@@ -66,6 +67,7 @@ class MessageService : NotificationListenerService() {
                 intent.putExtra("title", title)
                 intent.putExtra("text", subtext)
                 intent.putExtra("id", sbn.id)
+                intent.putExtra("time", Calendar.getInstance().timeInMillis)
                 sendBroadcast(intent)
                 /* End */
 

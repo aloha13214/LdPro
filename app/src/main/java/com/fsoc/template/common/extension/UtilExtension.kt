@@ -19,14 +19,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.fsoc.template.R
-import com.fsoc.template.presentation.main.customer.add.AddSettingCustomerModel
 import com.fsoc.template.presentation.main.menu.MenuMode
 import com.fsoc.template.presentation.main.menu.MenuModel
-import com.google.gson.Gson
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.Executors
@@ -203,6 +199,11 @@ fun Fragment.showConfirmDialog(message: String, callback: () -> Unit) {
 fun getCurrentDate(): String {
     val sdf = SimpleDateFormat("dd/MM/yyyy")
     return sdf.format(Date())
+}
+
+fun Long.convertTimeMessage(): String {
+    val simpleDateFormat = SimpleDateFormat("hh:mm:ss")
+    return simpleDateFormat.format(this)
 }
 
 private val IO_EXECUTOR = Executors.newSingleThreadExecutor()

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
-    android:paddingVertical="@dimen/dimen_11dp"
+    android:paddingVertical="@dimen/dimen_6dp"
     android:paddingLeft="@dimen/dimen_12dp"
     android:paddingRight="@dimen/dimen_60dp"
     tools:ignore="RtlHardcoded">
@@ -20,4 +20,13 @@
         android:textSize="18sp"
         tools:ignore="UnusedAttribute"
         tools:text="How are you doing? This is a long message that should probably wrap." />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/timeMessage"
+        android:layout_below="@+id/content"
+        android:layout_width="match_parent"
+        android:paddingLeft="@dimen/dimen_8dp"
+        android:layout_height="wrap_content"
+        tools:text="09:48:40"
+        tools:ignore="RtlSymmetry" />
 </RelativeLayout>

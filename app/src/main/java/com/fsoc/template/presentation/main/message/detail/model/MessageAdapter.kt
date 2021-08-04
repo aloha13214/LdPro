@@ -3,11 +3,10 @@ package com.fsoc.template.presentation.main.message.detail.model
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.fsoc.template.common.extension.addSimpleTextWatcher
+import com.fsoc.template.common.extension.convertTimeMessage
 import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.databinding.MyMessageBinding
 import com.fsoc.template.databinding.TheirMessageBinding
-import com.fsoc.template.presentation.main.customer.add.AddCustomerAdapter
 
 enum class MESSAGE(val type: Int) {
     MY_MESSAGE(0),
@@ -59,11 +58,16 @@ class MessageAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = lstMessage[position]
+        val time = data.time.convertTimeMessage()
         if (holder is MyMessageViewHolder) {
-            holder.binding.content.text = data.content
+            holder.binding.apply {
+                content.text = data.content
+                timeMessage.text = time
+            }
         } else {
             val binding = (holder as TheirMessageViewHolder).binding
             binding.content.text = data.content
+            binding.timeMessage.text = time
 
         }
     }
