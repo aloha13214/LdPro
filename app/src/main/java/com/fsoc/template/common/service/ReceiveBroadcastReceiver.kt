@@ -20,7 +20,8 @@ import java.util.*
 class ReceiveBroadcastReceiver(
     val databaseHelper: MessagesDatabaseHelper,
     val chatDatabaseHelper: ChatDatabaseHelper,
-    private val callback: (ListMessageEntity) -> Unit
+    private val callback: (ListMessageEntity) -> Unit,
+    private val callbackMessage: (MessageEntity) -> Unit
 ) : BroadcastReceiver() {
 
     @SuppressLint("HardwareIds", "SimpleDateFormat")
@@ -82,6 +83,12 @@ class ReceiveBroadcastReceiver(
     fun main(listMessageEntity: ListMessageEntity) = runBlocking<Unit> {
         launch(Dispatchers.IO) {
             val value = databaseHelper.getAllListMessage()
+            val message = MessageEntity(
+                subId = listMessageEntity.id,
+                content = listMessageEntity.lastMessage,
+                isUser = false,
+                time = listMessageEntity.time
+            )
             if (value.any { listMessageEntity.id == it.id }) {
                 databaseHelper.insertMessages(listMessageEntity.apply {
                     title = value.firstOrNull { listMessageEntity.id == it.id }?.title
@@ -90,15 +97,8 @@ class ReceiveBroadcastReceiver(
             } else {
                 databaseHelper.insertMessages(listMessageEntity)
             }
-
-            chatDatabaseHelper.insertMessages(
-                MessageEntity(
-                    subId = listMessageEntity.id,
-                    content = listMessageEntity.lastMessage,
-                    isUser = false,
-                    time = listMessageEntity.time
-                )
-            )
+            chatDatabaseHelper.insertMessages(message)
+            callbackMessage.invoke(message)
             callback.invoke(listMessageEntity)
         }
     }

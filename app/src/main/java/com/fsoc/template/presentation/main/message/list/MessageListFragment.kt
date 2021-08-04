@@ -17,6 +17,7 @@ import com.fsoc.template.common.extension.showConfirmDialog
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.common.service.ReceiveBroadcastReceiver
 import com.fsoc.template.data.db.entity.ListMessageEntity
+import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.databinding.FragmentMessageBinding
 import com.fsoc.template.presentation.base.BaseFragment
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment
@@ -110,12 +111,22 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
         }
 
         imageChangeBroadcastReceiver =
-            ReceiveBroadcastReceiver(viewModel.databaseHelper, viewModel.chatDatabaseHelper) { db ->
-                viewModel.getAllListMessage()
-            }
+            ReceiveBroadcastReceiver(
+                viewModel.databaseHelper,
+                viewModel.chatDatabaseHelper,
+                this@MessageListFragment::onCallBackListMessage,
+                this@MessageListFragment::onCallBackMessage,
+                )
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
+    }
+
+    private fun onCallBackListMessage(listMessageEntity: ListMessageEntity) {
+        viewModel.getAllListMessage()
+    }
+    private fun onCallBackMessage(messageEntity: MessageEntity) {
+
     }
 
     private fun onItemAdd(listMessageEntity: ListMessageEntity) {

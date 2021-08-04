@@ -12,6 +12,8 @@ import com.fsoc.template.common.extension.toast
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.common.service.ReceiveBroadcastReceiver
 import com.fsoc.template.data.api.entity.Todo
+import com.fsoc.template.data.db.entity.ListMessageEntity
+import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.databinding.FragmentHomeBinding
 import com.fsoc.template.presentation.base.BaseFragment
 
@@ -50,10 +52,22 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         binding.imeiDevice.text = getIMEI()
 
         imageChangeBroadcastReceiver =
-            ReceiveBroadcastReceiver(viewModel.databaseHelperMessage, viewModel.database) {}
+            ReceiveBroadcastReceiver(
+                viewModel.databaseHelperMessage,
+                viewModel.database,
+                this@HomeFragment::onCallBackListMessage,
+                this@HomeFragment::onCallBackMessage,
+            )
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
+    }
+
+    private fun onCallBackListMessage(listMessageEntity: ListMessageEntity) {
+        // No action
+    }
+    private fun onCallBackMessage(messageEntity: MessageEntity) {
+        // No action
     }
 
     override fun fireData() {
