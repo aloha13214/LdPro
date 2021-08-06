@@ -11,8 +11,7 @@ import com.fsoc.template.databinding.FragmentBottomSheetDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class BottomSheetFragment(
-    val settingCustomerListener: SettingPriceCustomerListener,
-    val settingTimeCustomerListener: SettingTimeCustomerListener
+    val bottomSheetListener: BottomSheetListener
 ) :
     BottomSheetDialogFragment() {
     override fun onCreateView(
@@ -21,11 +20,15 @@ class BottomSheetFragment(
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentBottomSheetDialogBinding.inflate(inflater, container, false)
-        binding.lnSettingPrice.click { settingCustomerListener() }
-        binding.lnSettingTime.click { settingTimeCustomerListener() }
+        binding.lnSettingPrice.click { bottomSheetListener(TypeSetting.SettingPrice) }
+        binding.lnSettingTime.click { bottomSheetListener(TypeSetting.SettingTime) }
         return binding.root
     }
 }
 
-typealias SettingPriceCustomerListener = () -> Unit
-typealias SettingTimeCustomerListener = () -> Unit
+typealias BottomSheetListener = (type: TypeSetting) -> Unit
+
+enum class TypeSetting {
+    SettingPrice,
+    SettingTime,
+}

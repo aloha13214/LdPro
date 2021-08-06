@@ -2,10 +2,12 @@ package com.fsoc.template.presentation.main.customer.setting
 
 import android.annotation.SuppressLint
 import android.app.TimePickerDialog
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.SeekBar
+import com.fsoc.template.R
 import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
@@ -30,14 +32,9 @@ class SettingTimeFragment : BaseFragment<AddCustomerViewModel, FragmentSettingTi
 
     override fun initViewModel() {
         viewModel = withViewModel(viewModelFactory) {
-            observe(mode, ::observerMode)
             observe(customerIsPicked, ::observerCustomerIsPicked)
             observe(updateCustomer, ::observeUpdateUser)
         }
-    }
-
-    private fun observerMode(mode: Mode?) {
-        viewModel.findCustomer()
     }
 
     private fun observeUpdateUser(resource: Resource<Unit>) {
@@ -136,6 +133,18 @@ class SettingTimeFragment : BaseFragment<AddCustomerViewModel, FragmentSettingTi
         binding.frTimeDeCang.click {
             timeDeCangPickerDialog?.show()
         }
+        binding.lnViewMaxKhong.click {
+            navigateToSettingKhongNhanSo()
+        }
+    }
+
+    private fun navigateToSettingKhongNhanSo() {
+        val idCustomer = viewModel.idCustomer ?: return
+        val bundle = Bundle().apply {
+            putSerializable(ListCustomerFragment.MODE_KEY, Mode.Edit)
+            putLong(ListCustomerFragment.CUSTOMER_ID, idCustomer)
+        }
+        navigate(R.id.nav_settingKhongNhanSoFragment, bundle)
     }
 
     private fun setUpSpinnerListener() {
@@ -200,24 +209,35 @@ class SettingTimeFragment : BaseFragment<AddCustomerViewModel, FragmentSettingTi
             spHesode.setSelection(viewModel.settingTime!!.heso_de)
             tvTimeLoXien.text = viewModel.settingTime!!.tg_loxien
             tvTimeDeCang.text = viewModel.settingTime!!.tg_debc
-            deDly.progress = viewModel.settingTime!!.dlgiu_de/INTERVAL_SEEKBAR
+            deDly.progress = viewModel.settingTime!!.dlgiu_de / INTERVAL_SEEKBAR
             ptGiuDeDly.text = "${viewModel.settingTime!!.dlgiu_de}%"
-            loDly.progress = viewModel.settingTime!!.dlgiu_lo/INTERVAL_SEEKBAR
+            loDly.progress = viewModel.settingTime!!.dlgiu_lo / INTERVAL_SEEKBAR
             ptGiuLoDly.text = "${viewModel.settingTime!!.dlgiu_lo}%"
-            xiDly.progress = viewModel.settingTime!!.dlgiu_xi/INTERVAL_SEEKBAR
+            xiDly.progress = viewModel.settingTime!!.dlgiu_xi / INTERVAL_SEEKBAR
             ptGiuXienDly.text = "${viewModel.settingTime!!.dlgiu_xi}%"
-            bcDly.progress = viewModel.settingTime!!.dlgiu_bc/INTERVAL_SEEKBAR
+            bcDly.progress = viewModel.settingTime!!.dlgiu_bc / INTERVAL_SEEKBAR
             ptGiuBcDly.text = "${viewModel.settingTime!!.dlgiu_bc}%"
-            deKhach.progress = viewModel.settingTime!!.khgiu_de/INTERVAL_SEEKBAR
+            deKhach.progress = viewModel.settingTime!!.khgiu_de / INTERVAL_SEEKBAR
             ptGiuDeKhach.text = "${viewModel.settingTime!!.khgiu_de}%"
-            loKhach.progress = viewModel.settingTime!!.khgiu_lo/INTERVAL_SEEKBAR
+            loKhach.progress = viewModel.settingTime!!.khgiu_lo / INTERVAL_SEEKBAR
             ptGiuLoKhach.text = "${viewModel.settingTime!!.khgiu_lo}%"
-            xiKhach.progress = viewModel.settingTime!!.khgiu_xi/INTERVAL_SEEKBAR
+            xiKhach.progress = viewModel.settingTime!!.khgiu_xi / INTERVAL_SEEKBAR
             ptGiuXienKhach.text = "${viewModel.settingTime!!.khgiu_xi}%"
-            bcKhach.progress = viewModel.settingTime!!.khgiu_bc/INTERVAL_SEEKBAR
+            bcKhach.progress = viewModel.settingTime!!.khgiu_bc / INTERVAL_SEEKBAR
             ptGiuBcKhach.text = "${viewModel.settingTime!!.khgiu_bc}%"
+            tvGiuDe.text = "Đề: ${if (viewModel.settingTime!!.danDe.isNotBlank()) viewModel.settingTime!!.danDe else "Không khống"}"
+            tvGiuLo.text = "Lô: ${if (viewModel.settingTime!!.danLo.isNotBlank()) viewModel.settingTime!!.danLo else "Không khống"}"
+            tvGiuXien2.text = "Xiên 2: ${viewModel.settingTime!!.xien2}"
+            tvGiuXien3.text = "Xiên 3: ${viewModel.settingTime!!.xien3}"
+            tvGiuXien4.text = "Xiên 4: ${viewModel.settingTime!!.xien4}"
+            tvGiu3Cang.text = "Càng: ${viewModel.settingTime!!.cang}"
         }
         setUpTimeDialog(viewModel.settingTime!!)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.findCustomer()
     }
 
     private fun setUpTimeDialog(settingTime: SettingTime) {

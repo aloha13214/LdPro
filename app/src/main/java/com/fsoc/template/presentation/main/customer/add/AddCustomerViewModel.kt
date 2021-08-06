@@ -37,6 +37,7 @@ class AddCustomerViewModel @Inject constructor(
 
     private var _updateCustomer = MutableLiveData<Resource<Unit>>()
     val updateCustomer: LiveData<Resource<Unit>> = _updateCustomer
+
     fun isAddType(mode: Mode?): Boolean = mode == null || mode == Mode.Add
 
     fun insertUser(customerEntity: CustomerEntity) {
@@ -90,4 +91,8 @@ class AddCustomerViewModel @Inject constructor(
 
     fun validateCustomerName(customerName: String): Boolean = customerName.isNotBlank()
     fun validatePhoneNumber(phone: String) = checkRegex(regexPhone, phone)
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }

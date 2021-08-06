@@ -9,9 +9,17 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/str_home" />
         <item
+            android:id="@+id/nav_edit_messgae"
+            android:icon="@drawable/ic_edit"
+            android:title="Sửa tin nhắn" />
+        <item
             android:id="@+id/nav_listMessage"
             android:icon="@drawable/ic_message"
             android:title="@string/str_message" />
+        <item
+            android:id="@+id/nav_chuyenso_giu_so"
+            android:icon="@drawable/ic_analysis"
+            android:title="Chuyển số và giữ số" />
         <item
             android:id="@+id/nav_listCustomerFragment"
             android:icon="@drawable/ic_baseline_supervised_user_circle_24"
@@ -24,5 +32,13 @@
             android:id="@+id/nav_message_template"
             android:icon="@drawable/ic_settings"
             android:title="@string/str_message_template" />
+        <item
+            android:id="@+id/nav_sample_message"
+            android:icon="@drawable/ic_baseline_email_24"
+            android:title="Các tin nhắn mẫu" />
+        <item
+            android:id="@+id/nav_database"
+            android:icon="@drawable/ic_database_configuration"
+            android:title="Cơ sở dữ liệu" />
     </group>
 </menu>
