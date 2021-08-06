@@ -1,12 +1,14 @@
 package com.fsoc.template.presentation.main.message.detail
 
 import android.content.IntentFilter
+import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
+import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.observe
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.common.service.ReceiveBroadcastReceiver
@@ -31,6 +33,23 @@ class MessageFragment : BaseFragment<MessagesViewModel, FragmentChatMessageBindi
     override fun initViewModel() {
         viewModel = withViewModel(viewModelFactory) {
             observe(getListMessage(), ::observerListMessage)
+            observe(insertMessage, ::observeInsertUser)
+        }
+    }
+
+    private fun observeInsertUser(resource: Resource<Unit>) {
+        when (resource.status) {
+            Status.LOADING -> {
+                showLoading(true)
+            }
+            Status.ERROR -> {
+                showLoading(false)
+                resource.e?.let { showErrorMsg(it) }
+            }
+            Status.SUCCESS -> {
+                showLoading(false)
+                viewModel.getAllListMessage()
+            }
         }
     }
 
@@ -68,10 +87,26 @@ class MessageFragment : BaseFragment<MessagesViewModel, FragmentChatMessageBindi
                 adapter = messageAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             }
+
+            imgSend.click {
+                val message = edtText.text.toString()
+                if (message.isNotEmpty()) {
+                    val smsManager = SmsManager.getDefault()
+                    smsManager.sendTextMessage(
+                        viewModel.modelMessage?.phoneNumber,
+                        null,
+                        message,
+                        null,
+                        null)
+                    viewModel.insertMessage(message)
+                    edtText.setText("")
+                }
+            }
         }
 
         imageChangeBroadcastReceiver =
             ReceiveBroadcastReceiver(
+                viewModel.phoneNumbers,
                 viewModel.databaseHelper,
                 viewModel.chatDatabaseHelper,
                 this@MessageFragment::onCallBackListMessage,

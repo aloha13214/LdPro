@@ -39,4 +39,9 @@
         android:id="@+id/nav_settingTimeFragment"
         android:name="com.fsoc.template.presentation.main.customer.setting.SettingTimeFragment"
         android:label="SettingTimeFragment" />
+    <fragment
+        android:id="@+id/nav_message_template"
+        android:name="com.fsoc.template.presentation.main.messagetemplate.MessageTemplateFragment"
+        android:label="Các tin nhắn mẫu"
+        tools:layout="@layout/fragment_message_template" />
 </navigation>

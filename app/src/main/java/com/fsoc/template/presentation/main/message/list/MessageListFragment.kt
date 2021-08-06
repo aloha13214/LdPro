@@ -4,7 +4,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.provider.Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -112,11 +111,12 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
 
         imageChangeBroadcastReceiver =
             ReceiveBroadcastReceiver(
+                viewModel.phoneNumbers,
                 viewModel.databaseHelper,
                 viewModel.chatDatabaseHelper,
                 this@MessageListFragment::onCallBackListMessage,
                 this@MessageListFragment::onCallBackMessage,
-                )
+            )
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
@@ -125,6 +125,7 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
     private fun onCallBackListMessage(listMessageEntity: ListMessageEntity) {
         viewModel.getAllListMessage()
     }
+
     private fun onCallBackMessage(messageEntity: MessageEntity) {
 
     }
@@ -132,9 +133,11 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
     private fun onItemAdd(listMessageEntity: ListMessageEntity) {
         val bundle = Bundle().apply {
             putSerializable(ListCustomerFragment.MODE_KEY, Mode.Add)
-            putSerializable(KEY_MESSAGE_ADD_CUSTOMER, MessageModel.convertModel(listMessageEntity).apply {
-                this.isAdd = true
-            })
+            putSerializable(
+                KEY_MESSAGE_ADD_CUSTOMER,
+                MessageModel.convertModel(listMessageEntity).apply {
+                    this.isAdd = true
+                })
         }
         navigate(R.id.addCustomerFragment, bundle)
     }
@@ -151,6 +154,7 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
         }
         navigate(R.id.detailMessageFragment, bundle)
     }
+
 
     override fun fireData() {
     }

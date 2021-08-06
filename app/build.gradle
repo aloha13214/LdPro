@@ -109,7 +109,7 @@ dependencies {
     // Logger
     implementation 'com.orhanobut:logger:2.2.0'
     // Check leak memory
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0'
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0'
 
     //permission
     implementation 'com.karumi:dexter:6.2.3'

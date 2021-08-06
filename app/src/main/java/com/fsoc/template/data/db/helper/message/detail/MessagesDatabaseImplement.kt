@@ -11,7 +11,7 @@ class MessagesDatabaseImplement @Inject constructor() : ChatDatabaseHelper {
         database.messageDao().insertMessages(listMessageEntity)
     }
 
-    override suspend fun getAllMessage(subId: Int): List<MessageEntity> {
+    override suspend fun getAllMessage(subId: String): List<MessageEntity> {
         return database.messageDao().getAllMessage(subId)
     }
 

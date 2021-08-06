@@ -16,12 +16,14 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtText"
             android:layout_width="0dp"
             android:maxLines="2"
             android:layout_weight="1"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgSend"
             android:layout_width="@dimen/dimen_42dp"
             android:layout_gravity="center"
             android:layout_height="match_parent"
