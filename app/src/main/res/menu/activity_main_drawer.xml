@@ -30,12 +30,8 @@
             android:title="@string/str_setting" />
         <item
             android:id="@+id/nav_message_template"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/str_message_template" />
-        <item
-            android:id="@+id/nav_sample_message"
             android:icon="@drawable/ic_baseline_email_24"
-            android:title="Các tin nhắn mẫu" />
+            android:title="@string/str_message_template" />
         <item
             android:id="@+id/nav_database"
             android:icon="@drawable/ic_database_configuration"
