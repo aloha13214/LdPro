@@ -45,7 +45,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpDrawerLayout()
-        requirePermissionsIfNeeded()
 
         val firstSetting = SharedPrefsHelper.getString(this, FIRST_SETTING)
         if (firstSetting == null) {
@@ -58,28 +57,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
-    private fun requirePermissionsIfNeeded() {
-        Dexter.withContext(this)
-            .withPermissions(
-                Manifest.permission.RECEIVE_SMS,
-                Manifest.permission.SEND_SMS,
-                Manifest.permission.READ_SMS,
-                Manifest.permission.READ_CONTACTS,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.RECEIVE_SMS,
-            ).withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport) {
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: List<PermissionRequest?>?,
-                    token: PermissionToken?
-                ) {
-
-                }
-            }).check()
-    }
-
     private fun setUpDrawerLayout() {
         setSupportActionBar(binding.appBarMain.toolbar)
         setUpToolbar()
@@ -88,7 +65,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 R.id.nav_home,
                 R.id.nav_listMessage,
                 R.id.nav_listCustomerFragment,
-                R.id.nav_setting
+                R.id.nav_setting,
+                R.id.nav_message_template
             ), binding.drawerLayout
         )
         val mNavController = findNavController(R.id.nav_host_fragment_content)

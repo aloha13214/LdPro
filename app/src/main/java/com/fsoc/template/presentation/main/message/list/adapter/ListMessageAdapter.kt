@@ -3,9 +3,11 @@ package com.fsoc.template.presentation.main.message.list.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.fsoc.template.R
 import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.show
 import com.fsoc.template.data.db.entity.ListMessageEntity
+import com.fsoc.template.data.db.entity.TypeMessage
 import com.fsoc.template.databinding.ItemListMessageBinding
 
 class ListMessageAdapter(
@@ -34,10 +36,13 @@ class ListMessageAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = lstMessage[position]
+        val isType = TypeMessage.TYPE_ZALO.value == data.type
         (holder as ListMessageViewHolder).binding.apply {
             tvName.text = data.title
             tvLastMessage.text = data.lastMessage
-//            imgProfile.loadImage("")
+            imgProfile.setImageResource(
+               if (isType) R.drawable.ic_zalo else R.drawable.ic_baseline_sms_24
+            )
             tvDelete.click { onItemClick(position) }
             imgAdd.show(!data.isAdd)
             imgAdd.click { onClickAdd(position) }

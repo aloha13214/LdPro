@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class MessageEntity(
     @PrimaryKey var time: Long,
-    @ColumnInfo(name = "subId") var subId: Int = 0,
+    @ColumnInfo(name = "subId") var subId: String = "",
     @ColumnInfo(name = "content") var content: String = "",
     @ColumnInfo(name = "isUser") var isUser: Boolean = false,
 )
