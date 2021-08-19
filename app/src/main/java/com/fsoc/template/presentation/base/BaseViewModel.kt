@@ -1,9 +1,13 @@
 package com.fsoc.template.presentation.base
 
+import android.content.Context
+import android.database.Cursor
+import android.provider.ContactsContract
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fsoc.template.data.api.BaseApi
 import com.fsoc.template.domain.entity.BaseModel
+import com.fsoc.template.domain.entity.PhoneNumber
 import com.fsoc.template.domain.usecase.BaseUseCase
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
@@ -23,6 +27,8 @@ abstract class BaseViewModel : ViewModel() {
     lateinit var gson: Gson
 
     private val mDisposables = CompositeDisposable()
+
+    var phoneNumbers = arrayListOf<PhoneNumber>()
 
     val mError = MutableLiveData<Throwable>()
 
@@ -65,5 +71,23 @@ abstract class BaseViewModel : ViewModel() {
 //            })
 //            .track()
 
+    }
+
+    fun getPhoneNumber(context: Context) {
+        val phones: Cursor? = context.contentResolver?.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+        while (phones?.moveToNext() == true) {
+            val name: String =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val phoneNumber: String =
+                phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            phoneNumbers.add(PhoneNumber(name, phoneNumber))
+        }
+        phones?.close()
     }
 }

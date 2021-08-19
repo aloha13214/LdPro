@@ -102,6 +102,7 @@
     <string name="str_list_customer">Danh sách khách hàng</string>
     <string name="str_setting">Cài đặt</string>
     <string name="str_message">Quản lý tin nhắn</string>
+    <string name="str_message_template">Các tin nhắn mẫu</string>
     <!--End Menu-->
 
     <!-- Start message-->
@@ -141,4 +142,48 @@
     <string name="str_khong_nhan_de">Nhập khống: \nví dụ: 100 so x 10000 \nđầu 1 x 4000</string>
     <string name="str_title_khong_nhan_so">BẢNG KHỐNG NHẬN SỐ \n(Tự động trả lại số thừa)</string>
     <!--End Setting-->
+
+
+    <!--Mess temp start-->
+
+    <string name="message_template">Mẫu tin nhắn</string>
+    <string name="title_introduction">Cảm ơn quý khách đã sử dụng phần mềm LdPro, ưu điểm đầu tiên của phần mềm là xử lý được tiếng Việt có dấu và tự động nhận dạng tất cả các dạng tin nhắn</string>
+    <string name="description">Quý khách hãy đọc và thuộc lòng các dạng để nắm được cách xử lý dữ liệu của LdPro</string>
+    <string name="title_one">Viết tắt các dạng: </string>
+    <string name="title_two">Đầu đb</string>
+    <string name="title_three">Đầu nhất</string>
+    <string name="title_four">Đít nhất</string>
+    <string name="title_five">Tổng chia 3</string>
+    <string name="title_six">Chia 3 dư 1</string>
+    <string name="title_seven">Chia 3 dư 2</string>
+    <string name="title_eight">Không chia 3</string>
+    <string name="title_night">Tổng trên 10</string>
+    <string name="title_ten">Tổng dưới 10</string>
+    <string name="title_eleven">Tổng 10</string>
+    <string name="title_twelve">xg2 010,030,78,89,60 x 10</string>
+    <string name="title_thirteen">xg3 010,030,78,89,60 x 10</string>
+    <string name="title_fourteen">xg4 010,030,78,89,60 x 10</string>
+    <string name="title_fifteen">De dan 18 bor kep x 10</string>
+    <string name="title_sixteen">De boj 02,04 x 10</string>
+    <string name="title_seventeen">De giap ty x 100, de giap chuột x 100</string>
+
+
+    <string name="description_one">dea: đề 2 số đầu giải ĐB(đề đầu ĐB/ đầu ĐB)deb: đề 2 số cuối giải đbdet: đề 8 số cuối giải đb nhưng trả thương 80.000(đề 8/đề ăn 8)dec: đề 2 số đầu giải nhất(đề đầu nhất/ đầu nhất)ded: đề 2 số cuối giải nhất(đề đít nhất/ đít nhất)</string>
+    <string name="description_two">2 số đầu giải đặc biệt</string>
+    <string name="description_three">2 số đầu giải nhất</string>
+    <string name="description_four">2 số đầu cuối giải nhất</string>
+    <string name="description_five">Các số chia hết cho 3</string>
+    <string name="description_six">Các số chia cho 3 dư 1</string>
+    <string name="description_seven">Các số chia cho 3 dư 2</string>
+    <string name="description_eight">Các số không chia hết cho 3</string>
+    <string name="description_night">Các số có tổng lớn hơn 10</string>
+    <string name="description_ten">Các số có tổng bé hơn 10</string>
+    <string name="description_eleven">Phần mềm sẽ báo lỗi vì không có tổng 10, chỉ có tổng 0 hoặc tổng 1 và 0 thì ghi tổng 01</string>
+    <string name="description_twelve">Phần mềm sẽ tự động ghép xiên 2 của tất cả các số với nhau, hãy kiểm tra cẩn thận có số giống nhau khi phần mềm báo lỗi</string>
+    <string name="description_thirteen">Phần mềm sẽ tự động ghép xiên 3 của tất cả các số với nhau, hãy kiểm tra cẩn thận có số giống nhau khi phần mềm báo lỗi</string>
+    <string name="description_fourteen">Phần mềm sẽ tự động ghép xiên 4 của tất cả các số với nhau, hãy kiểm tra cẩn thận có số giống nhau khi phần mềm báo lỗi</string>
+    <string name="description_fifteen">Chữ bo có 2 nghĩa là bỏ và bộ nên chữ bỏ phải thêm chữ \u0027r\u0027 thành bor</string>
+    <string name="description_sixteen">Chữ bo có 2 nghĩa là bỏ và bộ nên chữ bộ phải thêm chữ \u0027j\u0027 thành boj</string>
+    <string name="description_seventeen">Các con giáp sẽ được ghi bằng cách viết giap + tên con giáp</string>
+    <!--Mess temp end-->
 </resources>

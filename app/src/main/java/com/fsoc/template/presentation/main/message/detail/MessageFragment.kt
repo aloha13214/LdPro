@@ -1,13 +1,18 @@
 package com.fsoc.template.presentation.main.message.detail
 
+import android.content.IntentFilter
+import android.telephony.SmsManager
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
+import com.fsoc.template.common.extension.click
 import com.fsoc.template.common.extension.observe
 import com.fsoc.template.common.extension.withViewModel
+import com.fsoc.template.common.service.ReceiveBroadcastReceiver
+import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.databinding.FragmentChatMessageBinding
 import com.fsoc.template.presentation.base.BaseFragment
@@ -19,6 +24,8 @@ class MessageFragment : BaseFragment<MessagesViewModel, FragmentChatMessageBindi
 
     private lateinit var messageAdapter: MessageAdapter
 
+    private var imageChangeBroadcastReceiver: ReceiveBroadcastReceiver? = null
+
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -26,10 +33,27 @@ class MessageFragment : BaseFragment<MessagesViewModel, FragmentChatMessageBindi
     override fun initViewModel() {
         viewModel = withViewModel(viewModelFactory) {
             observe(getListMessage(), ::observerListMessage)
+            observe(insertMessage, ::observeInsertUser)
         }
     }
 
-    private fun observerListMessage(resource: Resource<List<MessageEntity>>) {
+    private fun observeInsertUser(resource: Resource<Unit>) {
+        when (resource.status) {
+            Status.LOADING -> {
+                showLoading(true)
+            }
+            Status.ERROR -> {
+                showLoading(false)
+                resource.e?.let { showErrorMsg(it) }
+            }
+            Status.SUCCESS -> {
+                showLoading(false)
+                viewModel.getAllListMessage()
+            }
+        }
+    }
+
+    private fun observerListMessage(resource: Resource<ArrayList<MessageEntity>>) {
         when (resource.status) {
             Status.LOADING -> {
                 showLoading(true)
@@ -63,7 +87,41 @@ class MessageFragment : BaseFragment<MessagesViewModel, FragmentChatMessageBindi
                 adapter = messageAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true)
             }
+
+            imgSend.click {
+                val message = edtText.text.toString()
+                if (message.isNotEmpty()) {
+                    val smsManager = SmsManager.getDefault()
+                    smsManager.sendTextMessage(
+                        viewModel.modelMessage?.phoneNumber,
+                        null,
+                        message,
+                        null,
+                        null)
+                    viewModel.insertMessage(message)
+                    edtText.setText("")
+                }
+            }
         }
+
+        imageChangeBroadcastReceiver =
+            ReceiveBroadcastReceiver(
+                viewModel.phoneNumbers,
+                viewModel.databaseHelper,
+                viewModel.chatDatabaseHelper,
+                this@MessageFragment::onCallBackListMessage,
+                this@MessageFragment::onCallBackMessage,
+            )
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
+        activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
+    }
+
+    private fun onCallBackListMessage(listMessageEntity: ListMessageEntity) {
+    }
+
+    private fun onCallBackMessage(messageEntity: MessageEntity) {
+        viewModel.getAllListMessage()
     }
 
     override fun fireData() {

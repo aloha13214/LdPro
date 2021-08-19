@@ -4,7 +4,7 @@ import com.fsoc.template.data.db.entity.MessageEntity
 import java.io.Serializable
 
 data class MessagesModel(
-    var subId: Int,
+    var subId: String,
     var content: String,
     var isUser: Boolean,
     var time: Long,
@@ -12,7 +12,7 @@ data class MessagesModel(
     companion object {
         fun convertModel(entity: MessageEntity?): MessagesModel {
             return MessagesModel(
-                entity?.subId ?: 0,
+                entity?.subId ?: "",
                 entity?.content ?: "",
                 entity?.isUser ?: false,
                 entity?.time ?: 0
@@ -22,7 +22,7 @@ data class MessagesModel(
         fun convertEntity(model: MessagesModel?): MessageEntity {
             return MessageEntity(
                 model?.time ?: 0,
-                model?.subId ?: 0,
+                model?.subId ?: "",
                 model?.content ?: "",
                 model?.isUser ?: false,
             )

@@ -6,7 +6,7 @@ import com.fsoc.template.data.db.entity.MessageEntity
 @Dao
 interface MessageDao {
     @Query("SELECT * FROM messageentity WHERE subId = :subId")
-    suspend fun getAllMessage(subId: Int): List<MessageEntity>
+    suspend fun getAllMessage(subId: String): List<MessageEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMessages(messageEntity: MessageEntity)
