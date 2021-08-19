@@ -93,6 +93,9 @@
     <string name="str_sign_in">Đăng nhập</string>
     <string name="str_hint_user_name">Tài khoản</string>
     <string name="str_hint_password">Mật khẩu</string>
+    <string name="str_title_live_lottery">Tính tiền trực tiếp từ 18h15 đến 18h30</string>
+    <string name="str_xem_lo">Xem Lô</string>
+    <string name="str_xem_xien">Xem Xiên</string>
 
     <!--Start Menu-->
     <string name="str_home">Trang chủ</string>

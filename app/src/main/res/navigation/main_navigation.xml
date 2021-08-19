@@ -48,4 +48,8 @@
         android:id="@+id/nav_settingKhongNhanSoFragment"
         android:name="com.fsoc.template.presentation.main.customer.setting.SettingKhongNhanSoFragment"
         android:label="SettingKhongNhanSoFragment" />
+    <fragment
+        android:id="@+id/nav_live_lottery"
+        android:name="com.fsoc.template.presentation.main.xsmb.LiveLotteryFragment"
+        android:label="Xổ số trực tiếp" />
 </navigation>

@@ -33,6 +33,10 @@
             android:icon="@drawable/ic_baseline_email_24"
             android:title="@string/str_message_template" />
         <item
+            android:id="@+id/nav_live_lottery"
+            android:icon="@drawable/ic_live_lottery"
+            android:title="Xố số trực tiếp" />
+        <item
             android:id="@+id/nav_database"
             android:icon="@drawable/ic_database_configuration"
             android:title="Cơ sở dữ liệu" />
