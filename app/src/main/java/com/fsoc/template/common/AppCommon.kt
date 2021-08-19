@@ -8,7 +8,7 @@ import android.net.Uri
 
 object AppCommon {
     const val ACTION_NOTIFICATION_FILTER = "ACTION_NOTIFICATION_FILTER"
-
+    const val URL_XSMB = "https://xsmb.me/"
     fun getVersionName(context: Context): String {
         return try {
             val pInfo: PackageInfo =

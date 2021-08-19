@@ -12,6 +12,7 @@ import com.fsoc.template.presentation.main.home.HomeViewModel
 import com.fsoc.template.presentation.main.login.LoginViewModel
 import com.fsoc.template.presentation.main.message.detail.MessagesViewModel
 import com.fsoc.template.presentation.main.message.list.MessageListViewModel
+import com.fsoc.template.presentation.main.xsmb.LiveLotteryViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -63,4 +64,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MessagesViewModel::class)
     abstract fun bindMessageFragmentViewModel(viewModel: MessagesViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(LiveLotteryViewModel::class)
+    abstract fun bindLiveLotteryViewModel(viewModel: LiveLotteryViewModel): ViewModel
 }

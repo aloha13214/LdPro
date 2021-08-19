@@ -10,6 +10,7 @@ import com.fsoc.template.presentation.main.login.LoginFragment
 import com.fsoc.template.presentation.main.message.detail.MessageFragment
 import com.fsoc.template.presentation.main.message.list.MessageListFragment
 import com.fsoc.template.presentation.main.setting.SettingFragment
+import com.fsoc.template.presentation.main.xsmb.LiveLotteryFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -25,4 +26,5 @@ interface AppComponent {
     fun inject(fragment: MessageFragment)
     fun inject(fragment: SettingTimeFragment)
     fun inject(fragment: SettingKhongNhanSoFragment)
+    fun inject(fragment: LiveLotteryFragment)
 }
