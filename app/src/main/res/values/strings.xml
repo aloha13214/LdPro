@@ -185,5 +185,13 @@
     <string name="description_fifteen">Chữ bo có 2 nghĩa là bỏ và bộ nên chữ bỏ phải thêm chữ \u0027r\u0027 thành bor</string>
     <string name="description_sixteen">Chữ bo có 2 nghĩa là bỏ và bộ nên chữ bộ phải thêm chữ \u0027j\u0027 thành boj</string>
     <string name="description_seventeen">Các con giáp sẽ được ghi bằng cách viết giap + tên con giáp</string>
+    <string name="title_database">Hãy chọn trang web để tải kết quả!</string>
+    <string name="title_xoso_me">Từ trang \n xoso.me</string>
+    <string name="title_ket_qua_net">Từ trang \n ketqua.net</string>
+    <string name="title_he_thong">Từ hệ thống</string>
+    <string name="tinh_tien_khi_co_kq">- Tính tiền thủ công: sau khi có KQ.</string>
+    <string name="tinh_tien_thu_cong">Tính tiền thủ công</string>
+    <string name="xoa_du_lieu">- Xóa hết số liệu trong cơ sở dữ liệu.</string>
+    <string name="xoa_co_so_du_lieu">Xóa cơ sở dữ liệu</string>
     <!--Mess temp end-->
 </resources>

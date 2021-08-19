@@ -25,9 +25,9 @@ class LiveLotteryFragment :
         binding.webView.loadUrl(AppCommon.URL_XSMB)
         binding.btnSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked) {
-                binding.lnWebView.show(true)
-            } else {
                 binding.lnWebView.show(false)
+            } else {
+                binding.lnWebView.show(true)
             }
         }
     }

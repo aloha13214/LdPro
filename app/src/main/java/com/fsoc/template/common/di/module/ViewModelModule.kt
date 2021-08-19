@@ -8,6 +8,7 @@ import com.fsoc.template.presentation.main.MainViewModel
 import com.fsoc.template.presentation.main.customer.add.AddCustomerViewModel
 import com.fsoc.template.presentation.main.customer.list.ListCustomerViewModel
 import com.fsoc.template.presentation.main.customer.setting.SettingKhongNhanSoViewModel
+import com.fsoc.template.presentation.main.database.DatabaseViewModel
 import com.fsoc.template.presentation.main.home.HomeViewModel
 import com.fsoc.template.presentation.main.login.LoginViewModel
 import com.fsoc.template.presentation.main.message.detail.MessagesViewModel
@@ -69,4 +70,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(LiveLotteryViewModel::class)
     abstract fun bindLiveLotteryViewModel(viewModel: LiveLotteryViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DatabaseViewModel::class)
+    abstract fun bindDatabaseFragmentViewModel(viewModel: DatabaseViewModel): ViewModel
 }

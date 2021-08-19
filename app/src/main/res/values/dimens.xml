@@ -67,6 +67,7 @@
     <dimen name="dimen_260dp">260dp</dimen>
     <dimen name="dimen_280dp">280dp</dimen>
     <dimen name="dimen_14sp">14sp</dimen>
+    <dimen name="dimen_16sp">16sp</dimen>
     <dimen name="dimen_13sp">13sp</dimen>
     <dimen name="dimen_12sp">12sp</dimen>
     <dimen name="dimen_11sp">11sp</dimen>
