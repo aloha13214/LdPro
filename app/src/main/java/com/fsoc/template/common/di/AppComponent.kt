@@ -5,6 +5,7 @@ import com.fsoc.template.presentation.main.customer.add.AddCustomerFragment
 import com.fsoc.template.presentation.main.customer.list.ListCustomerFragment
 import com.fsoc.template.presentation.main.customer.setting.SettingKhongNhanSoFragment
 import com.fsoc.template.presentation.main.customer.setting.SettingTimeFragment
+import com.fsoc.template.presentation.main.database.DatabaseFragment
 import com.fsoc.template.presentation.main.home.HomeFragment
 import com.fsoc.template.presentation.main.login.LoginFragment
 import com.fsoc.template.presentation.main.message.detail.MessageFragment
@@ -29,4 +30,5 @@ interface AppComponent {
     fun inject(fragment: SettingKhongNhanSoFragment)
     fun inject(fragment: MessageTemplateFragment)
     fun inject(fragment: LiveLotteryFragment)
+    fun inject(fragment: DatabaseFragment)
 }

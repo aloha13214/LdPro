@@ -67,7 +67,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 R.id.nav_listCustomerFragment,
                 R.id.nav_setting,
                 R.id.nav_message_template,
-                R.id.nav_live_lottery
+                R.id.nav_live_lottery,
+                R.id.nav_database
             ), binding.drawerLayout
         )
         val mNavController = findNavController(R.id.nav_host_fragment_content)
