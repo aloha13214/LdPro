@@ -26,13 +26,11 @@ class MessageService : NotificationListenerService() {
     private object ApplicationPackageNames {
         const val INSTAGRAM_PACK_NAME = "com.instagram.android"
         const val ZALO_PACK_NAME = "com.zing.zalo"
-        const val MESSAGE_PACK_NAME = "com.samsung.android.messaging"
     }
 
     object InterceptedNotificationCode {
         const val INSTAGRAM_CODE = 3
         const val ZALO_CODE = 5
-        const val MESSAGE_CODE = 6
         const val OTHER_NOTIFICATIONS_CODE = 4 // We ignore all notification with code == 4
     }
 
@@ -44,9 +42,8 @@ class MessageService : NotificationListenerService() {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         val notificationCode = matchNotificationCode(sbn)
-        val isMessage = notificationCode == InterceptedNotificationCode.MESSAGE_CODE
         val isZalo = notificationCode == InterceptedNotificationCode.ZALO_CODE
-        if (isZalo || isMessage) {
+        if (isZalo) {
             val pack = sbn.packageName
             val extras = sbn.notification.extras
             val title = extras.getCharSequence("android.title").toString()
@@ -73,10 +70,7 @@ class MessageService : NotificationListenerService() {
                 intent.putExtra("text", subtext)
                 intent.putExtra("id", sbn.id)
                 intent.putExtra("time", Calendar.getInstance().timeInMillis)
-                intent.putExtra(
-                    "type",
-                    if (isMessage) TypeMessage.TYPE_SMS.value else TypeMessage.TYPE_ZALO.value
-                )
+                intent.putExtra("type", TypeMessage.TYPE_ZALO.value)
                 sendBroadcast(intent)
                 /* End */
 
@@ -126,7 +120,6 @@ class MessageService : NotificationListenerService() {
         return when (sbn.packageName) {
             ApplicationPackageNames.INSTAGRAM_PACK_NAME -> InterceptedNotificationCode.INSTAGRAM_CODE
             ApplicationPackageNames.ZALO_PACK_NAME -> InterceptedNotificationCode.ZALO_CODE
-            ApplicationPackageNames.MESSAGE_PACK_NAME -> InterceptedNotificationCode.MESSAGE_CODE
             else -> InterceptedNotificationCode.OTHER_NOTIFICATIONS_CODE
         }
     }

@@ -1,8 +1,10 @@
 package com.fsoc.template.data.db.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 import com.fsoc.template.data.db.entity.UserEntity
-import io.reactivex.Flowable
 
 @Dao
 interface UserDao {

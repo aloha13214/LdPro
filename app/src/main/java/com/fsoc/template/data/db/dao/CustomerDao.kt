@@ -2,8 +2,6 @@ package com.fsoc.template.data.db.dao
 
 import androidx.room.*
 import com.fsoc.template.data.db.entity.CustomerEntity
-import com.fsoc.template.data.db.entity.UserEntity
-import io.reactivex.Flowable
 
 @Dao
 interface CustomerDao {

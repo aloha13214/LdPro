@@ -1,9 +1,15 @@
 package com.fsoc.template.presentation.main.home
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
+import android.provider.Telephony
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import com.fsoc.template.common.Resource
 import com.fsoc.template.common.Status
 import com.fsoc.template.common.di.AppComponent
@@ -12,6 +18,7 @@ import com.fsoc.template.common.extension.observe
 import com.fsoc.template.common.extension.toast
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.common.service.ReceiveBroadcastReceiver
+import com.fsoc.template.common.service.SmsReceiveBroadcastReceiver
 import com.fsoc.template.data.api.entity.Todo
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.data.db.entity.MessageEntity
@@ -82,6 +89,17 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     val intentFilter = IntentFilter()
                     intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
                     activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
+
+                    activity?.registerReceiver(
+                        SmsReceiveBroadcastReceiver(
+                            viewModel.phoneNumbers,
+                            viewModel.databaseHelperMessage,
+                            viewModel.database,
+                            this@HomeFragment::onCallBackListMessage,
+                            this@HomeFragment::onCallBackMessage,
+                        ),
+                        IntentFilter("android.provider.Telephony.SMS_RECEIVED")
+                    )
                 }
 
                 override fun onPermissionRationaleShouldBeShown(

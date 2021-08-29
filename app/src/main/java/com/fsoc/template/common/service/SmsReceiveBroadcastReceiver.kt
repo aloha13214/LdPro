@@ -4,10 +4,10 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.fsoc.template.R
-import com.fsoc.template.common.extension.getTextReplace
+import android.os.Build
+import android.provider.Telephony
+import androidx.annotation.RequiresApi
 import com.fsoc.template.common.extension.isCheck
-import com.fsoc.template.common.extension.isCheckTitle
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.data.db.entity.TypeMessage
@@ -17,13 +17,12 @@ import com.fsoc.template.domain.entity.PhoneNumber
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.*
 import kotlin.collections.ArrayList
 
 /**
- * Receive Broadcast Receiver.
+ * Sms Receive Broadcast Receiver.
  */
-class ReceiveBroadcastReceiver(
+class SmsReceiveBroadcastReceiver(
     val phoneNumbers: ArrayList<PhoneNumber>,
     val databaseHelper: MessagesDatabaseHelper,
     val chatDatabaseHelper: ChatDatabaseHelper,
@@ -31,34 +30,31 @@ class ReceiveBroadcastReceiver(
     private val callbackMessage: (MessageEntity) -> Unit
 ) : BroadcastReceiver() {
 
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     @SuppressLint("HardwareIds", "SimpleDateFormat")
     override fun onReceive(context: Context, intent: Intent) {
-        val title = intent.getStringExtra("title")
-        val text = intent.getStringExtra("text")
-        val id = intent.getIntExtra("id", 0)
-        val time = intent.getLongExtra("time", 0)
-        val type = intent.getIntExtra("type", TypeMessage.TYPE_ZALO.value)
-        val isTypeZalo = type == TypeMessage.TYPE_ZALO.value
-        val phoneNumber = phoneNumbers.firstOrNull {
-            it.name == title
-        }?.phoneNumber ?: title ?: ""
-        if (text != null) {
-            if (isCheck(context, text) && isCheckTitle(context, title ?: "")) {
-                main(
-                    ListMessageEntity(
-                        if (isTypeZalo) id.toString() else phoneNumber,
-                        title?.replace(getTextReplace(context, title), "") ?: "",
-                        text,
-                        false,
-                        phoneNumber,
-                        type,
-                        time
-                    )
-                )
-            }
-        }
-    }
+            for (sms in Telephony.Sms.Intents.getMessagesFromIntent(intent)) {
+                val contact = phoneNumbers.firstOrNull {
+                    it.phoneNumber == sms.originatingAddress
+                }
+                val title = sms.originatingAddress
+                val content = sms.displayMessageBody
 
+                if (isCheck(context, content)) {
+                    main(
+                        ListMessageEntity(
+                            title ?: "",
+                            contact?.name ?: title ?: "",
+                            content,
+                            false,
+                            contact?.phoneNumber ?: title ?: "",
+                            TypeMessage.TYPE_SMS.value,
+                            sms.timestampMillis
+                        )
+                    )
+                }
+            }
+    }
     fun main(listMessageEntity: ListMessageEntity) = runBlocking<Unit> {
         launch(Dispatchers.IO) {
             val value = databaseHelper.getAllListMessage()

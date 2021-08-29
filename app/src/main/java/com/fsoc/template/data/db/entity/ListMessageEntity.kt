@@ -15,7 +15,7 @@ data class ListMessageEntity(
     @ColumnInfo(name = "time") var time: Long,
 )
 
-enum class TypeMessage(val value: Int){
+enum class TypeMessage(val value: Int) {
     TYPE_ZALO(0),
     TYPE_SMS(1)
 }
