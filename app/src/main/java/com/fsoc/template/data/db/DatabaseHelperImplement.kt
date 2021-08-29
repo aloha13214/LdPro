@@ -4,7 +4,7 @@ import com.fsoc.template.data.db.entity.CustomerEntity
 import com.fsoc.template.data.db.entity.UserEntity
 import javax.inject.Inject
 
-class DatabaseHelperImplement @Inject constructor(): DatabaseHelper {
+class DatabaseHelperImplement @Inject constructor() : DatabaseHelper {
     @Inject
     lateinit var database: AppDatabase
     override suspend fun getUsers(): List<UserEntity> {

@@ -15,6 +15,7 @@ import com.fsoc.template.common.extension.observe
 import com.fsoc.template.common.extension.showConfirmDialog
 import com.fsoc.template.common.extension.withViewModel
 import com.fsoc.template.common.service.ReceiveBroadcastReceiver
+import com.fsoc.template.common.service.SmsReceiveBroadcastReceiver
 import com.fsoc.template.data.db.entity.ListMessageEntity
 import com.fsoc.template.data.db.entity.MessageEntity
 import com.fsoc.template.databinding.FragmentMessageBinding
@@ -120,6 +121,17 @@ class MessageListFragment : BaseFragment<MessageListViewModel, FragmentMessageBi
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.example.ssa_ezra.whatsappmonitoring")
         activity?.registerReceiver(imageChangeBroadcastReceiver, intentFilter)
+
+        activity?.registerReceiver(
+            SmsReceiveBroadcastReceiver(
+                viewModel.phoneNumbers,
+                viewModel.databaseHelper,
+                viewModel.chatDatabaseHelper,
+                this@MessageListFragment::onCallBackListMessage,
+                this@MessageListFragment::onCallBackMessage,
+            ),
+            IntentFilter("android.provider.Telephony.SMS_RECEIVED")
+        )
     }
 
     private fun onCallBackListMessage(listMessageEntity: ListMessageEntity) {
