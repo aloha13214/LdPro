@@ -11,12 +11,6 @@ import com.fsoc.template.presentation.base.BaseFragment
 
 class DatabaseFragment : BaseFragment<DatabaseViewModel, FragmentDatabaseBinding>() {
 
-    companion object{
-        const val SO_XO_ME = "https://xoso.me/"
-        const val KET_QUA_NET = "https://xoso.com.vn/"
-        const val HE_THONG = "https://xoso.com.vn/"
-    }
-
     override fun inject(appComponent: AppComponent) {
         appComponent.inject(this)
     }
@@ -27,16 +21,22 @@ class DatabaseFragment : BaseFragment<DatabaseViewModel, FragmentDatabaseBinding
 
     override fun setUpView() {
         binding.apply {
-            webView.loadUrl(SO_XO_ME)
+            webView.loadUrl(AppCommon.URL_KQ_XSMB)
 
-
-            when(radioGroup.checkedRadioButtonId) {
-                R.id.xsMe -> println("me")
-                R.id.kqNet -> println("kqNet")
-                R.id.heThong -> println("heThong")
+            radioGroup.check(R.id.xsMe)
+            radioGroup.setOnCheckedChangeListener { _, checkedId ->
+                webView.loadUrl(getUrlWebView(checkedId))
             }
         }
+    }
 
+    private fun getUrlWebView(checkId: Int): String {
+        return when (checkId) {
+            R.id.xsMe -> AppCommon.URL_KQ_XSMB
+            R.id.kqNet -> AppCommon.URL_XSMB
+            R.id.heThong -> AppCommon.URL_XSMB
+            else -> AppCommon.URL_KQ_XSMB
+        }
     }
 
     override fun fireData() {
